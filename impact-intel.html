@@ -11,103 +11,96 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="icon" type="image/svg+xml" href="assets/img/echidna-icon.svg" />
   <style>
-    /* Impact Intel listing page — blog-specific styles only */
+    /* Impact Intel listing page — blog-specific styles only.
+       Base styles come from assets/css/styles.css              */
 
-    .featured-section { padding: 64px 0; }
+    /* Featured card */
+    .featured-section { padding: 64px 32px; }
 
     .featured-card {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      border: 2px solid #294B3F;
+      border: var(--border-green);
     }
     .featured-card-label {
       grid-column: 1 / -1;
-      background: #294B3F;
+      background: var(--forest-green);
       padding: 10px 32px;
-    }
-    .featured-card-label span {
-      font-family: 'Quicksand', sans-serif;
+      font-family: var(--font-subhead);
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 0.7rem;
-      color: #D8D1CB;
+      letter-spacing: 0.18em;
+      font-size: 11px;
+      color: var(--warm-sand);
     }
     .featured-card-body {
-      background: #333333;
+      background: var(--charcoal);
       padding: 48px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-end;
     }
     .featured-card-meta-col {
-      background: #D8D1CB;
+      background: var(--warm-sand);
       padding: 48px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      border-left: 2px solid #294B3F;
+      border-left: var(--border-green);
     }
     .featured-category {
-      font-family: 'Quicksand', sans-serif;
+      font-family: var(--font-subhead);
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-size: 0.68rem;
-      color: #A1573A;
-      margin-bottom: 20px;
+      letter-spacing: 0.18em;
+      font-size: 11px;
+      color: var(--terracotta);
+      margin-bottom: 16px;
+      display: block;
     }
     .featured-title {
-      font-family: 'Lora', serif;
+      font-family: var(--font-heading);
       font-size: clamp(1.4rem, 2.5vw, 2rem);
-      font-weight: 600;
-      color: #D8D1CB;
-      line-height: 1.3;
+      font-weight: 500;
+      color: var(--warm-sand);
+      line-height: 1.25;
+      margin-bottom: 0;
     }
     .featured-excerpt {
-      font-family: 'Open Sans', sans-serif;
+      font-family: var(--font-body);
       font-weight: 300;
       font-size: 0.95rem;
-      color: #333333;
+      color: var(--charcoal);
       line-height: 1.7;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
     .featured-post-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 32px;
-    }
-    .featured-post-meta span {
-      font-family: 'Quicksand', sans-serif;
-      font-size: 0.75rem;
-      color: #999A96;
+      font-family: var(--font-subhead);
+      font-size: 11px;
+      color: var(--soft-sage);
+      margin-bottom: 28px;
     }
     .btn-read {
       display: inline-block;
-      font-family: 'Quicksand', sans-serif;
+      font-family: var(--font-subhead);
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-size: 0.72rem;
-      background: #294B3F;
-      color: #D8D1CB;
-      padding: 12px 28px;
-      border: 2px solid #294B3F;
+      letter-spacing: 0.18em;
+      font-size: 11px;
+      background: var(--forest-green);
+      color: var(--warm-sand);
+      padding: 14px 28px;
+      border: 2px solid var(--forest-green);
       text-decoration: none;
       transition: background 0.2s, color 0.2s;
       align-self: flex-start;
     }
-    .btn-read:hover { background: transparent; color: #294B3F; }
+    .btn-read:hover { background: var(--burgundy); border-color: var(--burgundy); }
 
-    .grid-section { padding: 64px 0; }
+    /* Post grid */
+    .grid-section { padding: 64px 32px; }
     .grid-section-header { margin-bottom: 40px; }
-    .grid-section-header h2 {
-      font-family: 'Lora', serif;
-      font-size: 1.5rem;
-      color: #D8D1CB;
-      font-weight: 600;
-    }
+    .grid-section-header h2 { color: var(--warm-sand); }
 
     .post-grid {
       display: grid;
@@ -115,72 +108,75 @@
       gap: 2px;
     }
     .post-card {
-      background: #D8D1CB;
-      padding: 36px;
+      background: var(--warm-sand);
+      padding: 36px 32px;
       display: flex;
       flex-direction: column;
-      border-top: 3px solid #294B3F;
+      border-top: 3px solid var(--forest-green);
       transition: border-top-color 0.2s;
     }
-    .post-card:hover { border-top-color: #6B2737; }
+    .post-card:hover { border-top-color: var(--burgundy); }
     .post-card-category {
-      font-family: 'Quicksand', sans-serif;
+      font-family: var(--font-subhead);
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-size: 0.65rem;
-      color: #6B2737;
+      letter-spacing: 0.18em;
+      font-size: 10px;
+      color: var(--burgundy);
       margin-bottom: 12px;
+      display: block;
     }
     .post-card-title {
-      font-family: 'Lora', serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #294B3F;
-      line-height: 1.4;
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--forest-green);
+      line-height: 1.35;
       margin-bottom: 12px;
       flex: 1;
     }
     .post-card-meta {
-      font-family: 'Quicksand', sans-serif;
-      font-size: 0.7rem;
-      color: #999A96;
+      font-family: var(--font-subhead);
+      font-size: 10px;
+      color: var(--soft-sage);
       margin-bottom: 16px;
     }
     .post-card-excerpt {
-      font-family: 'Open Sans', sans-serif;
+      font-family: var(--font-body);
       font-weight: 300;
-      font-size: 0.85rem;
-      color: #333333;
-      line-height: 1.6;
+      font-size: 0.88rem;
+      color: var(--charcoal);
+      line-height: 1.65;
       margin-bottom: 24px;
     }
     .post-card-link {
-      font-family: 'Quicksand', sans-serif;
+      font-family: var(--font-subhead);
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 0.68rem;
-      color: #294B3F;
-      border-bottom: 1px solid #294B3F;
+      letter-spacing: 0.14em;
+      font-size: 10px;
+      color: var(--forest-green);
+      border-bottom: 1px solid var(--forest-green);
       padding-bottom: 2px;
       text-decoration: none;
       align-self: flex-start;
       transition: color 0.2s, border-color 0.2s;
     }
-    .post-card-link:hover { color: #6B2737; border-color: #6B2737; }
+    .post-card-link:hover { color: var(--burgundy); border-color: var(--burgundy); }
     .grid-empty {
       grid-column: 1 / -1;
       text-align: center;
       padding: 48px;
-      color: #999A96;
-      font-family: 'Quicksand', sans-serif;
+      color: var(--soft-sage);
+      font-family: var(--font-subhead);
       font-size: 0.9rem;
     }
 
     @media (max-width: 900px) {
+      .featured-section { padding: 48px 24px; }
+      .grid-section { padding: 48px 24px; }
       .featured-card { grid-template-columns: 1fr; }
-      .featured-card-meta-col { border-left: none; border-top: 2px solid #294B3F; }
+      .featured-card-meta-col { border-left: none; border-top: var(--border-green); }
       .post-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -208,9 +204,9 @@
 
   <header class="page-header">
     <div class="inner">
-      <p class="eyebrow eyebrow-terra">Keystone Impact Solutions</p>
+      <span class="eyebrow eyebrow-terra">Keystone Impact Solutions</span>
       <h1>Impact Intel</h1>
-      <p>Funding intelligence, grant strategy, and sector insight for purpose-led organisations. Practical, evidence-led, and written for the teams doing the work.</p>
+      <p>Funding intelligence, grant strategy, and sector insight for purpose-led organisations. Practical, evidence-led, written for the teams doing the work.</p>
     </div>
   </header>
 
@@ -223,7 +219,7 @@
   <section class="section-dark grid-section">
     <div class="inner">
       <div class="grid-section-header">
-        <p class="eyebrow eyebrow-terra">All articles</p>
+        <span class="eyebrow eyebrow-terra">All articles</span>
         <h2 id="grid-heading">More from Impact Intel</h2>
       </div>
       <div class="post-grid" id="post-grid">
@@ -234,43 +230,73 @@
 
   <section class="newsletter-section">
     <div class="inner">
-      <p class="eyebrow eyebrow-burg">Stay across the sector</p>
+      <span class="eyebrow eyebrow-sand">Stay across the sector</span>
       <h2>Funding intelligence, direct to your inbox.</h2>
       <p>Grant opportunities, sector updates, and practical strategy for purpose-led organisations. No fluff. Sent when there is something worth saying.</p>
       <form class="newsletter-form" onsubmit="return false;">
         <input type="email" placeholder="Your email address" aria-label="Email address" />
         <button type="submit">Subscribe</button>
       </form>
-      <p class="newsletter-note">You can unsubscribe at any time.</p>
     </div>
   </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="assets/img/logo-reverse.svg" alt="Keystone Impact Solutions" />
+        </div>
+        <span class="footer-tagline">Keystone Impact Solutions</span>
+        <p>Funding strategy and grant management for purpose-led organisations in the environment, conservation, and sustainability sector.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="case-studies.html">Case Studies</a></li>
+          <li><a href="impact-intel.html">Impact Intel</a></li>
+          <li><a href="contact.html">Book a Call</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Free Resources</h4>
+        <ul>
+          <li><a href="grant-readiness-assessment.html">Grant Readiness Self-Assessment</a></li>
+          <li><a href="impact-intel.html">Impact Intel</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Keystone Impact Solutions. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
 
   <script src="blog-posts.js"></script>
   <script>
     document.getElementById('nav-toggle').addEventListener('click', function () {
       const links = document.getElementById('nav-links');
       const expanded = this.getAttribute('aria-expanded') === 'true';
-      this.setAttribute('aria-expanded', !expanded);
+      this.setAttribute('aria-expanded', String(!expanded));
       links.classList.toggle('open');
     });
 
     function renderFeatured(post) {
       document.getElementById('featured-container').innerHTML = `
         <div class="featured-card">
-          <div class="featured-card-label"><span>Featured article</span></div>
+          <div class="featured-card-label">Featured article</div>
           <div class="featured-card-body">
-            <div>
-              <p class="featured-category">${post.category}</p>
-              <h2 class="featured-title">${post.title}</h2>
-            </div>
+            <span class="featured-category">${post.category}</span>
+            <h2 class="featured-title">${post.title}</h2>
           </div>
           <div class="featured-card-meta-col">
             <div>
               <p class="featured-excerpt">${post.excerpt}</p>
-              <div class="featured-post-meta">
-                <span>${post.dateDisplay}</span>
-                <span>${post.readTime}</span>
-              </div>
+              <p class="featured-post-meta">${post.dateDisplay} &nbsp;·&nbsp; ${post.readTime}</p>
             </div>
             <a href="${post.slug}" class="btn-read">Read the article</a>
           </div>
@@ -279,7 +305,7 @@
 
     function renderCard(post) {
       return `<div class="post-card">
-        <p class="post-card-category">${post.category}</p>
+        <span class="post-card-category">${post.category}</span>
         <h3 class="post-card-title">${post.title}</h3>
         <p class="post-card-meta">${post.dateDisplay} &nbsp;·&nbsp; ${post.readTime}</p>
         <p class="post-card-excerpt">${post.excerpt}</p>
