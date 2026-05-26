@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commission-Based Grant Writing: What Your Organisation Needs to Know — Impact Intel — Keystone Impact Solutions</title>
+  <meta name="description" content="Every major grant writing peak body prohibits commission-based pay. Here is what the evidence says, why Australian law creates additional risk, and what fair pricing looks like.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@500;600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <!-- In production: link to ../assets/css/styles.css and ../assets/css/blog.css -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --charcoal:  #333333;
+      --sand:      #D8D1CB;
+      --green:     #294B3F;
+      --burgundy:  #6B2737;
+      --terra:     #A1573A;
+      --sage:      #999A96;
+      --sky:       #D4E2ED;
+      --inner-max: 1160px;
+      --post-max:  720px;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 300;
+      color: var(--charcoal);
+      background: var(--sand);
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .site-nav {
+      background: var(--charcoal);
+      border-bottom: 2px solid var(--green);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: var(--inner-max);
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo-text { font-family: 'Lora', serif; font-size: 1.1rem; color: var(--sand); }
+    .nav-links { display: flex; list-style: none; gap: 32px; align-items: center; }
+    .nav-links a {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--sand);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--terra); }
+    .nav-links .nav-cta { background: var(--green); color: var(--sand); padding: 8px 20px; border: 2px solid var(--green); }
+    .nav-links .nav-cta:hover { background: transparent; border-color: var(--sand); }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--sand); }
+
+    .section-dark  { background: var(--charcoal); color: var(--sand); }
+    .section-light { background: var(--sand); color: var(--charcoal); }
+
+    .inner { max-width: var(--inner-max); margin: 0 auto; padding: 0 40px; }
+    .post-inner { max-width: var(--post-max); margin: 0 auto; padding: 0 40px; }
+
+    .eyebrow {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.72rem;
+      margin-bottom: 16px;
+    }
+    .eyebrow-terra  { color: var(--terra); }
+    .eyebrow-burg   { color: var(--burgundy); }
+    .eyebrow-green  { color: var(--green); }
+    .eyebrow-sand   { color: var(--sand); }
+
+    .post-header {
+      background: var(--charcoal);
+      border-bottom: 2px solid var(--green);
+      padding: 64px 0 56px;
+    }
+    .post-category {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.72rem;
+      color: var(--terra);
+      margin-bottom: 20px;
+    }
+    .post-header h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 600;
+      color: var(--sand);
+      line-height: 1.25;
+      margin-bottom: 28px;
+      max-width: 700px;
+    }
+    .post-meta { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+    .post-meta span { font-family: 'Quicksand', sans-serif; font-size: 0.75rem; color: var(--sage); }
+    .meta-dot { opacity: 0.5; }
+
+    .post-body { padding: 56px 0; }
+    .post-body h2 {
+      font-family: 'Lora', serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.3;
+    }
+    .section-dark .post-body h2 { color: var(--sand); }
+    .post-body p {
+      font-size: 0.97rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .post-body p.lead { font-size: 1.08rem; margin-bottom: 28px; }
+    .section-dark .post-body p { color: var(--sand); }
+    .post-body ul, .post-body ol {
+      margin: 0 0 20px 20px;
+      font-size: 0.97rem;
+      line-height: 1.8;
+    }
+    .section-dark .post-body ul,
+    .section-dark .post-body ol { color: var(--sand); }
+    .post-body li { margin-bottom: 8px; }
+
+    .insight-box, .tip-box {
+      background: var(--sky);
+      padding: 28px 32px;
+      margin: 32px 0;
+    }
+    .insight-box { border-left: 3px solid var(--green); }
+    .tip-box     { border-left: 3px solid var(--burgundy); }
+    .box-label {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.65rem;
+      margin-bottom: 8px;
+    }
+    .insight-box .box-label { color: var(--green); }
+    .tip-box .box-label     { color: var(--burgundy); }
+    .insight-box p, .tip-box p { color: var(--charcoal); font-size: 0.9rem; margin-bottom: 0; }
+    .insight-box h4, .tip-box h4 {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+
+    .pull-quote {
+      position: relative;
+      padding: 24px 32px 24px 48px;
+      margin: 40px 0;
+      border-left: 3px solid var(--burgundy);
+    }
+    .pull-quote::before {
+      content: '\201C';
+      font-family: 'Lora', serif;
+      font-size: 5rem;
+      color: var(--burgundy);
+      position: absolute;
+      top: -16px;
+      left: 8px;
+      line-height: 1;
+    }
+    .pull-quote p { font-family: 'Lora', serif; font-style: italic; font-size: 1.05rem; line-height: 1.6; margin-bottom: 12px; }
+    .pull-quote cite {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--terra);
+      font-style: normal;
+    }
+
+    .takeaways {
+      background: var(--sky);
+      border-left: 3px solid var(--green);
+      padding: 32px 36px;
+      margin: 40px 0 0;
+    }
+    .takeaways .box-label { color: var(--green); margin-bottom: 16px; }
+    .takeaways h4 {
+      font-family: 'Lora', serif;
+      font-size: 1.05rem;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+    .takeaways ul { margin: 0 0 0 16px; font-size: 0.9rem; }
+    .takeaways ul li { margin-bottom: 10px; color: var(--charcoal); }
+
+    .post-footer {
+      background: var(--sand);
+      border-top: 2px solid var(--green);
+      padding: 48px 0;
+    }
+    .post-footer-inner {
+      max-width: var(--post-max);
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .back-link {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+      color: var(--green);
+      border-bottom: 1px solid var(--green);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .back-link:hover { color: var(--burgundy); border-color: var(--burgundy); }
+    .author-name { font-family: 'Lora', serif; font-size: 0.95rem; color: var(--green); font-weight: 600; }
+    .author-title { font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 0.8rem; color: var(--sage); }
+
+    .cta-banner { background: var(--green); padding: 64px 0; }
+    .cta-banner-inner { max-width: var(--post-max); margin: 0 auto; padding: 0 40px; }
+    .cta-banner h2 { font-family: 'Lora', serif; font-size: 1.6rem; color: var(--sand); margin-bottom: 16px; font-weight: 600; }
+    .cta-banner p { font-family: 'Open Sans', sans-serif; font-weight: 300; color: var(--sand); margin-bottom: 28px; font-size: 0.95rem; line-height: 1.7; }
+    .btn-primary {
+      display: inline-block;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+      background: var(--sand);
+      color: var(--green);
+      padding: 13px 28px;
+      border: 2px solid var(--sand);
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-primary:hover { background: transparent; color: var(--sand); }
+
+    .newsletter-section { background: var(--charcoal); border-top: 2px solid var(--green); padding: 64px 0; }
+    .newsletter-inner { max-width: var(--post-max); margin: 0 auto; padding: 0 40px; }
+    .newsletter-section h2 { font-family: 'Lora', serif; font-size: 1.6rem; color: var(--sand); font-weight: 600; margin-bottom: 12px; }
+    .newsletter-section p { color: var(--sage); font-size: 0.9rem; margin-bottom: 24px; }
+    .newsletter-form { display: flex; max-width: 460px; }
+    .newsletter-form input[type="email"] {
+      flex: 1; padding: 12px 16px;
+      font-family: 'Open Sans', sans-serif; font-size: 0.9rem;
+      border: 2px solid var(--green); border-right: none;
+      background: white; color: var(--charcoal); outline: none;
+    }
+    .newsletter-form input::placeholder { color: var(--sage); }
+    .newsletter-form button {
+      background: var(--green); color: var(--sand);
+      border: 2px solid var(--green); padding: 12px 24px;
+      font-family: 'Quicksand', sans-serif; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.72rem;
+      cursor: pointer; white-space: nowrap; transition: background 0.2s;
+    }
+    .newsletter-form button:hover { background: var(--burgundy); border-color: var(--burgundy); }
+
+    .site-footer { background: var(--charcoal); border-top: 2px solid var(--green); padding: 56px 0 32px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-logo-text { font-family: 'Lora', serif; font-size: 1rem; color: var(--sand); margin-bottom: 16px; }
+    .footer-tagline { font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 0.83rem; color: var(--sage); line-height: 1.6; }
+    .footer-col h4 { font-family: 'Quicksand', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.68rem; color: var(--terra); margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 0.83rem; color: var(--sage); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--sand); }
+    .footer-base { border-top: 1px solid rgba(153,154,150,0.3); padding-top: 24px; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 0.78rem; color: var(--sage); }
+
+    @media (max-width: 900px) {
+      .nav-toggle { display: flex; }
+      .nav-links { display: none; position: absolute; top: 68px; left: 0; right: 0; background: var(--charcoal); flex-direction: column; gap: 0; border-top: 2px solid var(--green); }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a { display: block; padding: 16px 40px; border-bottom: 1px solid rgba(153,154,150,0.2); }
+      .nav-links .nav-cta { margin: 16px 40px; text-align: center; display: block; }
+      .site-nav { position: relative; }
+      .inner, .post-inner, .newsletter-inner, .cta-banner-inner, .post-footer-inner { padding: 0 24px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form input[type="email"] { border-right: 2px solid var(--green); border-bottom: none; }
+    }
+    @media (max-width: 600px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .post-footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo" aria-label="Keystone Impact Solutions home">
+        <span class="nav-logo-text">Keystone Impact Solutions</span>
+      </a>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul id="nav-links" class="nav-links">
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../services.html">Services</a></li>
+        <li><a href="../case-studies.html">Case Studies</a></li>
+        <li><a href="../impact-intel.html" class="active">Impact Intel</a></li>
+        <li><a href="../contact.html" class="nav-cta">Get in touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- POST HEADER -->
+  <header class="post-header">
+    <div class="post-inner">
+      <p class="post-category">Funding Intelligence</p>
+      <h1>Commission-Based Grant Writing: What Your Organisation Needs to Know</h1>
+      <div class="post-meta">
+        <span>26 May 2026</span>
+        <span class="meta-dot">·</span>
+        <span>7 min read</span>
+        <span class="meta-dot">·</span>
+        <span>Dr Jess Hodgson</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECTION 1: LIGHT — Opening and overview -->
+  <section class="section-light">
+    <div class="post-body post-inner">
+
+      <p class="lead">At some point, most small nonprofits and conservation organisations will encounter a grant writer offering to work on commission: no fee upfront, a percentage of the grant if it is awarded. It sounds low-risk. It is not.</p>
+
+      <p>The offer tends to appeal most to organisations that are stretched thin and cautious about committing money they do not yet have. That is exactly the population most likely to be harmed by the arrangement. Here is what the evidence shows, what Australian law actually says, and what fair pricing looks like so you can make an informed call.</p>
+
+      <div class="insight-box">
+        <p class="box-label">The short version</p>
+        <h4>Every major grant writing peak body prohibits commission-based pay.</h4>
+        <p>The US Association of Fundraising Professionals, the Grant Professionals Association, the Canada Revenue Agency, and the Fundraising Institute of New Zealand all prohibit or flag the practice. Australia's Fundraising Institute does not explicitly ban it, but three independent legal barriers make it a contractual risk most organisations cannot afford to take.</p>
+      </div>
+
+      <p>This is not a fringe view held by risk-averse accountants. It reflects decades of accumulated evidence about what commission-based arrangements actually do to grant programmes, organisational budgets, and funder relationships.</p>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: DARK — International consensus -->
+  <section class="section-dark">
+    <div class="post-body post-inner">
+
+      <h2>What the international consensus says</h2>
+
+      <p>The Association of Fundraising Professionals (AFP) is the largest fundraising peak body in the world, with members in more than 30 countries. Its Code of Ethical Standards is explicit: members must never base compensation on a percentage of funds raised, and must decline receiving or paying finder's fees or commissions tied to grant outcomes. These are Standards 23 and 24 of the current Code, and they apply specifically to proposal writers, not just in-house fundraisers.</p>
+
+      <p>The Grant Professionals Association (GPA), which focuses specifically on grant writers, is equally direct. Its Code of Ethics states that members shall not accept or pay a finder's fee, commission, or percentage compensation based on grants, and that compensation should not be written into grants unless the funder explicitly permits it.</p>
+
+      <div class="pull-quote">
+        <p>Compensation should not be written into grants unless allowed by the funder. Members shall take care to discourage their organisations from making such payments.</p>
+        <cite>Grant Professionals Association Code of Ethics, paragraphs 17-20</cite>
+      </div>
+
+      <p>In Canada, the picture is even clearer. The Canada Revenue Agency's Guidance CG-013 on fundraising by registered charities lists commission-based fundraiser remuneration as an indicator of unacceptable fundraising. That is a regulatory finding, not a membership preference.</p>
+
+      <p>The UK's Chartered Institute of Fundraising does not impose an outright ban, but percentage-based arrangements with commercial fundraisers trigger specific statutory disclosure requirements under the Charities Act 1992. The Charity Commission treats opaque commission arrangements as a trustee risk.</p>
+
+      <p>None of these organisations are being cautious for caution's sake. The position reflects a consistent body of documented harms that play out across the sector when grant work is priced this way.</p>
+
+    </div>
+  </section>
+
+  <!-- SECTION 3: LIGHT — Why it causes problems -->
+  <section class="section-light">
+    <div class="post-body post-inner">
+
+      <h2>Why the arrangement creates problems for your organisation</h2>
+
+      <p>The concerns fall into three clear categories.</p>
+
+      <p><strong style="font-family:'Lora',serif; color:var(--green);">Conflict of interest.</strong> A grant writer paid on commission is financially incentivised to pursue the largest and easiest grants, not the ones that best match your mission or your organisation's actual capacity to deliver. Over a 12-month period, this can quietly reshape your funding portfolio toward projects your team struggles to execute, simply because they attracted a higher commission.</p>
+
+      <p><strong style="font-family:'Lora',serif; color:var(--green);">Budget inflation.</strong> Writers paid by percentage gain financially from maximising the grant ask. Experienced grant assessors identify inflated budgets quickly, and it damages your credibility with funders. The risk is not just losing one application. It is the longer-term reputational cost with the funders you need to build relationships with.</p>
+
+      <p><strong style="font-family:'Lora',serif; color:var(--green);">The funding deed trap.</strong> This is the risk most organisations overlook entirely, and in the Australian context, it is the most serious one.</p>
+
+      <div class="insight-box">
+        <p class="box-label">The Australian-specific risk</p>
+        <h4>Grant writing is an ineligible expense under most Australian government funding agreements.</h4>
+        <p>Commonwealth grant agreements, and many state and local government equivalents, explicitly exclude grant writing costs from eligible expenditure. If your grant writer's commission is paid from awarded grant funds, you are in breach of your funding deed. That can trigger grant clawback, ACNC scrutiny, and in serious cases, fraud exposure. It is not a minor paperwork issue.</p>
+      </div>
+
+      <p>Beyond the Commonwealth rules, Victorian and NSW legislation both impose specific tests on commercial fundraiser remuneration. The Victorian Fundraising Act 1998 empowers Consumer Affairs Victoria to deregister a fundraiser that has paid "excessive commission." The NSW Charitable Fundraising Regulation 2021 requires that remuneration to commercial fundraisers not be "excessive when compared to money or goods received." Neither sets a numerical cap, which creates ongoing legal uncertainty for anyone operating under this model.</p>
+
+      <p>Australia does not have a grant-writer-specific professional association with its own code of ethics, which means there is currently no Australian body that can sanction a grant writer for taking commission. But the three barriers above (Commonwealth grant agreement ineligibility, state legislation, and the Fundraising Institute of Australia's "proportionate and fair market value" supplier requirement) operate independently. An organisation does not need to find a formal prohibition to find itself in serious difficulty.</p>
+
+    </div>
+  </section>
+
+  <!-- SECTION 4: DARK — What fair pricing looks like -->
+  <section class="section-dark">
+    <div class="post-body post-inner">
+
+      <h2>What fair pricing actually looks like</h2>
+
+      <p>The mainstream market in Australia is overwhelmingly fixed-fee and hourly. A 2023 survey of Australian grant writers found that nine in ten quoted flat fees or hourly rates. Commission-based offers were the exception, most associated with newer practitioners still building their client base.</p>
+
+      <p>A well-structured engagement typically involves a scoping conversation, a written brief, a fixed fee quoted upfront, and a staged payment arrangement that spreads the cost across the project without tying any portion to the outcome. Staged payments are a practical response to the cash-flow concern that makes commission arrangements appealing in the first place.</p>
+
+      <div class="tip-box">
+        <p class="box-label">Before you engage any grant writer</p>
+        <p>Ask three things: How do you charge? (Flat fee, hourly, or retainer are the expected answers.) Is there any portion of your fee tied to whether we win? (The expected answer is no.) And: will your fee appear anywhere in our grant application or budget? (It should not, for most government grants.)</p>
+      </div>
+
+      <p>The minor exception that some sector commentators defend: a pre-agreed, capped bonus paid from the organisation's own unrestricted funds, approved by the governing body before work begins, and not calculated as a percentage. Even this is rejected by the AFP and GPA. It is worth knowing it exists as a concept, but it is not a model worth adopting unless you have obtained specific legal advice for your jurisdiction and funder context.</p>
+
+      <p>If cost is the barrier, the right question is not whether to offer commission. It is whether the scope can be adjusted, whether a grant-readiness phase makes more sense than a full application at this point, or whether the organisation needs coaching to build internal capacity first. Those are conversations worth having. A commission arrangement largely trades one set of risks for another while creating the appearance of solving a cash-flow problem.</p>
+
+      <div class="takeaways">
+        <p class="box-label">Key takeaways</p>
+        <h4>Before you sign anything with a grant writer</h4>
+        <ul>
+          <li>Ask whether any part of their fee is tied to the outcome. If yes, ask your solicitor and read your funding deed before proceeding.</li>
+          <li>Check your current and proposed funding deeds for "ineligible expenses" clauses. Grant writing costs are almost always on that list for government grants.</li>
+          <li>Commission-based pricing is a minority practice in the Australian market and is not endorsed by any peak body. It is not the industry norm, and you are not limited to providers who offer it.</li>
+          <li>If cost is the genuine barrier, ask about staged payment schedules, a reduced-scope engagement, or grant-readiness coaching as a lower-cost starting point.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- POST FOOTER -->
+  <div class="post-footer">
+    <div class="post-footer-inner">
+      <a href="../impact-intel.html" class="back-link">&#8592; Back to Impact Intel</a>
+      <div>
+        <p class="author-name">Dr Jess Hodgson</p>
+        <p class="author-title">Keystone Impact Solutions</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <div class="cta-banner-inner">
+      <p class="eyebrow eyebrow-sand" style="margin-bottom:16px;">Work with KIS</p>
+      <h2>Clear pricing, no surprises, and a fixed fee quoted upfront.</h2>
+      <p>If you are trying to navigate grant funding for the first time, or looking for ongoing support that fits how small teams actually work, a short conversation is a good place to start. No obligation.</p>
+      <a href="../contact.html" class="btn-primary">Get in touch</a>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section">
+    <div class="newsletter-inner">
+      <p class="eyebrow eyebrow-terra" style="margin-bottom:12px;">Stay informed</p>
+      <h2>Funding intelligence, direct to your inbox.</h2>
+      <p>Grant opportunities, sector updates, and practical strategy. Sent when there is something worth saying.</p>
+      <form class="newsletter-form" onsubmit="return false;">
+        <input type="email" placeholder="Your email address" aria-label="Email address">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="inner">
+      <div class="footer-grid">
+        <div>
+          <p class="footer-logo-text">Keystone Impact Solutions</p>
+          <p class="footer-tagline">Funding strategy and grant management for purpose-led organisations in the environment, conservation, and sustainability sector.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../services.html">Services</a></li>
+            <li><a href="../case-studies.html">Case Studies</a></li>
+            <li><a href="../impact-intel.html">Impact Intel</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Free Resources</h4>
+          <ul>
+            <li><a href="../grant-readiness-assessment.html">Grant Readiness Self-Assessment</a></li>
+            <li><a href="../impact-intel.html">Impact Intel</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="../contact.html">Get in touch</a></li>
+            <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <p>© 2026 Keystone Impact Solutions. All rights reserved. ABN: [YOUR ABN]</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('nav-toggle').addEventListener('click', function () {
+      document.getElementById('nav-links').classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>
