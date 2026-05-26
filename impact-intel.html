@@ -172,6 +172,25 @@
       font-size: 0.9rem;
     }
 
+    /* Specificity overrides — styles.css section rules bleed into cards.
+       .section-light h2 forces forest-green; .section-dark p/h3 forces warm-sand.
+       These selectors are more specific and win.                              */
+    .featured-card-body h2,
+    .featured-card-body .featured-title {
+      color: var(--warm-sand);
+    }
+    .post-card .post-card-title {
+      color: var(--forest-green);
+    }
+    .post-card .post-card-excerpt {
+      color: var(--charcoal);
+      opacity: 1;
+    }
+    .post-card .post-card-meta {
+      color: var(--soft-sage);
+      opacity: 1;
+    }
+
     @media (max-width: 900px) {
       .featured-section { padding: 48px 24px; }
       .grid-section { padding: 48px 24px; }
