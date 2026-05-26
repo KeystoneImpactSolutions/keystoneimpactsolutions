@@ -11,147 +11,155 @@
   <link rel="stylesheet" href="../assets/css/styles.css" />
   <link rel="icon" type="image/svg+xml" href="../assets/img/echidna-icon.svg" />
   <style>
-    /* Impact Intel post pages — blog-specific styles only */
+    /* Impact Intel posts — blog-specific styles only.
+       Everything else (sections, insight boxes, pull quotes,
+       nav, footer, buttons) comes from ../assets/css/styles.css */
 
+    /* Narrow reading column */
     .post-inner {
       max-width: 720px;
       margin: 0 auto;
-      padding: 0 40px;
     }
 
+    /* Post header — .section-dark handles background and base colour */
     .post-header { padding: 64px 0 56px; }
 
     .post-category {
-      font-family: 'Quicksand', sans-serif;
+      font-family: var(--font-subhead);
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 0.72rem;
-      color: #A1573A;
-      margin-bottom: 20px;
+      letter-spacing: 0.22em;
+      font-size: 11px;
+      color: var(--terracotta);
+      display: block;
+      margin-bottom: 16px;
     }
+
     .post-header h1 {
-      font-family: 'Lora', serif;
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      font-weight: 600;
-      color: #D8D1CB;
-      line-height: 1.25;
-      margin-bottom: 28px;
-      max-width: 700px;
+      color: var(--warm-sand);
+      font-weight: 500;
+      margin-bottom: 24px;
     }
+
     .post-meta {
       display: flex;
-      gap: 20px;
+      gap: 16px;
       align-items: center;
       flex-wrap: wrap;
+      font-family: var(--font-subhead);
+      font-size: 11px;
+      color: var(--soft-sage);
     }
-    .post-meta span {
-      font-family: 'Quicksand', sans-serif;
-      font-size: 0.75rem;
-      color: #999A96;
-    }
-    .meta-dot { opacity: 0.5; }
+    .meta-dot { opacity: 0.4; }
 
-    .post-body { padding: 56px 0; }
-    .post-body h2 {
-      font-family: 'Lora', serif;
-      font-size: 1.45rem;
-      font-weight: 600;
-      color: #294B3F;
-      margin: 40px 0 16px;
-      line-height: 1.3;
-    }
-    .section-dark .post-body h2 { color: #D8D1CB; }
+    /* Post body — section-dark/light handle background and text colour.
+       These overrides cover font weight, size, and line-height only.  */
+    .post-body { padding: 0; }
+
     .post-body p {
-      font-family: 'Open Sans', sans-serif;
       font-weight: 300;
       font-size: 0.97rem;
       line-height: 1.8;
-      margin-bottom: 20px;
     }
-    .post-body p.lead { font-size: 1.08rem; margin-bottom: 28px; }
-    .section-dark .post-body p { color: #D8D1CB; }
+    .post-body p.lead {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
     .post-body ul, .post-body ol {
-      margin: 0 0 20px 20px;
-      font-family: 'Open Sans', sans-serif;
+      margin: 0 0 1.2em 24px;
       font-weight: 300;
       font-size: 0.97rem;
       line-height: 1.8;
     }
-    .section-dark .post-body ul,
-    .section-dark .post-body ol { color: #D8D1CB; }
     .post-body li { margin-bottom: 8px; }
 
+    /* Insight/tip box h4 — styles.css doesn't target h4 inside these */
+    .insight-box h4,
+    .tip-box h4 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+
+    /* Takeaways — variant of insight-box, not in styles.css */
     .takeaways {
-      background: #D4E2ED;
-      border-left: 3px solid #294B3F;
-      padding: 32px 36px;
+      background: var(--pale-sky);
+      border-left: 3px solid var(--forest-green);
+      padding: 28px 32px;
       margin: 40px 0 0;
     }
     .takeaways .box-label {
-      font-family: 'Quicksand', sans-serif;
+      font-family: var(--font-subhead);
+      font-size: 10px;
       font-weight: 600;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 0.65rem;
-      color: #294B3F;
-      margin-bottom: 16px;
+      color: var(--forest-green);
+      display: block;
+      margin-bottom: 10px;
     }
     .takeaways h4 {
-      font-family: 'Lora', serif;
-      font-size: 1.05rem;
-      color: #294B3F;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--forest-green);
       margin-bottom: 12px;
     }
-    .takeaways ul { margin: 0 0 0 16px; font-size: 0.9rem; }
-    .takeaways ul li { margin-bottom: 10px; color: #333333; }
+    .takeaways ul {
+      margin: 0 0 0 20px;
+      font-weight: 300;
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .takeaways ul li {
+      margin-bottom: 10px;
+      color: var(--charcoal);
+    }
 
+    /* Post footer */
     .post-footer {
-      background: #D8D1CB;
-      border-top: 2px solid #294B3F;
-      padding: 48px 0;
+      background: var(--warm-sand);
+      border-top: var(--border-green);
+      border-bottom: var(--border-green);
+      padding: 40px 32px;
     }
     .post-footer-inner {
       max-width: 720px;
       margin: 0 auto;
-      padding: 0 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 24px;
+      gap: 20px;
     }
     .back-link {
-      font-family: 'Quicksand', sans-serif;
+      font-family: var(--font-subhead);
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 0.72rem;
-      color: #294B3F;
-      border-bottom: 1px solid #294B3F;
+      letter-spacing: 0.14em;
+      font-size: 11px;
+      color: var(--forest-green);
+      border-bottom: 1px solid var(--forest-green);
       padding-bottom: 2px;
       text-decoration: none;
       transition: color 0.2s, border-color 0.2s;
     }
-    .back-link:hover { color: #6B2737; border-color: #6B2737; }
+    .back-link:hover { color: var(--burgundy); border-color: var(--burgundy); }
     .author-name {
-      font-family: 'Lora', serif;
+      font-family: var(--font-heading);
       font-size: 0.95rem;
-      color: #294B3F;
-      font-weight: 600;
+      font-weight: 500;
+      color: var(--forest-green);
     }
     .author-title {
-      font-family: 'Open Sans', sans-serif;
-      font-weight: 300;
-      font-size: 0.8rem;
-      color: #999A96;
+      font-family: var(--font-subhead);
+      font-size: 10px;
+      color: var(--soft-sage);
+      letter-spacing: 0.1em;
     }
 
-    @media (max-width: 900px) {
-      .post-inner { padding: 0 24px; }
-      .post-footer-inner { padding: 0 24px; }
-    }
-    @media (max-width: 600px) {
+    @media (max-width: 640px) {
       .post-footer-inner { flex-direction: column; align-items: flex-start; }
     }
   </style>
@@ -179,7 +187,7 @@
 
   <header class="section-dark post-header">
     <div class="post-inner">
-      <p class="post-category">Funding Intelligence</p>
+      <span class="post-category">Funding Intelligence</span>
       <h1>Commission-Based Grant Writing: What Your Organisation Needs to Know</h1>
       <div class="post-meta">
         <span>26 May 2026</span>
@@ -191,6 +199,7 @@
     </div>
   </header>
 
+  <!-- SECTION 1: LIGHT -->
   <section class="section-light">
     <div class="post-body post-inner">
 
@@ -199,7 +208,7 @@
       <p>The offer tends to appeal most to organisations that are stretched thin and cautious about committing money they do not yet have. That is exactly the population most likely to be harmed by the arrangement. Here is what the evidence shows, what Australian law actually says, and what fair pricing looks like so you can make an informed call.</p>
 
       <div class="insight-box">
-        <p class="box-label">The short version</p>
+        <span class="box-label">The short version</span>
         <h4>Every major grant writing peak body prohibits commission-based pay.</h4>
         <p>The US Association of Fundraising Professionals, the Grant Professionals Association, the Canada Revenue Agency, and the Fundraising Institute of New Zealand all prohibit or flag the practice. Australia's Fundraising Institute does not explicitly ban it, but three independent legal barriers make it a contractual risk most organisations cannot afford to take.</p>
       </div>
@@ -209,6 +218,7 @@
     </div>
   </section>
 
+  <!-- SECTION 2: DARK -->
   <section class="section-dark">
     <div class="post-body post-inner">
 
@@ -219,8 +229,8 @@
       <p>The Grant Professionals Association (GPA), which focuses specifically on grant writers, is equally direct. Its Code of Ethics states that members shall not accept or pay a finder's fee, commission, or percentage compensation based on grants, and that compensation should not be written into grants unless the funder explicitly permits it.</p>
 
       <div class="pull-quote">
-        <p>Compensation should not be written into grants unless allowed by the funder. Members shall take care to discourage their organisations from making such payments.</p>
-        <cite>Grant Professionals Association Code of Ethics, paragraphs 17-20</cite>
+        <blockquote>Compensation should not be written into grants unless allowed by the funder. Members shall take care to discourage their organisations from making such payments.</blockquote>
+        <cite>Grant Professionals Association Code of Ethics</cite>
       </div>
 
       <p>In Canada, the picture is even clearer. The Canada Revenue Agency's Guidance CG-013 on fundraising by registered charities lists commission-based fundraiser remuneration as an indicator of unacceptable fundraising. That is a regulatory finding, not a membership preference.</p>
@@ -230,6 +240,7 @@
     </div>
   </section>
 
+  <!-- SECTION 3: LIGHT -->
   <section class="section-light">
     <div class="post-body post-inner">
 
@@ -237,23 +248,24 @@
 
       <p>The concerns fall into three clear categories.</p>
 
-      <p><strong style="font-family:'Lora',serif; color:#294B3F;">Conflict of interest.</strong> A grant writer paid on commission is financially incentivised to pursue the largest and easiest grants, not the ones that best match your mission or your organisation's actual capacity to deliver. Over a 12-month period, this can quietly reshape your funding portfolio toward projects your team struggles to execute, simply because they attracted a higher commission.</p>
+      <p><strong>Conflict of interest.</strong> A grant writer paid on commission is financially incentivised to pursue the largest and easiest grants, not the ones that best match your mission or your organisation's actual capacity to deliver. Over a 12-month period, this can quietly reshape your funding portfolio toward projects your team struggles to execute, simply because they attracted a higher commission.</p>
 
-      <p><strong style="font-family:'Lora',serif; color:#294B3F;">Budget inflation.</strong> Writers paid by percentage gain financially from maximising the grant ask. Experienced grant assessors identify inflated budgets quickly, and it damages your credibility with funders. The risk is not just losing one application. It is the longer-term reputational cost with the funders you need to build relationships with.</p>
+      <p><strong>Budget inflation.</strong> Writers paid by percentage gain financially from maximising the grant ask. Experienced grant assessors identify inflated budgets quickly, and it damages your credibility with funders. The risk is not just losing one application. It is the longer-term reputational cost with the funders you need to build relationships with.</p>
 
-      <p><strong style="font-family:'Lora',serif; color:#294B3F;">The funding deed trap.</strong> This is the risk most organisations overlook entirely, and in the Australian context, it is the most serious one.</p>
+      <p><strong>The funding deed trap.</strong> This is the risk most organisations overlook entirely, and in the Australian context, it is the most serious one.</p>
 
       <div class="insight-box">
-        <p class="box-label">The Australian-specific risk</p>
+        <span class="box-label">The Australian-specific risk</span>
         <h4>Grant writing is an ineligible expense under most Australian government funding agreements.</h4>
         <p>Commonwealth grant agreements, and many state and local government equivalents, explicitly exclude grant writing costs from eligible expenditure. If your grant writer's commission is paid from awarded grant funds, you are in breach of your funding deed. That can trigger grant clawback, ACNC scrutiny, and in serious cases, fraud exposure.</p>
       </div>
 
-      <p>Beyond the Commonwealth rules, Victorian and NSW legislation both impose specific tests on commercial fundraiser remuneration. The Victorian Fundraising Act 1998 empowers Consumer Affairs Victoria to deregister a fundraiser that has paid "excessive commission." The NSW Charitable Fundraising Regulation 2021 requires that remuneration to commercial fundraisers not be "excessive when compared to money or goods received." Neither sets a numerical cap, which creates ongoing legal uncertainty for anyone operating under this model.</p>
+      <p>Beyond the Commonwealth rules, Victorian and NSW legislation both impose specific tests on commercial fundraiser remuneration. The Victorian Fundraising Act 1998 empowers Consumer Affairs Victoria to deregister a fundraiser that has paid "excessive commission." The NSW Charitable Fundraising Regulation 2021 requires that remuneration to commercial fundraisers not be "excessive when compared to money or goods received." Neither sets a numerical cap, which creates ongoing legal uncertainty.</p>
 
     </div>
   </section>
 
+  <!-- SECTION 4: DARK -->
   <section class="section-dark">
     <div class="post-body post-inner">
 
@@ -261,23 +273,23 @@
 
       <p>The mainstream market in Australia is overwhelmingly fixed-fee and hourly. A 2023 survey of Australian grant writers found that nine in ten quoted flat fees or hourly rates. Commission-based offers were the exception, most associated with newer practitioners still building their client base.</p>
 
-      <p>A well-structured engagement typically involves a scoping conversation, a written brief, a fixed fee quoted upfront, and a staged payment arrangement that spreads the cost across the project without tying any portion to the outcome. Staged payments are a practical response to the cash-flow concern that makes commission arrangements appealing in the first place.</p>
+      <p>A well-structured engagement typically involves a scoping conversation, a written brief, a fixed fee quoted upfront, and a staged payment arrangement that spreads the cost across the project without tying any portion to the outcome. Staged payments address the cash-flow concern that makes commission arrangements appealing in the first place.</p>
 
       <div class="tip-box">
-        <p class="box-label">Before you engage any grant writer</p>
-        <p>Ask three things: How do you charge? (Flat fee, hourly, or retainer are the expected answers.) Is there any portion of your fee tied to whether we win? (The expected answer is no.) And: will your fee appear anywhere in our grant application or budget? (It should not, for most government grants.)</p>
+        <span class="box-label">Before you engage any grant writer</span>
+        <p>Ask three things. How do you charge? (Flat fee, hourly, or retainer are the expected answers.) Is there any portion of your fee tied to whether we win? (The expected answer is no.) And: will your fee appear anywhere in our grant application or budget? (It should not, for most government grants.)</p>
       </div>
 
       <p>If cost is the genuine barrier, the right question is not whether to offer commission. It is whether the scope can be adjusted, whether a grant-readiness phase makes more sense than a full application at this stage, or whether the organisation needs coaching to build internal capacity first. A commission arrangement largely trades one set of risks for another while creating the appearance of solving a cash-flow problem.</p>
 
       <div class="takeaways">
-        <p class="box-label">Key takeaways</p>
+        <span class="box-label">Key takeaways</span>
         <h4>Before you sign anything with a grant writer</h4>
         <ul>
-          <li>Ask whether any part of their fee is tied to the outcome. If yes, ask your solicitor and read your funding deed before proceeding.</li>
-          <li>Check your current and proposed funding deeds for "ineligible expenses" clauses. Grant writing costs are almost always on that list for government grants.</li>
+          <li>Ask whether any part of their fee is tied to the outcome. If yes, read your funding deed and seek legal advice before proceeding.</li>
+          <li>Check your funding deeds for "ineligible expenses" clauses. Grant writing costs are almost always on that list for government grants.</li>
           <li>Commission-based pricing is a minority practice in the Australian market and is not endorsed by any peak body. It is not the industry norm.</li>
-          <li>If cost is the genuine barrier, ask about staged payment schedules, a reduced-scope engagement, or grant-readiness coaching as a lower-cost starting point.</li>
+          <li>If cost is the genuine barrier, ask about staged payment schedules, a reduced-scope engagement, or grant-readiness coaching as a starting point.</li>
         </ul>
       </div>
 
@@ -296,16 +308,16 @@
 
   <section class="cta-banner">
     <div class="inner">
-      <p class="eyebrow eyebrow-sand">Work with KIS</p>
-      <h2>Clear pricing, no surprises, fixed fee quoted upfront.</h2>
+      <span class="eyebrow eyebrow-sand">Work with KIS</span>
+      <h2>Clear pricing, fixed fee quoted upfront, no surprises.</h2>
       <p>If you are navigating grant funding for the first time, or looking for ongoing support that fits how small teams actually work, a short conversation is a good place to start.</p>
-      <a href="../contact.html" class="btn btn-primary">Book a call</a>
+      <a href="../contact.html" class="btn btn-outline-sand">Book a call</a>
     </div>
   </section>
 
   <section class="newsletter-section">
     <div class="inner">
-      <p class="eyebrow eyebrow-terra">Stay informed</p>
+      <span class="eyebrow eyebrow-sand">Stay informed</span>
       <h2>Funding intelligence, direct to your inbox.</h2>
       <p>Grant opportunities, sector updates, and practical strategy. Sent when there is something worth saying.</p>
       <form class="newsletter-form" onsubmit="return false;">
@@ -315,11 +327,47 @@
     </div>
   </section>
 
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="../assets/img/logo-reverse.svg" alt="Keystone Impact Solutions" />
+        </div>
+        <span class="footer-tagline">Keystone Impact Solutions</span>
+        <p>Funding strategy and grant management for purpose-led organisations in the environment, conservation, and sustainability sector.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="../case-studies.html">Case Studies</a></li>
+          <li><a href="../impact-intel.html">Impact Intel</a></li>
+          <li><a href="../contact.html">Book a Call</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Free Resources</h4>
+        <ul>
+          <li><a href="../grant-readiness-assessment.html">Grant Readiness Self-Assessment</a></li>
+          <li><a href="../impact-intel.html">Impact Intel</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Keystone Impact Solutions. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="../contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
   <script>
     document.getElementById('nav-toggle').addEventListener('click', function () {
       const links = document.getElementById('nav-links');
       const expanded = this.getAttribute('aria-expanded') === 'true';
-      this.setAttribute('aria-expanded', !expanded);
+      this.setAttribute('aria-expanded', String(!expanded));
       links.classList.toggle('open');
     });
   </script>
