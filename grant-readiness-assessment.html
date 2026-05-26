@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grant Readiness Self-Assessment — Keystone Impact Solutions</title>
+  <meta name="description" content="Not sure if your organisation is ready to apply for a grant? Answer eleven questions in five minutes and get a clear picture of where you stand — before you invest time in an application." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Quicksand:wght@400;500;600&family=Open+Sans:ital,wght@0,300;0,400;1,300&display=swap" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/img/echidna-icon.svg" />
+
+  <style>
+    /* ── Page-specific: assessment questions ── */
+
+    .assessment-group {
+      margin-bottom: 48px;
+    }
+    .assessment-group:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .assessment-group-label {
+      font-family: var(--font-subhead);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      display: block;
+      margin-bottom: 0;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(216,209,203,0.2);
+    }
+
+    .assessment-question {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(216,209,203,0.08);
+    }
+    .assessment-question:last-child {
+      border-bottom: none;
+    }
+
+    /* override the global .section-dark p opacity for question text */
+    .assessment-question p {
+      font-size: 0.95rem;
+      color: var(--warm-sand) !important;
+      opacity: 1 !important;
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
+
+    .yn-pair {
+      display: flex;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+
+    .yn-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+    }
+
+    .yn-option span {
+      font-family: var(--font-subhead);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--soft-sage);
+    }
+
+    .yn-option input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 26px;
+      height: 26px;
+      border: 2px solid rgba(216,209,203,0.35);
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    /* Yes = forest green check on warm-sand fill */
+    .yn-option.yes input[type="radio"] { border-color: rgba(216,209,203,0.5); }
+    .yn-option.yes input[type="radio"]:checked {
+      background: var(--forest-green);
+      border-color: var(--forest-green);
+    }
+    .yn-option.yes input[type="radio"]:checked + span,
+    .yn-option.yes:has(input:checked) span { color: var(--warm-sand); }
+
+    /* No = burgundy on fill */
+    .yn-option.no  input[type="radio"] { border-color: rgba(216,209,203,0.5); }
+    .yn-option.no  input[type="radio"]:checked {
+      background: var(--burgundy);
+      border-color: var(--burgundy);
+    }
+    .yn-option.no:has(input:checked) span { color: var(--warm-sand); }
+
+    .yn-option input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 2px;
+      width: 8px;
+      height: 13px;
+      border: 2px solid var(--warm-sand);
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+    }
+
+    /* ── Result cards (inside section-light) ── */
+    .result-card {
+      border-left: 3px solid var(--forest-green);
+      background: rgba(255,255,255,0.35);
+      padding: 28px 32px;
+      margin-bottom: 20px;
+    }
+    .result-card:last-child { margin-bottom: 0; }
+    .result-card.amber { border-left-color: var(--terracotta); }
+    .result-card.red   { border-left-color: var(--burgundy); }
+
+    .result-label {
+      font-family: var(--font-subhead);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .result-card .result-label       { color: var(--forest-green); }
+    .result-card.amber .result-label { color: var(--terracotta); }
+    .result-card.red   .result-label { color: var(--burgundy); }
+
+    .result-card p {
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      margin-bottom: 0;
+      line-height: 1.65;
+    }
+
+    /* ── Services grid (charcoal cards inside section-light) ── */
+    .services-resource-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 36px 0;
+    }
+
+    .services-resource-card {
+      background: var(--charcoal);
+      border-top: 3px solid var(--terracotta);
+      padding: 28px 28px;
+    }
+
+    .services-resource-card h4 {
+      font-family: var(--font-subhead);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warm-sand);
+      margin-bottom: 12px;
+    }
+
+    .services-resource-card p {
+      font-size: 0.9rem;
+      color: var(--warm-sand);
+      opacity: 0.8;
+      margin-bottom: 0;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 680px) {
+      .assessment-question {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .yn-pair { justify-content: flex-start; }
+      .services-resource-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Keystone Impact Solutions home">
+        <img src="assets/img/logo-reverse.svg" alt="Keystone Impact Solutions" />
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html" class="active">Services</a></li>
+        <li><a href="case-studies.html">Case Studies</a></li>
+        <li><a href="contact.html" class="nav-cta">Book a Call</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="inner">
+      <span class="eyebrow eyebrow-terra">Free Resource</span>
+      <h1>Grant Readiness<br/>Self-Assessment</h1>
+      <p>Eleven questions. Five minutes. A clear picture of where you stand before you invest time in an application.</p>
+    </div>
+  </header>
+
+  <!-- Intro -->
+  <section class="section-light" aria-labelledby="intro-heading">
+    <div class="inner">
+      <div class="split-60-40">
+        <div>
+          <span class="eyebrow eyebrow-green">How to use this</span>
+          <h2 id="intro-heading">Before you start writing, start here.</h2>
+          <p>One of the most common reasons grant applications fail is not poor writing — it is applying before the organisation or the project is genuinely ready. This assessment helps you work out which side of that line you are on, right now.</p>
+          <p>Answer each question honestly. A no is not a disqualification. It is a planning task — and knowing about it before you apply saves significant time and protects your relationship with the funder for when you are ready.</p>
+          <p>The results guide at the bottom of the page will help you interpret your answers and decide on next steps.</p>
+        </div>
+        <div>
+          <div class="insight-box" style="margin: 0;">
+            <span class="box-label">Note on organisation type</span>
+            <p>This assessment is designed primarily for incorporated nonprofits and community organisations. If you are a purpose-led business, social enterprise, or unincorporated group, some questions may not apply — use your judgement and focus on what is relevant to your situation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Questions -->
+  <section class="section-dark" aria-labelledby="questions-heading">
+    <div class="inner">
+      <span class="eyebrow eyebrow-terra">The Assessment</span>
+      <h2 id="questions-heading">Answer yes or no to each question</h2>
+      <p style="max-width: 580px; margin: 16px 0 48px; font-size: 0.95rem;">Work through each group, then scroll down to read your results.</p>
+
+      <form aria-label="Grant readiness self-assessment">
+
+        <div class="assessment-group">
+          <span class="assessment-group-label">Funder and eligibility</span>
+          <div class="assessment-question">
+            <p>Have you read the full grant guidelines and confirmed your project meets all eligibility criteria?</p>
+            <div class="yn-pair">
+              <label class="yn-option yes"><input type="radio" name="q1" value="yes" /><span>Yes</span></label>
+              <label class="yn-option no"><input type="radio" name="q1" value="no" /><span>No</span></label>
+            </div>
+          </div>
+          <div class="assessment-question">
+            <p>Have you confirmed this funder's priorities align with your specific project — not just that they fund your general category?</p>
+            <div class="yn-pair">
+              <label class="yn-option yes"><input type="radio" name="q2" value="yes" /><span>Yes</span></label>
+              <label class="yn-option no"><input type="radio" name="q2" value="no" /><span>No</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="assessment-group">
+          <span class="assessment-group-label">Your organisation</span>
+          <div class="assessment-question">
+            <p>Can you clearly articulate this project's alignment with your organisation's mission and current strategic priorities?</p>
+            <div class="yn-pair">
+              <label class="yn-option yes"><input type="radio" name="q3" value="yes" /><span>Yes</span></label>
+              <label class="yn-option no"><input type="radio" name="q3" value="no" /><span>No</span></label>
+            </div>
+          </div>
+          <div class="assessment-question">
+            <p>Are all previous grant acquittals complete and lodged?</p>
+            <div class="yn-pair">
+              <label class="yn-option yes"><input type="radio" name="q4" value="yes" /><span>Yes</span></label>
+              <label class="yn-option no"><input type="radio" name="q4" value="no" /><span>No</span></label>
+            </div>
+          </div>
+          <div class="assessment-question">
+            <p>Does your organisation have the financial stability to manage grant funding responsibly if awarded?</p>
+            <div class="yn-pair">
+              <label class="yn-option yes"><input type="radio" name="q5" value="yes" /><span>Yes</span></label>
+              <label class="yn-option no"><input type="radio" name="q5" value="no" /><span>No</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="assessment-group">
+          <span class="assessment-group-label">Your project</span>
+          <div class="assessment-question">
+            <p>Is the project fully designed — not still being developed as you fill in the application?</p>
+            <div class="yn-pair">
+              <label class="yn-option yes"><input type="radio" name="q6" value="yes" /><span>Yes</span></label>
+              <label class="yn-option no"><input type="radio" name="q6" value="no" /><span>No</span></label>
+            </div>
+          </div>
+          <div class="assessment-question">
+            <p>Do you have staff time and bandwidth to deliver this project alongside your existing commitments?</p>
+            <div class="yn-pair">
+              <label class="yn-option yes"><input type="radio" name="q7" value="yes" /><span>Yes</span></label>
+              <label class="yn-option no"><input type="radio" name="q7" value="no" /><span>No</span></label>
+            </div>
+          </div>
+          <div class="assessment-question">
+            <p>Can you demonstrate genuine community support for this work?</p>
+            <div class="yn-pair">
+              <label class="yn-option yes"><input type="radio" name="q8" value="yes" /><span>Yes</span></label>
+              <label class="yn-option no"><input type="radio" name="q8" value="no" /><span>No</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="assessment-group">
+          <span class="assessment-group-label">Delivery and accountability</span>
+          <div class="assessment-question">
+            <p>Do you have systems to track grant expenditure separately from your operating finances?</p>
+            <div class="yn-pair">
+              <label class="yn-option yes"><input type="radio" name="q9" value="yes" /><span>Yes</span></label>
+              <label class="yn-option no"><input type="radio" name="q9" value="no" /><span>No</span></label>
+            </div>
+          </div>
+          <div class="assessment-question">
+            <p>Do you have the capacity to collect data and report on outcomes to the funder at the required intervals?</p>
+            <div class="yn-pair">
+              <label class="yn-option yes"><input type="radio" name="q10" value="yes" /><span>Yes</span></label>
+              <label class="yn-option no"><input type="radio" name="q10" value="no" /><span>No</span></label>
+            </div>
+          </div>
+          <div class="assessment-question">
+            <p>Do you have a realistic plan for what happens to this project when the funding ends?</p>
+            <div class="yn-pair">
+              <label class="yn-option yes"><input type="radio" name="q11" value="yes" /><span>Yes</span></label>
+              <label class="yn-option no"><input type="radio" name="q11" value="no" /><span>No</span></label>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section class="section-light" aria-labelledby="results-heading">
+    <div class="inner">
+      <span class="eyebrow eyebrow-burg">Reading your results</span>
+      <h2 id="results-heading">What your answers mean</h2>
+      <p style="max-width: 600px; margin: 16px 0 36px;">Find the pattern that best describes your answers. If you fall between two, read both — the more cautious interpretation is usually the more useful one.</p>
+
+      <div class="result-card">
+        <span class="result-label">All or most answers: Yes</span>
+        <p>Your organisation is in a strong position to apply. The remaining step is matching your project to the right funder and investing time in a well-structured application. This is where strategic grant writing and funder research will have the most impact — if you would like support at this stage, that is exactly what we do.</p>
+      </div>
+
+      <div class="result-card amber">
+        <span class="result-label">Several No answers — particularly in Funder/Eligibility or Your Project</span>
+        <p>You have work to do before you apply, and knowing that now is far more useful than finding out after submitting. A no on funder alignment or project design is a signal to pause, not push through. Applying before you are ready risks a rejection that can affect how this funder views future applications from your organisation. The full Grant Readiness Checklist will help you identify exactly what to address.</p>
+      </div>
+
+      <div class="result-card red">
+        <span class="result-label">No to outstanding acquittals or financial stability</span>
+        <p>These are application stoppers. Outstanding acquittals are checked by funders and will disqualify an application before it is read. Financial instability raises serious flags at assessment. Address these before applying to anything — if you are unsure how to approach either issue, a conversation before you invest time in an application is time well spent.</p>
+      </div>
+
+      <div class="tip-box mt-48">
+        <span class="box-label">Want to go deeper?</span>
+        <p>The full Grant Readiness Checklist covers every document, system, and piece of evidence funders expect — organised section by section, with notes on what each one signals to an assessor. It is the working document to use once you have confirmed you are ready to apply. <a href="contact.html" style="color: var(--forest-green); text-decoration: underline; text-underline-offset: 2px;">Get in touch</a> to receive a copy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pull Quote -->
+  <section class="section-dark" aria-label="Quote">
+    <div class="inner">
+      <div class="pull-quote">
+        <blockquote>"Grant readiness is not about perfection. It is about knowing where you stand, closing the gaps you can, and making purposeful decisions about the rest."</blockquote>
+        <cite>Dr Jess Hodgson — Founder, Keystone Impact Solutions</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- How KIS can help -->
+  <section class="section-light" aria-labelledby="kis-help-heading">
+    <div class="inner">
+      <span class="eyebrow eyebrow-green">Working Together</span>
+      <h2 id="kis-help-heading">How Keystone Impact Solutions can help</h2>
+      <p style="max-width: 620px; margin-top: 16px;">Whether you need to build your readiness from the ground up, or you are ready to apply and want a strategic partner, there is a way to work together that fits where you are right now.</p>
+
+      <div class="services-resource-grid">
+        <div class="services-resource-card">
+          <h4>Grant Readiness Review</h4>
+          <p>A structured assessment of your organisation's grant readiness, with a clear action plan and prioritised gaps. Useful before your first application or after a difficult run of rejections.</p>
+        </div>
+        <div class="services-resource-card">
+          <h4>Grant Strategy and Writing</h4>
+          <p>From funder identification and application strategy through to a submission-ready application — built around your project, not a template.</p>
+        </div>
+        <div class="services-resource-card">
+          <h4>Full Readiness Document Build</h4>
+          <p>Work through the complete Grant Readiness Checklist with support to create, update, or consolidate every document funders expect to see.</p>
+        </div>
+        <div class="services-resource-card">
+          <h4>Ongoing Grants Partnership</h4>
+          <p>Retained strategic support for organisations with an active grants program — covering pipeline management, strategy, writing, and acquittals.</p>
+        </div>
+      </div>
+
+      <a href="services.html#grants" class="btn btn-outline-green">Explore Grant Services</a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner" aria-labelledby="cta-heading">
+    <div class="inner">
+      <span class="eyebrow eyebrow-sand">Ready to talk?</span>
+      <h2 id="cta-heading">Tell us about your organisation and where you are in the process.</h2>
+      <p>A short conversation is always the right first step — we can work out together what kind of support would actually move things forward.</p>
+      <a href="contact.html" class="btn btn-outline-sand">Book a Call</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="assets/img/logo-reverse.svg" alt="Keystone Impact Solutions" />
+        </div>
+        <span class="footer-tagline">Partner to the Changemakers</span>
+        <p>Fundraising and impact support for non-profits and purpose-led organisations across Australia.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="case-studies.html">Case Studies</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get in Touch</h4>
+        <ul>
+          <li><a href="contact.html">Book a Call</a></li>
+          <li><a href="mailto:hello@keystoneimpactsolutions.au">hello@keystoneimpactsolutions.au</a></li>
+          <li><a href="https://www.linkedin.com/in/jessicahodgson" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/keystoneimpactsolutions" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.facebook.com/keystoneimpactsolutions" target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© Keystone Impact Solutions 2025. All Rights Reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('nav-toggle');
+    const links  = document.getElementById('nav-links');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+  </script>
+
+</body>
+</html>
