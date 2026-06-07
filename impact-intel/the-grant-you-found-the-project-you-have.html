@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Grant You Found, the Project You Have — Impact Intel — Keystone Impact Solutions</title>
+  <meta name="description" content="Most grant applications fail before the writing starts. The sequencing mistake that quietly costs organisations every round, and how to reverse it.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@500;600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --charcoal:  #333333;
+      --sand:      #D8D1CB;
+      --green:     #294B3F;
+      --burgundy:  #6B2737;
+      --terra:     #A1573A;
+      --sage:      #999A96;
+      --sky:       #D4E2ED;
+      --inner-max: 1160px;
+      --post-max:  720px;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: 'Open Sans', sans-serif; font-weight: 300; color: var(--charcoal); background: var(--sand); line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .site-nav { background: var(--charcoal); border-bottom: 2px solid var(--green); position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: var(--inner-max); margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .nav-logo-text { font-family: 'Lora', serif; font-size: 1.1rem; color: var(--sand); }
+    .nav-links { display: flex; list-style: none; gap: 32px; align-items: center; }
+    .nav-links a { font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sand); transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--terra); }
+    .nav-links .nav-cta { background: var(--green); color: var(--sand); padding: 8px 20px; border: 2px solid var(--green); }
+    .nav-links .nav-cta:hover { background: transparent; border-color: var(--sand); }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--sand); }
+
+    .section-dark  { background: var(--charcoal); color: var(--sand); }
+    .section-light { background: var(--sand);     color: var(--charcoal); }
+    .inner      { max-width: var(--inner-max); margin: 0 auto; padding: 0 40px; }
+    .post-inner { max-width: var(--post-max);  margin: 0 auto; padding: 0 40px; }
+
+    .post-header { background: var(--charcoal); border-bottom: 2px solid var(--green); padding: 64px 0 56px; }
+    .post-category { font-family: 'Quicksand', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.72rem; color: var(--terra); margin-bottom: 20px; }
+    .post-header h1 { font-family: 'Lora', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 600; color: var(--sand); line-height: 1.25; margin-bottom: 28px; max-width: 700px; }
+    .post-meta { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+    .post-meta span { font-family: 'Quicksand', sans-serif; font-size: 0.75rem; color: var(--sage); }
+    .post-meta a { font-family: 'Quicksand', sans-serif; font-size: 0.75rem; color: var(--terra); border-bottom: 1px solid rgba(161,87,58,0.4); transition: color 0.2s; }
+    .post-meta a:hover { color: var(--sand); border-color: rgba(216,209,203,0.4); }
+    .meta-dot { opacity: 0.5; }
+
+    .post-hero { width: 100%; border-bottom: 2px solid var(--green); overflow: hidden; max-height: 420px; }
+    .post-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .post-body { padding: 56px 0; }
+    .post-body h2 { font-family: 'Lora', serif; font-size: 1.5rem; font-weight: 600; color: var(--green); margin: 40px 0 16px; line-height: 1.3; }
+    .section-dark .post-body h2 { color: var(--sand); }
+    .post-body h3 { font-family: 'Lora', serif; font-size: 1.15rem; font-weight: 600; color: var(--green); margin: 32px 0 12px; }
+    .section-dark .post-body h3 { color: var(--terra); }
+    .post-body p { font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 0.97rem; line-height: 1.8; margin-bottom: 20px; }
+    .post-body p.lead { font-size: 1.1rem; line-height: 1.8; margin-bottom: 28px; }
+    .section-dark .post-body p { color: var(--sand); }
+    .post-body ul, .post-body ol { margin: 0 0 20px 20px; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 0.97rem; line-height: 1.8; }
+    .section-dark .post-body ul, .section-dark .post-body ol { color: var(--sand); }
+    .post-body li { margin-bottom: 8px; }
+
+    .insight-box, .tip-box { background: var(--sky); padding: 28px 32px; margin: 32px 0; }
+    .insight-box { border-left: 3px solid var(--green); }
+    .tip-box     { border-left: 3px solid var(--burgundy); }
+    .box-label { font-family: 'Quicksand', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.65rem; margin-bottom: 8px; }
+    .insight-box .box-label { color: var(--green); }
+    .tip-box .box-label     { color: var(--burgundy); }
+    .insight-box p, .tip-box p { color: var(--charcoal); font-size: 0.9rem; margin-bottom: 0; }
+    .insight-box h4, .tip-box h4 { font-family: 'Lora', serif; font-size: 1rem; color: var(--charcoal); margin-bottom: 8px; }
+
+    .pull-quote { position: relative; padding: 24px 32px 24px 48px; margin: 40px 0; border-left: 3px solid var(--burgundy); }
+    .pull-quote::before { content: '\201C'; font-family: 'Lora', serif; font-size: 5rem; color: var(--burgundy); position: absolute; top: -16px; left: 8px; line-height: 1; }
+    .pull-quote p { font-family: 'Lora', serif; font-style: italic; font-size: 1.05rem; line-height: 1.6; margin-bottom: 12px; }
+    .pull-quote cite { font-family: 'Quicksand', sans-serif; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--terra); font-style: normal; }
+
+    .takeaways { background: var(--sky); border-left: 3px solid var(--green); padding: 32px 36px; margin: 40px 0; }
+    .takeaways .box-label { color: var(--green); margin-bottom: 16px; }
+    .takeaways h4 { font-family: 'Lora', serif; font-size: 1.05rem; color: var(--green); margin-bottom: 12px; }
+    .takeaways ul { margin: 0 0 0 16px; font-size: 0.9rem; }
+    .takeaways ul li { margin-bottom: 10px; color: var(--charcoal); }
+
+    .post-footer { background: var(--sand); border-top: 2px solid var(--green); padding: 48px 0; }
+    .post-footer-inner { max-width: var(--post-max); margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+    .back-link { font-family: 'Quicksand', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.72rem; color: var(--green); border-bottom: 1px solid var(--green); padding-bottom: 2px; }
+    .back-link:hover { color: var(--burgundy); border-color: var(--burgundy); }
+    .author-block { text-align: right; }
+    .author-name { font-family: 'Lora', serif; font-size: 0.95rem; color: var(--green); font-weight: 600; }
+    .author-title { font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 0.8rem; color: var(--sage); }
+
+    .cta-banner { background: var(--green); padding: 64px 0; }
+    .cta-banner-inner { max-width: var(--post-max); margin: 0 auto; padding: 0 40px; }
+    .cta-banner h2 { font-family: 'Lora', serif; font-size: 1.6rem; color: var(--sand); margin-bottom: 16px; font-weight: 600; }
+    .cta-banner p { font-family: 'Open Sans', sans-serif; font-weight: 300; color: var(--sand); margin-bottom: 28px; font-size: 0.95rem; line-height: 1.7; }
+    .btn-primary { display: inline-block; font-family: 'Quicksand', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.72rem; background: var(--sand); color: var(--green); padding: 13px 28px; border: 2px solid var(--sand); transition: background 0.2s, color 0.2s; }
+    .btn-primary:hover { background: transparent; color: var(--sand); }
+
+    .eyebrow { font-family: 'Quicksand', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.72rem; margin-bottom: 16px; }
+    .eyebrow-terra { color: var(--terra); }
+    .eyebrow-sand  { color: var(--sand); }
+
+    .newsletter-section { background: var(--charcoal); border-top: 2px solid var(--green); padding: 64px 0; }
+    .newsletter-inner { max-width: var(--post-max); margin: 0 auto; padding: 0 40px; }
+    .newsletter-section h2 { font-family: 'Lora', serif; font-size: 1.6rem; color: var(--sand); font-weight: 600; margin-bottom: 12px; }
+    .newsletter-section p { color: var(--sage); font-size: 0.9rem; margin-bottom: 24px; }
+    .newsletter-form { display: flex; gap: 0; max-width: 460px; }
+    .newsletter-form input[type="email"] { flex: 1; padding: 12px 16px; font-family: 'Open Sans', sans-serif; font-size: 0.9rem; border: 2px solid var(--green); border-right: none; background: white; color: var(--charcoal); outline: none; }
+    .newsletter-form input[type="email"]::placeholder { color: var(--sage); }
+    .newsletter-form button { background: var(--green); color: var(--sand); border: 2px solid var(--green); padding: 12px 24px; font-family: 'Quicksand', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.72rem; cursor: pointer; white-space: nowrap; transition: background 0.2s; }
+    .newsletter-form button:hover { background: var(--burgundy); border-color: var(--burgundy); }
+
+    .site-footer { background: var(--charcoal); border-top: 2px solid var(--green); padding: 56px 0 32px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-logo-text { font-family: 'Lora', serif; font-size: 1rem; color: var(--sand); margin-bottom: 16px; }
+    .footer-tagline { font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 0.83rem; color: var(--sage); line-height: 1.6; }
+    .footer-col h4 { font-family: 'Quicksand', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.68rem; color: var(--terra); margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 0.83rem; color: var(--sage); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--sand); }
+    .footer-base { border-top: 1px solid rgba(153,154,150,0.3); padding-top: 24px; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 0.78rem; color: var(--sage); }
+
+    @media (max-width: 900px) {
+      .nav-toggle { display: flex; }
+      .nav-links { display: none; position: absolute; top: 68px; left: 0; right: 0; background: var(--charcoal); flex-direction: column; gap: 0; border-top: 2px solid var(--green); }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a { display: block; padding: 16px 40px; border-bottom: 1px solid rgba(153,154,150,0.2); }
+      .nav-links .nav-cta { margin: 16px 40px; text-align: center; display: block; }
+      .site-nav { position: relative; }
+      .inner, .post-inner, .newsletter-inner, .cta-banner-inner, .post-footer-inner { padding: 0 24px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .pull-quote { padding-left: 36px; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form input[type="email"] { border-right: 2px solid var(--green); border-bottom: none; }
+    }
+    @media (max-width: 600px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .post-footer-inner { flex-direction: column; align-items: flex-start; }
+      .author-block { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo" aria-label="Keystone Impact Solutions home">
+        <span class="nav-logo-text">Keystone Impact Solutions</span>
+      </a>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul id="nav-links" class="nav-links">
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../services.html">Services</a></li>
+        <li><a href="../case-studies.html">Case Studies</a></li>
+        <li><a href="../impact-intel.html" class="active">Impact Intel</a></li>
+        <li><a href="../contact.html" class="nav-cta">Get in touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="post-header">
+    <div class="post-inner">
+      <p class="post-category">Grant Strategy</p>
+      <h1>The Grant You Found, the Project You Have</h1>
+      <div class="post-meta">
+        <span>1 June 2026</span>
+        <span class="meta-dot">·</span>
+        <span>6 min read</span>
+        <span class="meta-dot">·</span>
+        <span>Dr Jess Hodgson</span>
+        <span class="meta-dot">·</span>
+        <a href="https://www.linkedin.com/pulse/grant-you-found-project-have-dr-jess-hodgson-nbmxc/?trackingId=YXbgq2%2FcTPSmGGFS%2BZ8icg%3D%3D" target="_blank" rel="noopener">Originally published on LinkedIn</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="post-hero">
+    <img src="../assets/img/impact-intel-grant-project.png" alt="A rock wallaby holding an illustrated pencil beside an open illustrated book, photographed at night, Keystone Impact Solutions">
+  </div>
+
+  <section class="section-light">
+    <div class="post-body post-inner" style="padding-top:56px; padding-bottom:56px;">
+
+      <p class="lead">I ran a grant writing workshop recently. Partway through, I asked everyone to picture an application they had put real work into, one that didn't land. Then I asked a second question.</p>
+
+      <p>Whose priorities were you actually writing to?</p>
+
+      <p>The room went quiet.</p>
+
+      <p>A few people said it out loud. They had applied because the funding was there, not because the project was the right fit. Nobody said it as a confession. They said it the way you name something you have always half-known but never stopped to look at directly.</p>
+
+      <p>The habit underneath it is one of the most common reasons good organisations lose grants, and it has almost nothing to do with how well anyone writes.</p>
+
+      <h2>The sequence most applications get wrong</h2>
+
+      <p>Here is how it usually goes. A funding round opens. It looks broadly relevant, the amount would help, the deadline is tight but manageable. So the work begins: shaping a project that fits the criteria closely enough to qualify.</p>
+
+      <div class="insight-box">
+        <p class="box-label">The pattern</p>
+        <h4>Found the grant first. Designed the project second.</h4>
+        <p>This sequence is so normal that it rarely gets questioned. But notice what has happened: the funding opportunity is now driving the project, and the work the organisation actually needs to run has moved to the back of the queue.</p>
+      </div>
+
+      <p>Do this once and it costs you an application. Do it round after round and it costs you something harder to see. The project list grows, each addition reasonable on its own, and the organisation slowly becomes harder to describe. That is the part worth keeping in view.</p>
+
+      <h2>Why the frame is set before you write a word</h2>
+
+      <p>By the time the document is open and the writing starts, the most important decision has already been made. The frame is set. And if the project was reverse-engineered to fit the grant, that frame is built on a slightly wrong foundation.</p>
+
+      <p>This is why I find the standard advice about grant writing so frustrating. Better language, stronger structure, a tighter narrative. All useful, none of it the issue. The applications I see fail consistently do not fail because the writing is weak. They fail because the thinking was not finished before the writing began.</p>
+
+      <p>You cannot write your way out of a project that was designed for the wrong reason. No amount of editing repairs a frame that was wrong from the start. The mistake most people read as a grant writing mistake is actually a sequencing mistake wearing a writing problem's clothes.</p>
+
+    </div>
+  </section>
+
+  <section class="section-dark">
+    <div class="post-body post-inner" style="padding-top:56px; padding-bottom:56px;">
+
+      <h2>Worthiness was never on the rubric</h2>
+
+      <p>There is a belief sitting under all of this, and it is worth saying plainly. Most people apply believing that if they can just show how much their work matters, the funding will follow. That the most deserving organisation, clearly explained, wins.</p>
+
+      <div class="pull-quote">
+        <p>The most deserving organisation does not win the grant. The best proposal does.</p>
+        <cite>Dr Jess Hodgson</cite>
+      </div>
+
+      <p>Worthiness is not a scoring criterion. Look at any assessment rubric and you will not find it. What you will find is alignment, feasibility, evidence, outcomes. The funder has already decided what change they want to see in the world. They have done that thinking before the round even opened. Your application is not being asked to prove your work is important. It is being asked to prove you are the most credible path to the change they have already chosen.</p>
+
+      <p>That asks you to stop arguing for your worth and start demonstrating your fit. Most people resist it, because it is an uncomfortable thing to hear.</p>
+
+    </div>
+  </section>
+
+  <section class="section-light">
+    <div class="post-body post-inner" style="padding-top:56px; padding-bottom:56px;">
+
+      <h2>Choosing the funding to fit the project</h2>
+
+      <p>So turn the sequence around.</p>
+
+      <p>Start with the project you would run regardless. The one your organisation needs, the one that sits squarely in your mission, the work you would do if funding were not the deciding factor. Get clear on that first. Then go looking for funders whose stated priorities genuinely meet it.</p>
+
+      <div class="tip-box">
+        <p class="box-label">Tip</p>
+        <p>Sometimes this means a slower pipeline. It means passing on rounds that do not actually fit, even when the money would be welcome, because an application built on a forced fit costs weeks and rarely wins. Treat funder priorities as information to match honestly, not criteria to contort yourself into.</p>
+      </div>
+
+      <p>It is also how an organisation holds its shape. The funding-first habit does not only cost weeks per application. Sustained over years, it pulls an organisation off centre. Each grant feels manageable to justify on its own, but the programmes accumulate, the team stretches to deliver work that sits slightly outside the mission, and the organisation gradually becomes harder to describe. A bit blurry around the edges. An organisation that fits itself to every available round eventually stops being excellent at anything in particular, and focus is what makes you fundable in the first place.</p>
+
+      <p>This is not a writing fix. It is a thinking fix. And it happens long before anyone opens a document.</p>
+
+      <p>If you have put in four applications and none have landed, it is tempting to conclude the work just is not fundable. In my experience that is almost never the real story. The work is fundable. The question is whether it has been brought to funders whose priorities it genuinely meets, or whether it has been bent to fit whatever round happened to be open. Those are very different applications, and only one of them tends to win.</p>
+
+      <div class="takeaways">
+        <p class="box-label">Key takeaways</p>
+        <h4>What to take from this</h4>
+        <ul>
+          <li>The sequence matters more than the writing. Finding the grant first and designing the project second is the mistake that quietly costs organisations every round.</li>
+          <li>Worthiness is not a scoring criterion. Funders have already decided what change they want to see. Your application needs to prove you are the most credible path to it.</li>
+          <li>An organisation that bends itself to fit every available round gradually loses the focus that makes it fundable in the first place. Mission clarity is a competitive advantage.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="post-footer">
+    <div class="post-footer-inner">
+      <a href="../impact-intel.html" class="back-link">&#8592; Back to Impact Intel</a>
+      <div class="author-block">
+        <p class="author-name">Dr Jess Hodgson</p>
+        <p class="author-title">Keystone Impact Solutions</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="cta-banner">
+    <div class="cta-banner-inner">
+      <p class="eyebrow eyebrow-sand" style="margin-bottom:16px;">Work with KIS</p>
+      <h2>Ready to build a grant pipeline that fits your mission?</h2>
+      <p>If you're putting work into applications that aren't landing, the issue is usually upstream of the writing. I can help you identify where the real fit is and build a pipeline around it.</p>
+      <a href="../contact.html" class="btn-primary">Get in touch</a>
+    </div>
+  </section>
+
+  <section class="newsletter-section">
+    <div class="newsletter-inner">
+      <p class="eyebrow eyebrow-terra" style="margin-bottom:12px;">Stay informed</p>
+      <h2>Funding intelligence, direct to your inbox.</h2>
+      <p>Grant opportunities, sector updates, and practical strategy. Sent when there is something worth saying.</p>
+      <form class="newsletter-form" onsubmit="return false;">
+        <input type="email" placeholder="Your email address" aria-label="Email address">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <div class="footer-grid">
+        <div>
+          <p class="footer-logo-text">Keystone Impact Solutions</p>
+          <p class="footer-tagline">Funding strategy and grant management for purpose-led organisations in the environment, conservation, and sustainability sector.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../services.html">Services</a></li>
+            <li><a href="../case-studies.html">Case Studies</a></li>
+            <li><a href="../impact-intel.html">Impact Intel</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Free Resources</h4>
+          <ul>
+            <li><a href="../grant-readiness-assessment.html">Grant Readiness Self-Assessment</a></li>
+            <li><a href="../impact-intel.html">Impact Intel</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="../contact.html">Get in touch</a></li>
+            <li><a href="https://www.linkedin.com/in/jessicahodgson-kis/" target="_blank" rel="noopener">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <p>© 2026 Keystone Impact Solutions. All rights reserved. ABN: [YOUR ABN]</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('nav-toggle').addEventListener('click', function () {
+      document.getElementById('nav-links').classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>

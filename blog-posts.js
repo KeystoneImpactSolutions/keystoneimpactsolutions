@@ -26,33 +26,33 @@
 
 const blogPosts = [
   {
-    slug: "impact-intel/commission-based-grant-writing.html",
-    title: "Commission-Based Grant Writing: What Your Organisation Needs to Know",
+    slug: "impact-intel/funding-when-youre-an-individual-not-an-org.html",
+    title: "Funding When You're an Individual, Not an Org",
     category: "Funding Intelligence",
-    date: "2026-05-26",
-    dateDisplay: "26 May 2026",
+    date: "2026-06-07",
+    dateDisplay: "7 June 2026",
     readTime: "7 min read",
-    excerpt: "Every major grant writing peak body prohibits commission-based pay. Here is what the international consensus says, why Australian law creates additional risk, and what fair pricing actually looks like.",
+    excerpt: "Most formal grant rounds filter out individuals before they start. Expedition grants, fiscal sponsorship, and corporate partnerships for purpose-driven projects that don't fit the standard mould.",
     featured: true
   },
   {
-    slug: "impact-intel/grant-readiness-before-you-apply.html",
-    title: "Is Your Organisation Grant-Ready? Ten Questions to Ask Before You Apply",
-    category: "Grant Strategy",
-    date: "2026-06-02",
-    dateDisplay: "2 June 2026",
-    readTime: "5 min read",
-    excerpt: "Most grant applications fail before a word is written. This checklist walks you through the ten areas that determine whether your organisation is positioned to win.",
+    slug: "impact-intel/when-grants-feel-like-security-arent.html",
+    title: "When Grants Feel Like Security but Aren't",
+    category: "Funding Intelligence",
+    date: "2026-05-25",
+    dateDisplay: "25 May 2026",
+    readTime: "8 min read",
+    excerpt: "Grant funding feels solid. But every dollar arrives with conditions, and when one income stream dominates your funding mix, that sense of solidity is also the weakness. What the sector data actually shows.",
     featured: false
   },
   {
-    slug: "impact-intel/reading-grant-guidelines.html",
-    title: "How to Read Grant Guidelines Like a Strategist",
+    slug: "impact-intel/the-grant-you-found-the-project-you-have.html",
+    title: "The Grant You Found, the Project You Have",
     category: "Grant Strategy",
-    date: "2026-06-09",
-    dateDisplay: "9 June 2026",
+    date: "2026-06-01",
+    dateDisplay: "1 June 2026",
     readTime: "6 min read",
-    excerpt: "Grant guidelines tell you far more than eligibility requirements. Here is a methodical approach to extracting what funders actually want before you write a single word.",
+    excerpt: "Most grant applications fail before the writing starts. The sequencing mistake that quietly costs organisations every round, and how to reverse it.",
     featured: false
   }
 ];
