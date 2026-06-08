@@ -680,7 +680,7 @@ a:focus-visible {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--terracotta);
+  color: #E09060;
   margin-bottom: 16px;
   display: block;
 }
@@ -693,7 +693,7 @@ a:focus-visible {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--terracotta);
+  color: #E09060;
   margin-bottom: 20px;
 }
 
@@ -747,7 +747,7 @@ a:focus-visible {
 
 .footer-acknowledgment p {
   font-size: 0.82rem;
-  opacity: 0.55;
+  color: #B5B0AC;
   line-height: 1.6;
   margin: 0;
 }
