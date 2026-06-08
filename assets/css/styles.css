@@ -612,7 +612,7 @@ p:last-child { margin-bottom: 0; }
   max-width: var(--max-width);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 1fr;
   gap: 48px;
   padding-bottom: 48px;
   border-bottom: 1px solid rgba(216,209,203,0.15);
@@ -684,6 +684,20 @@ p:last-child { margin-bottom: 0; }
   transition: opacity 0.2s;
 }
 .footer-bottom-links a:hover { opacity: 1; }
+
+.footer-acknowledgment {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 24px 0 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-acknowledgment p {
+  font-size: 0.82rem;
+  opacity: 0.55;
+  line-height: 1.6;
+  margin: 0;
+}
 
 /* ── Page Headers ───────────────────────────────────────── */
 .page-header {
