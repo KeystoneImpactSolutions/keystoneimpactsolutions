@@ -722,7 +722,7 @@ a:focus-visible {
 
 .footer-bottom p {
   font-size: 0.82rem;
-  opacity: 0.5;
+  color: #B5B0AC;
   margin: 0;
 }
 
@@ -733,10 +733,10 @@ a:focus-visible {
 
 .footer-bottom-links a {
   font-size: 0.82rem;
-  opacity: 0.5;
-  transition: opacity 0.2s;
+  color: #B5B0AC;
+  transition: color 0.2s;
 }
-.footer-bottom-links a:hover { opacity: 1; }
+.footer-bottom-links a:hover { color: var(--warm-sand); }
 
 .footer-acknowledgment {
   max-width: var(--max-width);
