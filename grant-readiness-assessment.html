@@ -46,13 +46,14 @@
       border-bottom: none;
     }
 
-    /* override the global .section-dark p opacity for question text */
-    .assessment-question p {
+    .assessment-question legend {
       font-size: 0.95rem;
       color: var(--warm-sand) !important;
       opacity: 1 !important;
       margin-bottom: 0;
       line-height: 1.6;
+      float: left;
+      width: 100%;
     }
 
     .yn-pair {
@@ -196,8 +197,10 @@
 </head>
 <body>
 
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- Navigation -->
-  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <nav class="site-nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo" aria-label="Keystone Impact Solutions home">
         <img src="assets/img/logo-reverse.svg" alt="Keystone Impact Solutions" />
@@ -205,10 +208,10 @@
       <ul class="nav-links" id="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="services.html" class="active">Services</a></li>
+        <li><a href="services.html" class="active" aria-current="page">Services</a></li>
         <li><a href="case-studies.html">Case Studies</a></li>
         <li><a href="impact-intel.html">Impact Intel</a></li>
-        <li><a href="https://keystone-impact-solutions.moxieapp.com/public/discovery-call" class="nav-cta" target="_blank" rel="noopener">Book a Call</a></li>
+        <li><a href="https://keystone-impact-solutions.moxieapp.com/public/discovery-call" class="nav-cta" target="_blank" rel="noopener">Book a Call<span class="sr-only">(opens in new tab)</span></a></li>
       </ul>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -217,7 +220,7 @@
   </nav>
 
   <!-- Page Header -->
-  <header class="page-header">
+  <header class="page-header" id="main-content">
     <div class="inner">
       <span class="eyebrow eyebrow-terra">Free Resource</span>
       <h1>Grant Readiness<br/>Self-Assessment</h1>
@@ -257,95 +260,95 @@
 
         <div class="assessment-group">
           <span class="assessment-group-label">Funder and eligibility</span>
-          <div class="assessment-question">
-            <p>Have you read the full grant guidelines and confirmed your project meets all eligibility criteria?</p>
+          <fieldset class="assessment-question" style="border: none; padding: 0; margin: 0;">
+            <legend class="assessment-question-text">Have you read the full grant guidelines and confirmed your project meets all eligibility criteria?</legend>
             <div class="yn-pair">
               <label class="yn-option yes"><input type="radio" name="q1" value="yes" /><span>Yes</span></label>
               <label class="yn-option no"><input type="radio" name="q1" value="no" /><span>No</span></label>
             </div>
-          </div>
-          <div class="assessment-question">
-            <p>Have you confirmed this funder's priorities align with your specific project — not just that they fund your general category?</p>
+          </fieldset>
+          <fieldset class="assessment-question" style="border: none; padding: 0; margin: 0;">
+            <legend class="assessment-question-text">Have you confirmed this funder's priorities align with your specific project — not just that they fund your general category?</legend>
             <div class="yn-pair">
               <label class="yn-option yes"><input type="radio" name="q2" value="yes" /><span>Yes</span></label>
               <label class="yn-option no"><input type="radio" name="q2" value="no" /><span>No</span></label>
             </div>
-          </div>
+          </fieldset>
         </div>
 
         <div class="assessment-group">
           <span class="assessment-group-label">Your organisation</span>
-          <div class="assessment-question">
-            <p>Can you clearly articulate this project's alignment with your organisation's mission and current strategic priorities?</p>
+          <fieldset class="assessment-question" style="border: none; padding: 0; margin: 0;">
+            <legend class="assessment-question-text">Can you clearly articulate this project's alignment with your organisation's mission and current strategic priorities?</legend>
             <div class="yn-pair">
               <label class="yn-option yes"><input type="radio" name="q3" value="yes" /><span>Yes</span></label>
               <label class="yn-option no"><input type="radio" name="q3" value="no" /><span>No</span></label>
             </div>
-          </div>
-          <div class="assessment-question">
-            <p>Are all previous grant acquittals complete and lodged?</p>
+          </fieldset>
+          <fieldset class="assessment-question" style="border: none; padding: 0; margin: 0;">
+            <legend class="assessment-question-text">Are all previous grant acquittals complete and lodged?</legend>
             <div class="yn-pair">
               <label class="yn-option yes"><input type="radio" name="q4" value="yes" /><span>Yes</span></label>
               <label class="yn-option no"><input type="radio" name="q4" value="no" /><span>No</span></label>
             </div>
-          </div>
-          <div class="assessment-question">
-            <p>Does your organisation have the financial stability to manage grant funding responsibly if awarded?</p>
+          </fieldset>
+          <fieldset class="assessment-question" style="border: none; padding: 0; margin: 0;">
+            <legend class="assessment-question-text">Does your organisation have the financial stability to manage grant funding responsibly if awarded?</legend>
             <div class="yn-pair">
               <label class="yn-option yes"><input type="radio" name="q5" value="yes" /><span>Yes</span></label>
               <label class="yn-option no"><input type="radio" name="q5" value="no" /><span>No</span></label>
             </div>
-          </div>
+          </fieldset>
         </div>
 
         <div class="assessment-group">
           <span class="assessment-group-label">Your project</span>
-          <div class="assessment-question">
-            <p>Is the project fully designed — not still being developed as you fill in the application?</p>
+          <fieldset class="assessment-question" style="border: none; padding: 0; margin: 0;">
+            <legend class="assessment-question-text">Is the project fully designed — not still being developed as you fill in the application?</legend>
             <div class="yn-pair">
               <label class="yn-option yes"><input type="radio" name="q6" value="yes" /><span>Yes</span></label>
               <label class="yn-option no"><input type="radio" name="q6" value="no" /><span>No</span></label>
             </div>
-          </div>
-          <div class="assessment-question">
-            <p>Do you have staff time and bandwidth to deliver this project alongside your existing commitments?</p>
+          </fieldset>
+          <fieldset class="assessment-question" style="border: none; padding: 0; margin: 0;">
+            <legend class="assessment-question-text">Do you have staff time and bandwidth to deliver this project alongside your existing commitments?</legend>
             <div class="yn-pair">
               <label class="yn-option yes"><input type="radio" name="q7" value="yes" /><span>Yes</span></label>
               <label class="yn-option no"><input type="radio" name="q7" value="no" /><span>No</span></label>
             </div>
-          </div>
-          <div class="assessment-question">
-            <p>Can you demonstrate genuine community support for this work?</p>
+          </fieldset>
+          <fieldset class="assessment-question" style="border: none; padding: 0; margin: 0;">
+            <legend class="assessment-question-text">Can you demonstrate genuine community support for this work?</legend>
             <div class="yn-pair">
               <label class="yn-option yes"><input type="radio" name="q8" value="yes" /><span>Yes</span></label>
               <label class="yn-option no"><input type="radio" name="q8" value="no" /><span>No</span></label>
             </div>
-          </div>
+          </fieldset>
         </div>
 
         <div class="assessment-group">
           <span class="assessment-group-label">Delivery and accountability</span>
-          <div class="assessment-question">
-            <p>Do you have systems to track grant expenditure separately from your operating finances?</p>
+          <fieldset class="assessment-question" style="border: none; padding: 0; margin: 0;">
+            <legend class="assessment-question-text">Do you have systems to track grant expenditure separately from your operating finances?</legend>
             <div class="yn-pair">
               <label class="yn-option yes"><input type="radio" name="q9" value="yes" /><span>Yes</span></label>
               <label class="yn-option no"><input type="radio" name="q9" value="no" /><span>No</span></label>
             </div>
-          </div>
-          <div class="assessment-question">
-            <p>Do you have the capacity to collect data and report on outcomes to the funder at the required intervals?</p>
+          </fieldset>
+          <fieldset class="assessment-question" style="border: none; padding: 0; margin: 0;">
+            <legend class="assessment-question-text">Do you have the capacity to collect data and report on outcomes to the funder at the required intervals?</legend>
             <div class="yn-pair">
               <label class="yn-option yes"><input type="radio" name="q10" value="yes" /><span>Yes</span></label>
               <label class="yn-option no"><input type="radio" name="q10" value="no" /><span>No</span></label>
             </div>
-          </div>
-          <div class="assessment-question">
-            <p>Do you have a realistic plan for what happens to this project when the funding ends?</p>
+          </fieldset>
+          <fieldset class="assessment-question" style="border: none; padding: 0; margin: 0;">
+            <legend class="assessment-question-text">Do you have a realistic plan for what happens to this project when the funding ends?</legend>
             <div class="yn-pair">
               <label class="yn-option yes"><input type="radio" name="q11" value="yes" /><span>Yes</span></label>
               <label class="yn-option no"><input type="radio" name="q11" value="no" /><span>No</span></label>
             </div>
-          </div>
+          </fieldset>
         </div>
 
       </form>
@@ -427,7 +430,7 @@
       <span class="eyebrow eyebrow-sand">Ready to talk?</span>
       <h2 id="cta-heading">Tell us about your organisation and where you are in the process.</h2>
       <p>A short conversation is always the right first step — we can work out together what kind of support would actually move things forward.</p>
-      <a href="https://keystone-impact-solutions.moxieapp.com/public/discovery-call" class="btn btn-outline-sand" target="_blank" rel="noopener">Book a Call</a>
+      <a href="https://keystone-impact-solutions.moxieapp.com/public/discovery-call" class="btn btn-outline-sand" target="_blank" rel="noopener">Book a Call<span class="sr-only">(opens in new tab)</span></a>
     </div>
   </section>
 
@@ -455,11 +458,11 @@
       <div class="footer-col">
         <h4>Get in Touch</h4>
         <ul>
-          <li><a href="https://keystone-impact-solutions.moxieapp.com/public/discovery-call" target="_blank" rel="noopener">Book a Call</a></li>
+          <li><a href="https://keystone-impact-solutions.moxieapp.com/public/discovery-call" target="_blank" rel="noopener">Book a Call<span class="sr-only">(opens in new tab)</span></a></li>
           <li><a href="mailto:hello@keystoneimpactsolutions.au">hello@keystoneimpactsolutions.au</a></li>
-          <li><a href="https://www.linkedin.com/in/jessicahodgson" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://www.instagram.com/keystoneimpactsolutions" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://www.facebook.com/keystoneimpactsolutions" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://www.linkedin.com/in/jessicahodgson" target="_blank" rel="noopener">LinkedIn<span class="sr-only">(opens in new tab)</span></a></li>
+          <li><a href="https://www.instagram.com/keystoneimpactsolutions" target="_blank" rel="noopener">Instagram<span class="sr-only">(opens in new tab)</span></a></li>
+          <li><a href="https://www.facebook.com/keystoneimpactsolutions" target="_blank" rel="noopener">Facebook<span class="sr-only">(opens in new tab)</span></a></li>
         </ul>
       </div>
     </div>

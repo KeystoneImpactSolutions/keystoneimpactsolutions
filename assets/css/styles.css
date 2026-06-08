@@ -27,6 +27,26 @@
 /* ── Reset & Base ───────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: var(--forest-green);
+  color: var(--warm-sand);
+  padding: 12px 20px;
+  font-family: var(--font-subhead);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  z-index: 9999;
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 0;
+}
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -211,6 +231,27 @@ p:last-child { margin-bottom: 0; }
   border: 2px solid var(--forest-green);
 }
 .btn-outline-green:hover { background: var(--forest-green); color: var(--warm-sand); }
+
+/* Focus indicators */
+.btn:focus-visible {
+  outline: 3px solid var(--terracotta);
+  outline-offset: 3px;
+}
+
+.nav-links a:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 3px;
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid var(--warm-sand);
+  outline-offset: 3px;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 2px;
+}
 
 /* ── Hero ───────────────────────────────────────────────── */
 .hero {
@@ -588,6 +629,10 @@ p:last-child { margin-bottom: 0; }
   font-family: var(--font-body);
   font-size: 0.95rem;
   outline: none;
+}
+.newsletter-form input[type="email"]:focus-visible {
+  outline: 2px solid var(--warm-sand);
+  outline-offset: 2px;
 }
 
 .newsletter-form input::placeholder { color: rgba(216,209,203,0.6); }
