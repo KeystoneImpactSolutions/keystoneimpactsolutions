@@ -309,6 +309,14 @@ p:last-child { margin-bottom: 0; }
   filter: grayscale(0%);
 }
 
+.client-logos img.logo-light {
+  filter: grayscale(100%) brightness(0.45);
+}
+
+.client-logos img.logo-light:hover {
+  filter: grayscale(0%) brightness(1);
+}
+
 .stat-number {
   font-family: var(--font-heading);
   font-size: 3rem;
