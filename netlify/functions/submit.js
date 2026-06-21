@@ -124,7 +124,6 @@ TONE RULES:
 - Do not reveal the internal signal logic in the output.`;
 
 export const handler = async (event) => {
-  // Handle CORS and preflight
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
@@ -141,7 +140,11 @@ export const handler = async (event) => {
     const body = JSON.parse(event.body);
     const { answers, level, email, shareWithJess } = body;
 
-    // Quick validation
+    console.log('=== SUBMIT FUNCTION TRIGGERED ===');
+    console.log('Email:', email);
+    console.log('Level:', level);
+    console.log('Share with Jess:', shareWithJess);
+
     if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
       return {
         statusCode: 400,
@@ -160,21 +163,32 @@ export const handler = async (event) => {
     }
 
     // Trigger background function (fire-and-forget)
-    const netlifyUrl = `https://${event.headers.host}`;
-    fetch(`${netlifyUrl}/.netlify/functions/process-output`, {
+    console.log('Triggering background function...');
+    const netlifyHost = event.headers.host;
+    const bgUrl = `https://${netlifyHost}/.netlify/functions/process-output`;
+    console.log('Background URL:', bgUrl);
+
+    fetch(bgUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ answers, level, email, shareWithJess })
-    }).catch(err => console.error('Failed to trigger background processing:', err));
+    })
+      .then(res => {
+        console.log('Background function response status:', res.status);
+        return res.text();
+      })
+      .then(text => console.log('Background response:', text))
+      .catch(err => console.error('Background function error:', err.message));
 
-    // Return success immediately
+    console.log('Background function triggered, returning success to client');
+
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ success: true })
     };
   } catch (error) {
-    console.error('Submit error:', error.message);
+    console.error('Submit function error:', error.message);
     return {
       statusCode: 500,
       headers: { 'Content-Type': 'application/json' },
