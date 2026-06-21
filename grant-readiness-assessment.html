@@ -193,7 +193,25 @@
       .yn-pair { justify-content: flex-start; }
       .services-resource-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── Brevo gate form ── */
+    :where(.sib-form-message-panel){display:none}
+    .sib-form{background:transparent!important;padding:0!important;text-align:left!important}
+    #sib-form-container{padding:0!important}
+    #sib-container{background:transparent!important;border:none!important;padding:0!important;margin:0!important;max-width:100%!important}
+    #sib-form{display:flex!important;flex-wrap:wrap!important;align-items:stretch!important;gap:0!important;max-width:420px;margin:0 auto}
+    .sib-input{flex:1!important}
+    .form__entry,.form__label-row,.entry__field{margin:0!important;padding:0!important;height:100%}
+    #sib-container input.input{width:100%!important;height:100%!important;box-sizing:border-box!important;padding:14px 16px!important;border:2px solid rgba(212,208,203,.5)!important;border-right:none!important;background:#fff!important;color:#333333!important;font-family:'Open Sans',sans-serif!important;font-size:.95rem!important;font-weight:300!important;border-radius:0!important;outline:none!important;-webkit-appearance:none!important}
+    #sib-container input.input::placeholder{color:#999!important}
+    .entry__error,.entry__specification{display:none!important}
+    #sib-container .sib-form-block{height:100%!important}
+    .org-type-block{flex:0 0 100%!important;margin-bottom:8px!important}
+    #sib-form select.input{width:100%!important;height:100%!important;box-sizing:border-box!important;padding:14px 16px!important;border:2px solid rgba(212,208,203,.5)!important;background:#fff!important;color:#333333!important;font-family:'Open Sans',sans-serif!important;font-size:.95rem!important;font-weight:300!important;border-radius:0!important;outline:none!important;cursor:pointer!important}
+    .sib-form-block__button-with-loader{height:100%!important;box-sizing:border-box!important;padding:14px 28px!important;background:#D8D1CB!important;color:#294B3F!important;border:2px solid #D8D1CB!important;border-radius:0!important;font-family:'Quicksand',sans-serif!important;font-weight:600!important;font-size:.72rem!important;text-transform:uppercase!important;letter-spacing:.12em!important;cursor:pointer!important;white-space:nowrap!important}
+    .sib-hide-loader-icon,.sib-loader{display:none!important}
   </style>
+  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 </head>
 <body>
 
@@ -354,11 +372,78 @@
         </div>
 
       </form>
+
+      <div style="text-align:center; margin-top:48px;">
+        <a href="#results-gate" class="btn btn-primary">See My Results</a>
+      </div>
     </div>
   </section>
 
-  <!-- Results -->
-  <section class="section-light" aria-labelledby="results-heading">
+  <!-- Email Gate -->
+  <section id="results-gate" class="section-dark" aria-labelledby="gate-heading">
+    <div class="inner" style="max-width:560px; margin:0 auto; text-align:center;">
+      <span class="eyebrow eyebrow-terra">Almost there</span>
+      <h2 id="gate-heading">Unlock your personalised results</h2>
+      <p style="margin:16px auto 32px; font-size:0.95rem; opacity:0.88; max-width:460px;">Enter your email to reveal what your answers mean and what to do next. You'll also receive Impact Intel, our newsletter for purpose-led organisations.</p>
+
+      <div class="sib-form">
+        <div id="sib-form-container" class="sib-form-container">
+          <div id="error-message" class="sib-form-message-panel" role="alert"><div class="sib-form-message-panel__text"><span class="sib-form-message-panel__inner-text">Something went wrong. Please try again.</span></div></div>
+          <div></div>
+          <div id="success-message" class="sib-form-message-panel"><div class="sib-form-message-panel__text"><span class="sib-form-message-panel__inner-text">You're in — scroll down for your results.</span></div></div>
+          <div></div>
+          <div id="sib-container" class="sib-container--large sib-container--vertical">
+            <form id="sib-form" method="POST" action="https://251e693e.sibforms.com/serve/MUIFAL6OGP3UGAHJWgGaPfN_Gt97Gya97HqS1ioraf4fiaE1Wc_kWdnEGexQnkrVQomsqLjbyhikR_l3-KcHfj7N46Yz4uFGh6j59UutDsHzqvM5hxX-rUYq-JGzQZh-itA61rv4GL5_6_nHf9Lt7khp_RhfWiALdRFP3Yp6Wy5_cN7oValWoyWbijVKVjpWWM60bZbF-YneRVI_Mg==" data-type="subscription">
+              <div class="sib-input sib-form-block org-type-block">
+                <div class="form__entry entry_block">
+                  <div class="form__label-row">
+                    <div class="entry__field">
+                      <select class="input" name="ORGANISATION_TYPE">
+                        <option value="" disabled selected>Organisation type</option>
+                        <option value="Business">Business</option>
+                        <option value="Non-profit">Non-profit</option>
+                        <option value="Social enterprise">Social enterprise</option>
+                        <option value="Unknown">Unknown</option>
+                        <option value="Other">Other</option>
+                        <option value="Government">Government</option>
+                        <option value="NRM">NRM</option>
+                        <option value="Individual">Individual</option>
+                        <option value="Academic">Academic</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sib-input sib-form-block">
+                <div class="form__entry entry_block">
+                  <div class="form__label-row">
+                    <div class="entry__field">
+                      <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" value="" placeholder="Your email address" data-required="true" required />
+                    </div>
+                  </div>
+                  <label class="entry__error entry__error--primary"></label>
+                </div>
+              </div>
+              <div><div class="g-recaptcha" data-sitekey="6LdE6yotAAAAAEskWq0x6JcZogbsa2n0L4GyWw33" data-callback="invisibleCaptchaCallback" data-size="invisible"></div></div>
+              <div><div class="sib-form-block">
+                <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">
+                  <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg>
+                  GET MY RESULTS
+                </button>
+              </div></div>
+              <input type="text" name="email_address_check" value="" class="input--hidden">
+              <input type="hidden" name="locale" value="en">
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin-top:16px; font-size:0.85rem; opacity:0.6;">No spam. Unsubscribe at any time.</p>
+    </div>
+  </section>
+
+  <!-- Results (hidden until email submitted) -->
+  <section id="results-section" class="section-light" style="display:none" aria-labelledby="results-heading">
     <div class="inner">
       <span class="eyebrow eyebrow-burg">Reading your results</span>
       <h2 id="results-heading">What your answers mean</h2>
@@ -490,6 +575,33 @@
       toggle.setAttribute('aria-expanded', open);
     });
   </script>
+  <script>
+    window.REQUIRED_CODE_ERROR_MESSAGE='Please choose a country code';window.LOCALE='en';
+    window.EMAIL_INVALID_MESSAGE=window.SMS_INVALID_MESSAGE="The information provided is invalid. Please review the field format and try again.";
+    window.REQUIRED_ERROR_MESSAGE="This field cannot be left blank. ";
+    window.GENERIC_INVALID_MESSAGE="The information provided is invalid. Please review the field format and try again.";
+    window.INVALID_NUMBER=window.INVALID_DATE="The information provided is invalid. Please review the field format and try again.";
+    window.REQUIRED_MULTISELECT_MESSAGE='Please select at least 1 option';
+    window.translation={common:{selectedList:'{quantity} list selected',selectedLists:'{quantity} lists selected',selectedOption:'{quantity} selected',selectedOptions:'{quantity} selected'}};
+    var AUTOHIDE=Boolean(0);
+    // On success: reveal results on this page instead of redirecting
+    var successPanel=document.getElementById('success-message');
+    if(successPanel){
+      new MutationObserver(function(){
+        if(getComputedStyle(successPanel).display!=='none'){
+          var gate=document.getElementById('results-gate');
+          var results=document.getElementById('results-section');
+          if(gate) gate.style.display='none';
+          if(results){
+            results.removeAttribute('style');
+            setTimeout(function(){results.scrollIntoView({behavior:'smooth'});},150);
+          }
+        }
+      }).observe(successPanel,{attributes:true,attributeFilter:['style','class']});
+    }
+  </script>
+  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
 
 </body>
 </html>
