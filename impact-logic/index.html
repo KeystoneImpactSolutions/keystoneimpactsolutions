@@ -11,27 +11,26 @@
 <body>
   <a href="#main" class="skip-link">Skip to main content</a>
 
-  <nav class="site-nav">
-    <div class="inner nav-content">
-      <a href="/" class="logo" aria-label="Keystone Impact Solutions">
-        <svg class="logo-svg" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="30" font-family="Lora, serif" font-size="32" font-weight="600" fill="#333333">KIS</text>
-        </svg>
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Keystone Impact Solutions home">
+        <img src="../assets/img/logo-reverse.svg" alt="Keystone Impact Solutions" />
       </a>
-      <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/services.html">Services</a></li>
+        <li><a href="/case-studies.html">Case Studies</a></li>
+        <li><a href="/impact-intel.html">Impact Intel</a></li>
+        <li><a href="https://keystone-impact-solutions.moxieapp.com/public/discovery-call" class="nav-cta" target="_blank" rel="noopener">Book a Call<span class="sr-only">(opens in new tab)</span></a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <div id="nav-links" class="nav-links">
-        <a href="/">Home</a>
-        <a href="/services.html">Services</a>
-        <a href="/about.html">About</a>
-        <a href="/impact-intel.html">Impact Intel</a>
-        <a href="/contact.html">Contact</a>
-      </div>
     </div>
   </nav>
 
-  <main id="main" class="impact-logic-tool">
+  <main id="main-content" class="impact-logic-tool">
     <!-- Welcome Screen -->
     <section id="screen-welcome" class="screen active">
       <div class="inner screen-content">
@@ -128,39 +127,52 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="inner footer-inner">
-      <div class="footer-col footer-brand">
-        <div class="footer-logo">KIS</div>
-        <p style="font-size:0.85rem; opacity:0.7;">Strategic grant writing and impact logic for purpose-led organisations.</p>
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="../assets/img/logo-reverse.svg" alt="Keystone Impact Solutions" />
+        </div>
+        <span class="footer-tagline">Partner to the Changemakers</span>
+        <p>Fundraising and impact support for non-profits and purpose-led organisations across Australia.</p>
       </div>
       <div class="footer-col">
-        <h3 class="footer-col-heading">Services</h3>
+        <p class="footer-col-heading">Navigation</p>
         <ul>
-          <li><a href="/services.html#grant-writing">Grant Writing</a></li>
-          <li><a href="/services.html#impact-strategy">Impact Strategy</a></li>
-          <li><a href="/services.html#partnerships">Partnerships</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3 class="footer-col-heading">Learn</h3>
-        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/case-studies.html">Case Studies</a></li>
           <li><a href="/impact-intel.html">Impact Intel</a></li>
-          <li><a href="/about.html">About us</a></li>
-          <li><a href="/contact.html">Get in touch</a></li>
+          <li><a href="/contact.html">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h3 class="footer-col-heading">Legal</h3>
+        <p class="footer-col-heading">Free Resources</p>
         <ul>
-          <li><a href="/privacy.html">Privacy</a></li>
-          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/grant-readiness-assessment.html">Grant Readiness Self-Assessment</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-heading">Get in Touch</p>
+        <ul>
+          <li><a href="https://keystone-impact-solutions.moxieapp.com/public/discovery-call" target="_blank" rel="noopener">Book a Call<span class="sr-only">(opens in new tab)</span></a></li>
+          <li><a href="mailto:hello@keystoneimpactsolutions.au">hello@keystoneimpactsolutions.au</a></li>
+          <li><a href="https://www.linkedin.com/in/jessicahodgson" target="_blank" rel="noopener">LinkedIn<span class="sr-only">(opens in new tab)</span></a></li>
+          <li><a href="https://www.instagram.com/keystoneimpactsolutions" target="_blank" rel="noopener">Instagram<span class="sr-only">(opens in new tab)</span></a></li>
+          <li><a href="https://www.facebook.com/keystoneimpactsolutions" target="_blank" rel="noopener">Facebook<span class="sr-only">(opens in new tab)</span></a></li>
         </ul>
       </div>
     </div>
+    <div class="footer-acknowledgment">
+      <p>KIS acknowledge Aboriginal and Torres Strait Islander peoples as the First Australians. This always was and always will be Aboriginal land. KIS recognise the diverse cultures, histories and heritage of the many countries across Australia and their deep connection to the lands, waters and seas. KIS pay our respects to Elders past, present and emerging.</p>
+    </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 Keystone Impact Solutions. All rights reserved.</p>
-      <p><a href="/">keystoneimpactsolutions.au</a></p>
+      <p>© Keystone Impact Solutions 2025. All Rights Reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms and Conditions</a>
+      </div>
     </div>
   </footer>
 
