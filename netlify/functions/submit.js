@@ -138,6 +138,22 @@ export const handler = async (event) => {
   }
 
   try {
+    // Check environment variables
+    if (!process.env.ANTHROPIC_API_KEY) {
+      console.error('Missing ANTHROPIC_API_KEY');
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Missing ANTHROPIC_API_KEY environment variable' })
+      };
+    }
+    if (!process.env.BREVO_API_KEY) {
+      console.error('Missing BREVO_API_KEY');
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Missing BREVO_API_KEY environment variable' })
+      };
+    }
+
     const body = JSON.parse(event.body);
     const { answers, level, email, shareWithJess } = body;
 
