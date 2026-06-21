@@ -1,0 +1,11 @@
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+[[redirects]]
+  from = "/impact-logic/submit"
+  to = "/.netlify/functions/submit"
+  status = 200
+
+[functions]
+  node_bundler = "esbuild"

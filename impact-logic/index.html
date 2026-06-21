@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strategic Impact Logic Tool — Keystone Impact Solutions</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Quicksand:wght@400;500;600&family=Open+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <nav class="site-nav">
+    <div class="inner nav-content">
+      <a href="/" class="logo" aria-label="Keystone Impact Solutions">
+        <svg class="logo-svg" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="30" font-family="Lora, serif" font-size="32" font-weight="600" fill="#333333">KIS</text>
+        </svg>
+      </a>
+      <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <div id="nav-links" class="nav-links">
+        <a href="/">Home</a>
+        <a href="/services.html">Services</a>
+        <a href="/about.html">About</a>
+        <a href="/impact-intel.html">Impact Intel</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main" class="impact-logic-tool">
+    <!-- Welcome Screen -->
+    <section id="screen-welcome" class="screen active">
+      <div class="inner screen-content">
+        <span class="eyebrow eyebrow-forest">STRATEGIC IMPACT LOGIC TOOL</span>
+        <h1>Clarity before you apply.</h1>
+        <p class="screen-body">This tool guides you through a structured process to clarify the logic, intent, and readiness of your work — whether that's a single project, a program, or your organisation's work more broadly.</p>
+        <p class="screen-body">At the end, you'll receive a personalised Impact Logic Summary, a plain-English Theory of Change narrative, and a readiness signal by email.</p>
+        <p class="screen-body">This process is designed to be genuinely reflective. It takes most people 20–30 minutes. Short or incomplete answers are fine — clarity matters more than completeness.</p>
+
+        <div class="insight-box">
+          <span class="insight-label">INSIGHT</span>
+          <p>You can answer based on a single project, a program, or your work overall — whichever best represents what you want to reflect on or seek recognition for.</p>
+        </div>
+
+        <button class="btn btn-primary" data-action="start">Begin the process →</button>
+      </div>
+    </section>
+
+    <!-- Question Screens -->
+    <section id="screen-questions" class="screen">
+      <div class="inner screen-content">
+        <div class="progress-header">
+          <button class="btn-back" id="btn-back" style="display:none;">← Back</button>
+          <span class="progress-indicator">Question <span id="current-step">1</span> of 21</span>
+        </div>
+
+        <div id="question-container">
+          <span class="eyebrow eyebrow-forest" id="phase-label"></span>
+          <label for="question-input" id="question-text"></label>
+          <p class="helper-text" id="helper-text" style="display:none;"></p>
+          <textarea id="question-input" class="form-input"></textarea>
+        </div>
+
+        <div class="button-group">
+          <button class="btn btn-secondary" id="btn-next" disabled>Next →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Submission Screen -->
+    <section id="screen-submission" class="screen">
+      <div class="inner screen-content">
+        <h2>Almost done.</h2>
+        <p>Your output is generated and emailed to you — usually within a minute or two. Enter your email address below.</p>
+
+        <form id="submission-form" class="submission-form">
+          <div class="form-group">
+            <input type="email" id="email-input" class="form-input" placeholder="your@email.com" required>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="share-checkbox" checked>
+            <label for="share-checkbox">
+              Share my output with Dr Jess Hodgson (uncheck to keep it private)
+            </label>
+          </div>
+          <p class="helper-text" style="margin-top:8px;">If you share, Jess receives your Impact Logic Summary, Theory of Change narrative, and readiness signal before any conversation — so you arrive with context already established. Sharing is optional.</p>
+
+          <button type="submit" class="btn btn-primary" id="btn-submit">Send my output →</button>
+          <div id="submission-loading" class="submission-loading" style="display:none;">
+            <svg class="spinner" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="31.4 94.2" animation="spin 2s linear infinite" style="animation: spin 2s linear infinite;"></circle>
+            </svg>
+            <p>Generating your output — this takes about 30 seconds.</p>
+          </div>
+          <div id="submission-error" class="submission-error" style="display:none;">
+            <p>Something went wrong and your output could not be generated. Please try again or contact <a href="mailto:hello@keystoneimpactsolutions.au">hello@keystoneimpactsolutions.au</a></p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Thank You Screen -->
+    <section id="screen-thank-you" class="screen">
+      <div class="inner screen-content">
+        <span class="eyebrow eyebrow-forest">OUTPUT SENT</span>
+        <h1>Your Impact Logic output is on its way.</h1>
+        <p class="screen-body">Check your inbox — it usually arrives within a few minutes. Check your spam folder if you don't see it.</p>
+
+        <div class="insight-box">
+          <span class="insight-label">WHAT HAPPENS NEXT</span>
+          <p>Your output includes an Impact Logic Summary, a Theory of Change narrative, and a readiness signal. Read it before doing anything else. The signal is the starting point.</p>
+        </div>
+
+        <hr class="divider">
+
+        <p style="margin-bottom:32px;">If you'd like to talk through what comes next, book a discovery call with Dr Jess:</p>
+        <a href="https://keystone-impact-solutions.moxieapp.com/public/discovery-call" target="_blank" rel="noopener" class="btn btn-primary">Book a discovery call →</a>
+
+        <hr class="divider" style="margin: 48px 0;">
+
+        <a href="https://keystoneimpactsolutions.au" class="link-standalone">Learn more about Keystone Impact Solutions →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="inner footer-inner">
+      <div class="footer-col footer-brand">
+        <div class="footer-logo">KIS</div>
+        <p style="font-size:0.85rem; opacity:0.7;">Strategic grant writing and impact logic for purpose-led organisations.</p>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-col-heading">Services</h3>
+        <ul>
+          <li><a href="/services.html#grant-writing">Grant Writing</a></li>
+          <li><a href="/services.html#impact-strategy">Impact Strategy</a></li>
+          <li><a href="/services.html#partnerships">Partnerships</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-col-heading">Learn</h3>
+        <ul>
+          <li><a href="/impact-intel.html">Impact Intel</a></li>
+          <li><a href="/about.html">About us</a></li>
+          <li><a href="/contact.html">Get in touch</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-col-heading">Legal</h3>
+        <ul>
+          <li><a href="/privacy.html">Privacy</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Keystone Impact Solutions. All rights reserved.</p>
+      <p><a href="/">keystoneimpactsolutions.au</a></p>
+    </div>
+  </footer>
+
+  <script src="js/form.js"></script>
+</body>
+</html>
