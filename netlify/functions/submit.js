@@ -185,22 +185,27 @@ export const handler = async (event) => {
     }).join('\n\n');
 
     // Call Anthropic API
+    const anthropicPayload = {
+      model: 'claude-sonnet-4-6',
+      max_tokens: 2000,
+      system: SYSTEM_PROMPT,
+      messages: [{ role: 'user', content: userMessage }]
+    };
+    console.log('Sending to Anthropic:', JSON.stringify(anthropicPayload).substring(0, 200));
+
     const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': process.env.ANTHROPIC_API_KEY
       },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 2000,
-        system: SYSTEM_PROMPT,
-        messages: [{ role: 'user', content: userMessage }]
-      })
+      body: JSON.stringify(anthropicPayload)
     });
 
     if (!anthropicResponse.ok) {
-      throw new Error(`Anthropic API error: ${anthropicResponse.statusText}`);
+      const errorData = await anthropicResponse.json();
+      console.error('Anthropic error response:', JSON.stringify(errorData));
+      throw new Error(`Anthropic API error: ${anthropicResponse.statusText} - ${JSON.stringify(errorData)}`);
     }
 
     const anthropicData = await anthropicResponse.json();
