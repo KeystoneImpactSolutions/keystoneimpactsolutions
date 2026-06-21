@@ -334,6 +334,21 @@
       border: 0;
     }
   </style>
+  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+  <style>
+    :where(.sib-form-message-panel){display:none}
+    .sib-form{background:transparent!important;padding:0!important;text-align:left!important}
+    #sib-form-container{padding:0!important}
+    #sib-container{background:transparent!important;border:none!important;padding:0!important;margin:0!important;max-width:100%!important}
+    #sib-form{display:flex!important;align-items:stretch!important}
+    .sib-input{flex:1!important}
+    .form__entry,.form__label-row,.entry__field{margin:0!important;padding:0!important;height:100%}
+    #sib-container input.input{width:100%!important;height:100%!important;box-sizing:border-box!important;padding:14px 16px!important;border:2px solid rgba(212,208,203,.5)!important;border-right:none!important;background:rgba(255,255,255,.08)!important;color:#D8D1CB!important;font-family:'Open Sans',sans-serif!important;font-size:.95rem!important;font-weight:300!important;border-radius:0!important;outline:none!important;-webkit-appearance:none!important}
+    #sib-container input.input::placeholder{color:rgba(216,209,203,.6)!important}
+    .entry__error,.entry__specification{display:none!important}
+    .sib-form-block__button-with-loader{padding:14px 28px!important;background:#294B3F!important;color:#D8D1CB!important;border:2px solid #294B3F!important;border-radius:0!important;font-family:'Quicksand',sans-serif!important;font-weight:600!important;font-size:.72rem!important;text-transform:uppercase!important;letter-spacing:.12em!important;cursor:pointer!important;white-space:nowrap!important}
+    .sib-hide-loader-icon,.sib-loader{display:none!important}
+  </style>
 </head>
 <body>
 
@@ -505,12 +520,37 @@
       <p class="eyebrow eyebrow-terra" style="margin-bottom:12px;">Stay informed</p>
       <h2>Funding intelligence, direct to your inbox.</h2>
       <p>Grant opportunities, sector updates, and practical strategy. Sent when there is something worth saying.</p>
-      <form class="newsletter-form" method="POST" action="https://251e693e.sibforms.com/serve/MUIFAL6OGP3UGAHJWgGaPfN_Gt97Gya97HqS1ioraf4fiaE1Wc_kWdnEGexQnkrVQomsqLjbyhikR_l3-KcHfj7N46Yz4uFGh6j59UutDsHzqvM5hxX-rUYq-JGzQZh-itA61rv4GL5_6_nHf9Lt7khp_RhfWiALdRFP3Yp6Wy5_cN7oValWoyWbijVKVjpWWM60bZbF-YneRVI_Mg==" aria-label="Newsletter signup">
-        <input type="email" name="EMAIL" placeholder="Your email address" required aria-label="Email address" autocomplete="off" />
-        <button type="submit">Subscribe</button>
-        <input type="text" name="email_address_check" value="" style="display:none" tabindex="-1" autocomplete="off">
-        <input type="hidden" name="locale" value="en">
-      </form>
+      <div class="sib-form">
+        <div id="sib-form-container" class="sib-form-container">
+          <div id="error-message" class="sib-form-message-panel" role="alert"><div class="sib-form-message-panel__text"><span class="sib-form-message-panel__inner-text">Your subscription could not be saved. Please try again.</span></div></div>
+          <div></div>
+          <div id="success-message" class="sib-form-message-panel"><div class="sib-form-message-panel__text"><span class="sib-form-message-panel__inner-text">You're subscribed!</span></div></div>
+          <div></div>
+          <div id="sib-container" class="sib-container--large sib-container--vertical">
+            <form id="sib-form" method="POST" action="https://251e693e.sibforms.com/serve/MUIFAL6OGP3UGAHJWgGaPfN_Gt97Gya97HqS1ioraf4fiaE1Wc_kWdnEGexQnkrVQomsqLjbyhikR_l3-KcHfj7N46Yz4uFGh6j59UutDsHzqvM5hxX-rUYq-JGzQZh-itA61rv4GL5_6_nHf9Lt7khp_RhfWiALdRFP3Yp6Wy5_cN7oValWoyWbijVKVjpWWM60bZbF-YneRVI_Mg==" data-type="subscription">
+              <div class="sib-input sib-form-block">
+                <div class="form__entry entry_block">
+                  <div class="form__label-row">
+                    <div class="entry__field">
+                      <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" value="" placeholder="Your email address" data-required="true" required />
+                    </div>
+                  </div>
+                  <label class="entry__error entry__error--primary"></label>
+                </div>
+              </div>
+              <div><div class="g-recaptcha" data-sitekey="6LdE6yotAAAAAEskWq0x6JcZogbsa2n0L4GyWw33" data-callback="invisibleCaptchaCallback" data-size="invisible"></div></div>
+              <div><div class="sib-form-block">
+                <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">
+                  <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg>
+                  SUBSCRIBE
+                </button>
+              </div></div>
+              <input type="text" name="email_address_check" value="" class="input--hidden">
+              <input type="hidden" name="locale" value="en">
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -564,5 +604,19 @@
     });
   </script>
 
+  <script>
+    window.REQUIRED_CODE_ERROR_MESSAGE='Please choose a country code';window.LOCALE='en';
+    window.EMAIL_INVALID_MESSAGE=window.SMS_INVALID_MESSAGE="The information provided is invalid. Please review the field format and try again.";
+    window.REQUIRED_ERROR_MESSAGE="This field cannot be left blank. ";
+    window.GENERIC_INVALID_MESSAGE="The information provided is invalid. Please review the field format and try again.";
+    window.INVALID_NUMBER=window.INVALID_DATE="The information provided is invalid. Please review the field format and try again.";
+    window.REQUIRED_MULTISELECT_MESSAGE='Please select at least 1 option';
+    window.translation={common:{selectedList:'{quantity} list selected',selectedLists:'{quantity} lists selected',selectedOption:'{quantity} selected',selectedOptions:'{quantity} selected'}};
+    var AUTOHIDE=Boolean(0);
+    var sibSuccess=document.getElementById('success-message');
+    if(sibSuccess){new MutationObserver(function(){if(getComputedStyle(sibSuccess).display!=='none'){window.location.href='newsletter-confirmed.html';}}).observe(sibSuccess,{attributes:true,attributeFilter:['style','class']});}
+  </script>
+  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
 </body>
 </html>
