@@ -124,6 +124,8 @@ TONE RULES:
 - Do not reveal the internal signal logic in the output.`;
 
 export const handler = async (event) => {
+  console.log('=== SUBMIT FUNCTION CALLED ===');
+
   // Handle CORS and preflight
   if (event.httpMethod === 'OPTIONS') {
     return {
@@ -138,7 +140,6 @@ export const handler = async (event) => {
   }
 
   try {
-    console.log('=== SUBMIT FUNCTION CALLED ===');
     console.log('ENV KEYS:', Object.keys(process.env).filter(k => k.includes('API') || k.includes('EMAIL')));
 
     // Check environment variables
@@ -241,6 +242,7 @@ export const handler = async (event) => {
     console.error('Error stack:', error.stack);
     return {
       statusCode: 500,
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ error: `Server error: ${error.message}` })
     };
   }
