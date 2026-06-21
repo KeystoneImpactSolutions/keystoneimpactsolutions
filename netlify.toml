@@ -10,3 +10,7 @@
 
 [functions]
   node_bundler = "esbuild"
+
+[[functions]]
+  name = "submit"
+  timeout = 60
