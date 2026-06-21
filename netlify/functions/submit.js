@@ -124,146 +124,267 @@ TONE RULES:
 - Do not reveal the internal signal logic in the output.`;
 
 export const handler = async (event) => {
-  console.log('\n\n');
-  console.log('═══════════════════════════════════════════════════════════');
-  console.log('SUBMIT FUNCTION TRIGGERED');
-  console.log('═══════════════════════════════════════════════════════════');
+  console.log('\n\n═══════════════════════════════════════════════════════════════════════════════════');
+  console.log('SUBMIT FUNCTION START');
+  console.log('═══════════════════════════════════════════════════════════════════════════════════');
+  const functionStart = Date.now();
   console.log('Timestamp:', new Date().toISOString());
-  console.log('HTTP Method:', event.httpMethod);
-  console.log('Host:', event.headers.host);
-  console.log('Content-Type:', event.headers['content-type']);
+  console.log('Method:', event.httpMethod);
 
+  // Handle CORS preflight
   if (event.httpMethod === 'OPTIONS') {
-    console.log('→ Handling CORS preflight');
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ok: true })
-    };
+    console.log('→ CORS preflight request');
+    return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ok: true }) };
   }
 
   if (event.httpMethod !== 'POST') {
-    console.log('✗ Wrong HTTP method');
+    console.log('✗ Wrong method:', event.httpMethod);
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
   try {
-    console.log('→ Parsing request body...');
-    console.log('Body length:', event.body ? event.body.length : 0, 'bytes');
-    console.log('Body preview:', event.body ? event.body.substring(0, 150) : 'empty');
+    // STEP 1: Parse request
+    console.log('\n→ STEP 1: Parse request body');
+    let body;
+    try {
+      body = JSON.parse(event.body);
+      console.log('  ✓ Parsed JSON');
+    } catch (e) {
+      console.error('  ✗ JSON parse failed:', e.message);
+      throw new Error(`Invalid JSON: ${e.message}`);
+    }
 
-    const body = JSON.parse(event.body);
     const { answers, level, email, shareWithJess } = body;
-
-    console.log('✓ Body parsed successfully');
     console.log('  Email:', email);
     console.log('  Level:', level);
-    console.log('  ShareWithJess:', shareWithJess);
-    console.log('  Answers object keys:', Object.keys(answers || {}).length);
-    console.log('  Answers:', JSON.stringify(answers, null, 2));
+    console.log('  Share with Jess:', shareWithJess);
+    console.log('  Answer keys:', Object.keys(answers || {}).length);
 
-    // Validate email
-    console.log('→ Validating email...');
+    // STEP 2: Validate email
+    console.log('\n→ STEP 2: Validate email');
     if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      console.log('✗ Invalid email:', email);
-      return {
-        statusCode: 400,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ error: 'Invalid email address' })
-      };
+      console.error('  ✗ Invalid email:', email);
+      return { statusCode: 400, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ error: 'Invalid email address' }) };
     }
-    console.log('✓ Email valid');
+    console.log('  ✓ Email valid');
 
-    // Validate answer count
+    // STEP 3: Validate answer count
+    console.log('\n→ STEP 3: Validate answer count');
     const nonEmptyAnswers = Object.values(answers || {}).filter(a => a && a.trim().length > 0).length;
-    console.log('→ Checking answer count...');
     console.log('  Non-empty answers:', nonEmptyAnswers);
     if (nonEmptyAnswers < 15) {
-      console.log('✗ Not enough answers (need 15, got', nonEmptyAnswers + ')');
-      return {
-        statusCode: 400,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ error: 'Please answer at least 15 questions' })
-      };
+      console.error('  ✗ Insufficient answers (need 15, got', nonEmptyAnswers + ')');
+      return { statusCode: 400, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ error: 'Please answer at least 15 questions' }) };
     }
-    console.log('✓ Enough answers');
+    console.log('  ✓ Sufficient answers');
 
-    // Trigger background function
-    console.log('\n→ TRIGGERING BACKGROUND FUNCTION');
-    const netlifyHost = event.headers.host;
-    const bgUrl = `https://${netlifyHost}/.netlify/functions/process-output`;
-    console.log('  Background URL:', bgUrl);
+    // STEP 4: Check API keys
+    console.log('\n→ STEP 4: Check environment variables');
+    if (!process.env.ANTHROPIC_API_KEY) {
+      console.error('  ✗ ANTHROPIC_API_KEY not set');
+      throw new Error('Missing ANTHROPIC_API_KEY');
+    }
+    if (!process.env.BREVO_API_KEY) {
+      console.error('  ✗ BREVO_API_KEY not set');
+      throw new Error('Missing BREVO_API_KEY');
+    }
+    console.log('  ✓ API keys present');
 
-    const requestPayload = { answers, level, email, shareWithJess };
-    const requestBody = JSON.stringify(requestPayload);
-    console.log('  Request payload size:', requestBody.length, 'bytes');
-    console.log('  Request payload preview:', requestBody.substring(0, 200));
+    // STEP 5: Build user message
+    console.log('\n→ STEP 5: Build user message for Anthropic');
+    const userMessage = QUESTIONS.map((q, i) => {
+      const answer = i === 5 ? level : (answers[i + 1] || 'No answer provided.');
+      return `Q${i + 1}: ${q}\nA: ${answer}`;
+    }).join('\n\n');
+    console.log('  Message size:', userMessage.length, 'bytes');
 
-    console.log('  → Initiating fetch to background function...');
-    const fetchStart = Date.now();
+    // STEP 6: Call Anthropic API
+    console.log('\n→ STEP 6: Call Anthropic API (claude-sonnet-4-6)');
+    const anthropicPayload = {
+      model: 'claude-sonnet-4-6',
+      max_tokens: 2000,
+      system: SYSTEM_PROMPT,
+      messages: [{ role: 'user', content: userMessage }]
+    };
+    const anthropicPayloadSize = JSON.stringify(anthropicPayload).length;
+    console.log('  Payload size:', anthropicPayloadSize, 'bytes');
 
-    const bgPromise = fetch(bgUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: requestBody
-    });
-
-    bgPromise
-      .then(res => {
-        const duration = Date.now() - fetchStart;
-        console.log('  ✓ FETCH COMPLETED');
-        console.log('    Status:', res.status, res.statusText);
-        console.log('    Duration:', duration + 'ms');
-        console.log('    Headers:', JSON.stringify(Object.fromEntries(res.headers)));
-
-        if (!res.ok) {
-          console.error('  ✗ Response not OK!');
-        } else {
-          console.log('  ✓ Response OK');
-        }
-
-        return res.text().catch(e => {
-          console.error('  ✗ Failed to read response text:', e.message, e.stack);
-          throw e;
-        });
-      })
-      .then(text => {
-        console.log('  ✓ RESPONSE BODY RECEIVED');
-        console.log('    Length:', text.length, 'chars');
-        console.log('    Content:', text);
-      })
-      .catch(err => {
-        console.error('\n✗✗✗ BACKGROUND FETCH FAILED ✗✗✗');
-        console.error('  Type:', err.constructor.name);
-        console.error('  Message:', err.message);
-        console.error('  Name:', err.name);
-        if (err.stack) {
-          console.error('  Stack:', err.stack);
-        }
-        if (err.cause) {
-          console.error('  Cause:', err.cause);
-        }
+    const anthropicStart = Date.now();
+    let anthropicResponse;
+    try {
+      anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': process.env.ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01'
+        },
+        body: JSON.stringify(anthropicPayload)
       });
+    } catch (e) {
+      console.error('  ✗ Fetch failed:', e.message);
+      throw new Error(`Anthropic fetch error: ${e.message}`);
+    }
 
-    console.log('\n✓ Background function fetch initiated (fire-and-forget)');
-    console.log('→ Returning success response to client\n');
+    const anthropicDuration = Date.now() - anthropicStart;
+    console.log('  ✓ Response received. Status:', anthropicResponse.status, `(${anthropicDuration}ms)`);
+
+    if (!anthropicResponse.ok) {
+      let errorText = '';
+      try {
+        errorText = await anthropicResponse.text();
+      } catch (e) {
+        errorText = '(could not read error body)';
+      }
+      console.error('  ✗ Anthropic error:', anthropicResponse.status);
+      console.error('  Body:', errorText.substring(0, 500));
+      throw new Error(`Anthropic HTTP ${anthropicResponse.status}: ${errorText.substring(0, 200)}`);
+    }
+
+    // STEP 7: Parse Anthropic response
+    console.log('\n→ STEP 7: Parse Anthropic response');
+    let anthropicData;
+    try {
+      anthropicData = await anthropicResponse.json();
+    } catch (e) {
+      console.error('  ✗ JSON parse failed:', e.message);
+      throw new Error(`Failed to parse Anthropic JSON: ${e.message}`);
+    }
+
+    if (!anthropicData.content || !anthropicData.content[0] || !anthropicData.content[0].text) {
+      console.error('  ✗ Unexpected response structure:', JSON.stringify(anthropicData).substring(0, 200));
+      throw new Error('Anthropic response missing content');
+    }
+
+    const aiOutput = anthropicData.content[0].text;
+    console.log('  ✓ Output extracted:', aiOutput.length, 'chars');
+    console.log('  Preview:', aiOutput.substring(0, 150));
+
+    // STEP 8: Extract readiness signal
+    console.log('\n→ STEP 8: Extract readiness signal');
+    const signalMatch = aiOutput.match(/## Readiness Signal\s+\n(GREEN|AMBER|RED)/);
+    const signal = signalMatch ? signalMatch[1] : 'UNKNOWN';
+    console.log('  Signal:', signal);
+    if (signal === 'UNKNOWN') {
+      console.warn('  ⚠ Could not extract signal from output');
+    }
+
+    // STEP 9: Build email HTML
+    console.log('\n→ STEP 9: Build email HTML');
+    const htmlContent = buildUserEmailHtml(aiOutput, signal);
+    console.log('  HTML size:', htmlContent.length, 'bytes');
+
+    // STEP 10: Send email to user
+    console.log('\n→ STEP 10: Send email to user via Brevo');
+    console.log('  To:', email);
+    console.log('  Subject: Your Strategic Impact Logic Output — Keystone Impact Solutions');
+
+    const brevoUserStart = Date.now();
+    let brevoUserResponse;
+    try {
+      brevoUserResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: {
+          'api-key': process.env.BREVO_API_KEY,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          sender: {
+            name: process.env.SENDER_NAME || 'Keystone Impact Solutions',
+            email: process.env.SENDER_EMAIL || 'hello@keystoneimpactsolutions.au'
+          },
+          to: [{ email }],
+          subject: 'Your Strategic Impact Logic Output — Keystone Impact Solutions',
+          htmlContent
+        })
+      });
+    } catch (e) {
+      console.error('  ✗ Fetch failed:', e.message);
+      throw new Error(`Brevo fetch error: ${e.message}`);
+    }
+
+    const brevoUserDuration = Date.now() - brevoUserStart;
+    console.log('  ✓ Response status:', brevoUserResponse.status, `(${brevoUserDuration}ms)`);
+
+    if (!brevoUserResponse.ok) {
+      let errorText = '';
+      try {
+        errorText = await brevoUserResponse.text();
+      } catch (e) {
+        errorText = '(could not read error body)';
+      }
+      console.error('  ✗ Brevo error:', brevoUserResponse.status);
+      console.error('  Body:', errorText.substring(0, 500));
+      throw new Error(`Brevo HTTP ${brevoUserResponse.status}: ${errorText.substring(0, 200)}`);
+    }
+    console.log('  ✓ Email sent successfully');
+
+    // STEP 11: Send optional Jess notification
+    if (shareWithJess && process.env.JESS_EMAIL) {
+      console.log('\n→ STEP 11: Send Jess notification');
+      console.log('  To:', process.env.JESS_EMAIL);
+
+      const plainText = `Readiness signal: ${signal}\n\nUser email: ${email}\nSubmitted: ${new Date().toISOString()}\n\n--- FULL Q&A ---\n\n${QUESTIONS.map((q, i) => {
+        const answer = i === 5 ? level : (answers[i + 1] || 'No answer provided.');
+        return `Q${i + 1}: ${q}\nA: ${answer}`;
+      }).join('\n\n')}\n\n--- AI OUTPUT ---\n\n${aiOutput}`;
+
+      const jessStart = Date.now();
+      let jessResponse;
+      try {
+        jessResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers: {
+            'api-key': process.env.BREVO_API_KEY,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            sender: {
+              name: 'Keystone Impact Solutions',
+              email: process.env.SENDER_EMAIL || 'hello@keystoneimpactsolutions.au'
+            },
+            to: [{ email: process.env.JESS_EMAIL }],
+            subject: `[${signal}] — Impact Logic output shared: ${email}`,
+            textContent: plainText
+          })
+        });
+      } catch (e) {
+        console.error('  ⚠ Jess notification fetch failed (non-fatal):', e.message);
+        jessResponse = null;
+      }
+
+      if (jessResponse) {
+        const jessDuration = Date.now() - jessStart;
+        console.log('  Response status:', jessResponse.status, `(${jessDuration}ms)`);
+        if (!jessResponse.ok) {
+          console.warn('  ⚠ Jess notification failed with status', jessResponse.status, '(non-fatal)');
+        } else {
+          console.log('  ✓ Jess notification sent');
+        }
+      }
+    }
+
+    // Success
+    const totalDuration = Date.now() - functionStart;
+    console.log('\n✓ ALL STEPS COMPLETE');
+    console.log('Total duration:', totalDuration + 'ms');
+    console.log('═══════════════════════════════════════════════════════════════════════════════════\n');
 
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ success: true })
     };
+
   } catch (error) {
-    console.error('\n✗✗✗ SUBMIT FUNCTION ERROR ✗✗✗');
-    console.error('  Message:', error.message);
-    console.error('  Name:', error.name);
-    console.error('  Stack:', error.stack);
-    if (error.cause) {
-      console.error('  Cause:', error.cause);
-    }
+    const totalDuration = Date.now() - functionStart;
+    console.error('\n✗✗✗ FUNCTION ERROR ✗✗✗');
+    console.error('Duration before error:', totalDuration + 'ms');
+    console.error('Error type:', error.constructor.name);
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
+    console.error('═══════════════════════════════════════════════════════════════════════════════════\n');
+
     return {
       statusCode: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -271,3 +392,75 @@ export const handler = async (event) => {
     };
   }
 };
+
+function buildUserEmailHtml(aiOutput, signal) {
+  const signalColours = {
+    GREEN: { bg: '#294B3F', text: '#D8D1CB' },
+    AMBER: { bg: '#A1573A', text: '#D8D1CB' },
+    RED: { bg: '#6B2737', text: '#D8D1CB' },
+    UNKNOWN: { bg: '#999A96', text: '#D8D1CB' }
+  };
+
+  const colours = signalColours[signal] || signalColours.UNKNOWN;
+
+  return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Open Sans', Arial, sans-serif; background: #D8D1CB; color: #333333; }
+    .container { max-width: 600px; margin: 0 auto; background: #D8D1CB; }
+    .header { background: #333333; padding: 40px 24px; text-align: center; }
+    .header-logo { font-family: 'Lora', Georgia, serif; font-size: 28px; font-weight: 600; color: #D8D1CB; margin-bottom: 8px; }
+    .header-eyebrow { font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #A1573A; }
+    .content-section { background: white; border: 1px solid #294B3F; margin: 20px; padding: 32px; }
+    .content-section h2 { font-family: 'Lora', Georgia, serif; font-size: 18px; font-weight: 600; color: #294B3F; margin-top: 24px; margin-bottom: 16px; }
+    .content-section h2:first-child { margin-top: 0; }
+    .content-section p { font-size: 16px; line-height: 1.6; margin-bottom: 16px; color: #333333; }
+    .signal-block { margin: 20px; padding: 40px 32px; text-align: center; background: ${colours.bg}; }
+    .signal-eyebrow { font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: ${colours.text}; margin-bottom: 16px; }
+    .signal-text { font-family: 'Lora', Georgia, serif; font-size: 48px; font-weight: 600; color: ${colours.text}; margin-bottom: 20px; }
+    .signal-note { font-size: 14px; line-height: 1.6; color: ${colours.text}; }
+    .button { display: inline-block; padding: 14px 28px; background: #294B3F; color: #D8D1CB; font-family: 'Quicksand', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; }
+    .footer { background: #333333; color: #D8D1CB; padding: 32px 24px; text-align: center; font-size: 13px; }
+    .footer a { color: #A1573A; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-logo">KIS</div>
+      <div class="header-eyebrow">STRATEGIC IMPACT LOGIC OUTPUT</div>
+    </div>
+    <div class="content-section">
+      <h2>Your Impact Logic output</h2>
+      <p>Thank you for completing this process. Below is your personalised Impact Logic Summary and Theory of Change narrative.</p>
+    </div>
+    ${aiOutput.split('---').map((section, idx) => {
+      if (idx === 0 || !section.trim()) return '';
+      const lines = section.trim().split('\n');
+      const heading = lines[0].replace(/^##\s+/, '').trim();
+      const content = lines.slice(1).join('\n').trim();
+      if (heading.includes('Readiness Signal')) return '';
+      return `<div class="content-section"><div style="font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #294B3F; margin-bottom: 12px;">${heading.toUpperCase()}</div><div>${content.split('\n').map(p => p.trim() ? `<p>${p}</p>` : '').join('')}</div></div>`;
+    }).join('')}
+    <div class="signal-block">
+      <div class="signal-eyebrow">YOUR READINESS SIGNAL</div>
+      <div class="signal-text">${signal}</div>
+      <div class="signal-note">A GREEN, AMBER, or RED signal reflects clarity about readiness — not judgement about the value of your work.</div>
+    </div>
+    <div class="content-section">
+      <h2 style="margin-top: 0;">What comes next</h2>
+      <p><strong>What you do next is a judgement call.</strong></p>
+      <p><a href="https://keystone-impact-solutions.moxieapp.com/public/discovery-call" class="button">Book a discovery call →</a></p>
+      <p style="margin-top: 20px;"><a href="https://keystoneimpactsolutions.au">Learn more: keystoneimpactsolutions.au</a></p>
+    </div>
+    <div class="footer">
+      <p>Keystone Impact Solutions</p>
+      <p><a href="https://keystoneimpactsolutions.au">keystoneimpactsolutions.au</a></p>
+    </div>
+  </div>
+</body>
+</html>`;
+}
