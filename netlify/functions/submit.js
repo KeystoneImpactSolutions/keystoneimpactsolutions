@@ -138,6 +138,9 @@ export const handler = async (event) => {
   }
 
   try {
+    console.log('=== SUBMIT FUNCTION CALLED ===');
+    console.log('ENV KEYS:', Object.keys(process.env).filter(k => k.includes('API') || k.includes('EMAIL')));
+
     // Check environment variables
     if (!process.env.ANTHROPIC_API_KEY) {
       console.error('Missing ANTHROPIC_API_KEY');
@@ -154,7 +157,9 @@ export const handler = async (event) => {
       };
     }
 
+    console.log('Environment variables OK');
     const body = JSON.parse(event.body);
+    console.log('Request body parsed, answers count:', Object.keys(body.answers || {}).length);
     const { answers, level, email, shareWithJess } = body;
 
     // Validation
@@ -218,10 +223,12 @@ export const handler = async (event) => {
       body: JSON.stringify({ success: true })
     };
   } catch (error) {
-    console.error('Error:', error);
+    console.error('=== FUNCTION ERROR ===');
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Server error. Please try again.' })
+      body: JSON.stringify({ error: `Server error: ${error.message}` })
     };
   }
 };
