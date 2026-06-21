@@ -31,6 +31,7 @@ class ImpactLogicForm {
     this.currentStep = 0;
     this.answers = {};
     this.level = null;
+    this.devMode = new URLSearchParams(window.location.search).get('dev') === 'true';
     this.init();
   }
 
@@ -80,8 +81,39 @@ class ImpactLogicForm {
 
   goToQuestions() {
     this.currentStep = 0;
+    if (this.devMode) {
+      this.fillTestData();
+    }
     this.renderQuestion();
     this.showScreen('questions');
+  }
+
+  fillTestData() {
+    const testAnswers = {
+      1: 'Climate change is increasing drought and reducing biodiversity in our region.',
+      2: 'Indigenous communities and native wildlife species are most affected.',
+      3: 'Local ecological knowledge, scientific data on species decline, and community reports of environmental change.',
+      4: 'Habitat loss will accelerate, species extinction will increase, and community livelihoods will be threatened.',
+      5: 'Restored ecosystems will support both wildlife and community wellbeing, with sustainable land management practices in place.',
+      6: 'Community', // This is the radio selection (Q6)
+      7: '3-5 years for initial restoration, with long-term benefits over 10+ years.',
+      8: 'Community training in sustainable agriculture, native tree planting, water management, and collaborative land stewardship.',
+      9: 'We have full control over training design and community engagement. Planting success depends on weather and landholder cooperation.',
+      10: 'Trained community members, trees planted, water systems installed, and knowledge resources distributed.',
+      11: 'Local farmers, Indigenous land managers, and conservation organisations participate directly.',
+      12: 'Community capacity increases, local ecosystems recover, and sustainable practices become embedded.',
+      13: 'Restored ecosystems attract wildlife, carbon sequestration increases, and community income diversifies.',
+      14: 'This work contributes to regional climate resilience and demonstrates replicable models for other areas.',
+      15: 'Strong community relationships, secure land access, and adequate funding for implementation.',
+      16: 'Local Indigenous leaders and community councils hold authority, with external partners in advisory roles.',
+      17: 'Drought, funding cuts, political changes affecting land policy, or community leadership changes could slow progress.',
+      18: 'We will track biodiversity indicators, community participation rates, and ecosystem health through annual monitoring.',
+      19: 'We collect species surveys, community feedback through meetings, and soil health data from partner farms.',
+      20: 'We have dedicated staff and strong community commitment. We need additional funding for scaling.'
+    };
+
+    this.answers = testAnswers;
+    this.level = 'Community';
   }
 
   renderQuestion() {
@@ -147,6 +179,7 @@ class ImpactLogicForm {
     });
 
     this.questionInput.parentElement.appendChild(container);
+    this.updateButtonState();
   }
 
   updateButtonState() {
