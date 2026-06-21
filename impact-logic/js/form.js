@@ -100,6 +100,10 @@ class ImpactLogicForm {
     // Show/hide back button
     this.btnBack.style.display = this.currentStep > 0 ? 'block' : 'none';
 
+    // Always remove radio container first
+    const existing = document.getElementById('radio-options');
+    if (existing) existing.remove();
+
     // Clear input or populate if already answered
     if (question.type === 'radio') {
       this.renderRadioOptions(question);
