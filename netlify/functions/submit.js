@@ -209,7 +209,14 @@ export const handler = async (event) => {
       throw new Error(`Anthropic API error: ${anthropicResponse.statusText} - ${JSON.stringify(errorData)}`);
     }
 
-    const anthropicData = await anthropicResponse.json();
+    let anthropicData;
+    try {
+      anthropicData = await anthropicResponse.json();
+    } catch (e) {
+      const text = await anthropicResponse.text();
+      console.error('Anthropic response is not JSON:', text.substring(0, 500));
+      throw new Error(`Anthropic returned invalid response: ${text.substring(0, 200)}`);
+    }
     const aiOutput = anthropicData.content[0].text;
 
     // Extract readiness signal
@@ -260,7 +267,9 @@ async function sendUserEmail(userEmail, aiOutput, signal) {
   });
 
   if (!response.ok) {
-    throw new Error(`Brevo API error: ${response.statusText}`);
+    const text = await response.text();
+    console.error('Brevo error response:', text.substring(0, 500));
+    throw new Error(`Brevo API error: ${response.statusText} - ${text.substring(0, 200)}`);
   }
 }
 
