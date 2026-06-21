@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 const QUESTIONS = [
   "What situation, challenge, or change is this work responding to?",
   "Who does this matter most to?",
