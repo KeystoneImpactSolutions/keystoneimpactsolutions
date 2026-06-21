@@ -185,7 +185,7 @@ export const handler = async (event) => {
     }).join('\n\n');
 
     // Call Anthropic API
-    const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages/create', {
+    const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
