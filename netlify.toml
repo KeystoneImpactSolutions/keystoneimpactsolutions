@@ -6,6 +6,7 @@
   from = "/impact-logic/submit"
   to = "/.netlify/functions/submit"
   status = 200
+  force = true
 
 [functions]
   node_bundler = "esbuild"
