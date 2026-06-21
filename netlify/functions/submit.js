@@ -124,7 +124,17 @@ TONE RULES:
 - Do not reveal the internal signal logic in the output.`;
 
 export const handler = async (event) => {
+  console.log('\n\n');
+  console.log('═══════════════════════════════════════════════════════════');
+  console.log('SUBMIT FUNCTION TRIGGERED');
+  console.log('═══════════════════════════════════════════════════════════');
+  console.log('Timestamp:', new Date().toISOString());
+  console.log('HTTP Method:', event.httpMethod);
+  console.log('Host:', event.headers.host);
+  console.log('Content-Type:', event.headers['content-type']);
+
   if (event.httpMethod === 'OPTIONS') {
+    console.log('→ Handling CORS preflight');
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
@@ -133,54 +143,113 @@ export const handler = async (event) => {
   }
 
   if (event.httpMethod !== 'POST') {
+    console.log('✗ Wrong HTTP method');
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
   try {
+    console.log('→ Parsing request body...');
+    console.log('Body length:', event.body ? event.body.length : 0, 'bytes');
+    console.log('Body preview:', event.body ? event.body.substring(0, 150) : 'empty');
+
     const body = JSON.parse(event.body);
     const { answers, level, email, shareWithJess } = body;
 
-    console.log('=== SUBMIT FUNCTION TRIGGERED ===');
-    console.log('Email:', email);
-    console.log('Level:', level);
-    console.log('Share with Jess:', shareWithJess);
+    console.log('✓ Body parsed successfully');
+    console.log('  Email:', email);
+    console.log('  Level:', level);
+    console.log('  ShareWithJess:', shareWithJess);
+    console.log('  Answers object keys:', Object.keys(answers || {}).length);
+    console.log('  Answers:', JSON.stringify(answers, null, 2));
 
+    // Validate email
+    console.log('→ Validating email...');
     if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      console.log('✗ Invalid email:', email);
       return {
         statusCode: 400,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ error: 'Invalid email address' })
       };
     }
+    console.log('✓ Email valid');
 
+    // Validate answer count
     const nonEmptyAnswers = Object.values(answers || {}).filter(a => a && a.trim().length > 0).length;
+    console.log('→ Checking answer count...');
+    console.log('  Non-empty answers:', nonEmptyAnswers);
     if (nonEmptyAnswers < 15) {
+      console.log('✗ Not enough answers (need 15, got', nonEmptyAnswers + ')');
       return {
         statusCode: 400,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ error: 'Please answer at least 15 questions' })
       };
     }
+    console.log('✓ Enough answers');
 
-    // Trigger background function (fire-and-forget)
-    console.log('Triggering background function...');
+    // Trigger background function
+    console.log('\n→ TRIGGERING BACKGROUND FUNCTION');
     const netlifyHost = event.headers.host;
     const bgUrl = `https://${netlifyHost}/.netlify/functions/process-output`;
-    console.log('Background URL:', bgUrl);
+    console.log('  Background URL:', bgUrl);
 
-    fetch(bgUrl, {
+    const requestPayload = { answers, level, email, shareWithJess };
+    const requestBody = JSON.stringify(requestPayload);
+    console.log('  Request payload size:', requestBody.length, 'bytes');
+    console.log('  Request payload preview:', requestBody.substring(0, 200));
+
+    console.log('  → Initiating fetch to background function...');
+    const fetchStart = Date.now();
+
+    const bgPromise = fetch(bgUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ answers, level, email, shareWithJess })
-    })
-      .then(res => {
-        console.log('Background function response status:', res.status);
-        return res.text();
-      })
-      .then(text => console.log('Background response:', text))
-      .catch(err => console.error('Background function error:', err.message));
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: requestBody
+    });
 
-    console.log('Background function triggered, returning success to client');
+    bgPromise
+      .then(res => {
+        const duration = Date.now() - fetchStart;
+        console.log('  ✓ FETCH COMPLETED');
+        console.log('    Status:', res.status, res.statusText);
+        console.log('    Duration:', duration + 'ms');
+        console.log('    Headers:', JSON.stringify(Object.fromEntries(res.headers)));
+
+        if (!res.ok) {
+          console.error('  ✗ Response not OK!');
+        } else {
+          console.log('  ✓ Response OK');
+        }
+
+        return res.text().catch(e => {
+          console.error('  ✗ Failed to read response text:', e.message, e.stack);
+          throw e;
+        });
+      })
+      .then(text => {
+        console.log('  ✓ RESPONSE BODY RECEIVED');
+        console.log('    Length:', text.length, 'chars');
+        console.log('    Content:', text);
+      })
+      .catch(err => {
+        console.error('\n✗✗✗ BACKGROUND FETCH FAILED ✗✗✗');
+        console.error('  Type:', err.constructor.name);
+        console.error('  Message:', err.message);
+        console.error('  Name:', err.name);
+        if (err.stack) {
+          console.error('  Stack:', err.stack);
+        }
+        if (err.cause) {
+          console.error('  Cause:', err.cause);
+        }
+      });
+
+    console.log('\n✓ Background function fetch initiated (fire-and-forget)');
+    console.log('→ Returning success response to client\n');
 
     return {
       statusCode: 200,
@@ -188,7 +257,13 @@ export const handler = async (event) => {
       body: JSON.stringify({ success: true })
     };
   } catch (error) {
-    console.error('Submit function error:', error.message);
+    console.error('\n✗✗✗ SUBMIT FUNCTION ERROR ✗✗✗');
+    console.error('  Message:', error.message);
+    console.error('  Name:', error.name);
+    console.error('  Stack:', error.stack);
+    if (error.cause) {
+      console.error('  Cause:', error.cause);
+    }
     return {
       statusCode: 500,
       headers: { 'Content-Type': 'application/json' },

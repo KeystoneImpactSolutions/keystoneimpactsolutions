@@ -125,104 +125,209 @@ TONE RULES:
 
 export const handler = async (event) => {
   console.log('=== BACKGROUND PROCESSING STARTED ===');
+  const startTime = Date.now();
 
   try {
-    const { answers, level, email, shareWithJess } = JSON.parse(event.body);
+    console.log('Event received. Event body type:', typeof event.body);
+    console.log('Event body preview:', event.body ? event.body.substring(0, 100) : 'empty');
 
-    console.log('Processing for:', email);
+    let parsedBody;
+    try {
+      parsedBody = JSON.parse(event.body);
+    } catch (e) {
+      console.error('✗ Failed to parse event body:', e.message);
+      throw new Error(`Invalid JSON body: ${e.message}`);
+    }
+
+    const { answers, level, email, shareWithJess } = parsedBody;
+    console.log('✓ Parsed request. Email:', email, 'Level:', level, 'Share:', shareWithJess);
 
     // Check environment variables
-    if (!process.env.ANTHROPIC_API_KEY || !process.env.BREVO_API_KEY) {
-      throw new Error('Missing API keys');
+    if (!process.env.ANTHROPIC_API_KEY) {
+      throw new Error('Missing ANTHROPIC_API_KEY');
     }
+    if (!process.env.BREVO_API_KEY) {
+      throw new Error('Missing BREVO_API_KEY');
+    }
+    console.log('✓ API keys present');
 
     // Build user message
     const userMessage = QUESTIONS.map((q, i) => {
       const answer = i === 5 ? level : (answers[i + 1] || 'No answer provided.');
       return `Q${i + 1}: ${q}\nA: ${answer}`;
     }).join('\n\n');
+    console.log('✓ Built user message:', userMessage.length, 'chars');
 
-    console.log('Calling Anthropic API...');
+    console.log('→ Calling Anthropic API...');
+    const anthropicPayload = {
+      model: 'claude-sonnet-4-6',
+      max_tokens: 2000,
+      system: SYSTEM_PROMPT,
+      messages: [{ role: 'user', content: userMessage }]
+    };
+    const anthropicPayloadSize = JSON.stringify(anthropicPayload).length;
+    console.log('  Payload size:', anthropicPayloadSize, 'bytes');
+    console.log('  System prompt size:', SYSTEM_PROMPT.length, 'bytes');
+    console.log('  User message size:', userMessage.length, 'bytes');
 
-    // Call Anthropic API
-    const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 2000,
-        system: SYSTEM_PROMPT,
-        messages: [{ role: 'user', content: userMessage }]
-      })
-    });
+    const anthropicStart = Date.now();
+    let anthropicResponse;
 
-    if (!anthropicResponse.ok) {
-      const errorData = await anthropicResponse.json();
-      throw new Error(`Anthropic error: ${JSON.stringify(errorData)}`);
+    try {
+      anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': process.env.ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01'
+        },
+        body: JSON.stringify(anthropicPayload)
+      });
+    } catch (e) {
+      console.error('  ✗ Fetch to Anthropic failed:', e.message, e.stack);
+      throw new Error(`Anthropic fetch failed: ${e.message}`);
     }
 
-    const anthropicData = await anthropicResponse.json();
-    const aiOutput = anthropicData.content[0].text;
+    const anthropicDuration = Date.now() - anthropicStart;
+    console.log('✓ Anthropic responded. Status:', anthropicResponse.status, anthropicResponse.statusText);
+    console.log('  Duration:', anthropicDuration + 'ms');
+    console.log('  Response headers:', JSON.stringify(Object.fromEntries(anthropicResponse.headers)));
 
-    console.log('AI output generated, extracting signal...');
+    if (!anthropicResponse.ok) {
+      let errorData;
+      try {
+        errorData = await anthropicResponse.json();
+      } catch (e) {
+        console.error('  ✗ Could not parse Anthropic error JSON:', e.message);
+        errorData = { error: 'Could not parse error response' };
+      }
+      console.error('✗ Anthropic HTTP error:', anthropicResponse.status);
+      console.error('  Error response:', JSON.stringify(errorData, null, 2));
+      throw new Error(`Anthropic HTTP ${anthropicResponse.status}: ${JSON.stringify(errorData)}`);
+    }
+
+    let anthropicData;
+    try {
+      anthropicData = await anthropicResponse.json();
+    } catch (e) {
+      console.error('✗ Failed to parse Anthropic response JSON:', e.message, e.stack);
+      throw new Error(`Invalid Anthropic response: ${e.message}`);
+    }
+
+    console.log('  Response structure:', Object.keys(anthropicData));
+    if (anthropicData.content) {
+      console.log('  Content items:', anthropicData.content.length);
+      console.log('  First content type:', anthropicData.content[0]?.type);
+    }
+
+    const aiOutput = anthropicData.content[0].text;
+    console.log('✓ AI output received:', aiOutput.length, 'chars');
+    console.log('  First 300 chars:', aiOutput.substring(0, 300));
 
     // Extract signal
     const signalMatch = aiOutput.match(/## Readiness Signal\s+\n(GREEN|AMBER|RED)/);
     const signal = signalMatch ? signalMatch[1] : 'UNKNOWN';
+    console.log('✓ Signal extracted:', signal);
 
     // Build email
     const htmlContent = buildUserEmailHtml(aiOutput, signal);
+    console.log('✓ HTML email built:', htmlContent.length, 'chars');
 
-    console.log('Sending email to user...');
+    console.log('→ Sending email to user:', email);
+    const emailStart = Date.now();
 
     // Send email to user
     await sendEmail(email, htmlContent, 'Your Strategic Impact Logic Output — Keystone Impact Solutions');
+    const emailDuration = Date.now() - emailStart;
+    console.log('✓ User email sent. Duration:', emailDuration + 'ms');
 
     // Send notification to Jess
     if (shareWithJess && process.env.JESS_EMAIL) {
-      console.log('Sending notification to Jess...');
+      console.log('→ Sending notification to Jess:', process.env.JESS_EMAIL);
       const plainText = `Readiness signal: ${signal}\n\nUser email: ${email}\nSubmitted: ${new Date().toISOString()}\n\n--- FULL Q&A ---\n\n${QUESTIONS.map((q, i) => {
         const answer = i === 5 ? level : (answers[i + 1] || 'No answer provided.');
         return `Q${i + 1}: ${q}\nA: ${answer}`;
       }).join('\n\n')}\n\n--- AI OUTPUT ---\n\n${aiOutput}`;
 
+      const jessStart = Date.now();
       await sendEmail(process.env.JESS_EMAIL, plainText, `[${signal}] — Impact Logic output shared: ${email}`, true);
+      const jessDuration = Date.now() - jessStart;
+      console.log('✓ Jess notification sent. Duration:', jessDuration + 'ms');
     }
 
+    const totalDuration = Date.now() - startTime;
     console.log('=== BACKGROUND PROCESSING COMPLETE ===');
+    console.log('Total duration:', totalDuration + 'ms');
     return { statusCode: 200 };
   } catch (error) {
+    const totalDuration = Date.now() - startTime;
     console.error('=== BACKGROUND PROCESSING ERROR ===');
-    console.error(error.message);
+    console.error('Duration before error:', totalDuration + 'ms');
+    console.error('Error message:', error.message);
+    console.error('Error name:', error.name);
+    console.error('Error stack:', error.stack);
     return { statusCode: 500 };
   }
 };
 
 async function sendEmail(toEmail, content, subject, isPlainText = false) {
-  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-    method: 'POST',
-    headers: {
-      'api-key': process.env.BREVO_API_KEY,
-      'Content-Type': 'application/json'
+  console.log('  → Sending', isPlainText ? 'plaintext' : 'HTML', 'email to:', toEmail);
+  console.log('    Subject:', subject);
+  console.log('    Content type:', isPlainText ? 'text/plain' : 'text/html');
+  console.log('    Content size:', content.length, 'bytes');
+
+  const emailPayload = {
+    sender: {
+      name: process.env.SENDER_NAME || 'Keystone Impact Solutions',
+      email: process.env.SENDER_EMAIL || 'hello@keystoneimpactsolutions.au'
     },
-    body: JSON.stringify({
-      sender: {
-        name: process.env.SENDER_NAME || 'Keystone Impact Solutions',
-        email: process.env.SENDER_EMAIL || 'hello@keystoneimpactsolutions.au'
+    to: [{ email: toEmail }],
+    subject: subject,
+    ...(isPlainText ? { textContent: content } : { htmlContent: content })
+  };
+
+  console.log('    Payload size:', JSON.stringify(emailPayload).length, 'bytes');
+
+  const fetchStart = Date.now();
+  let response;
+
+  try {
+    response = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'api-key': process.env.BREVO_API_KEY,
+        'Content-Type': 'application/json'
       },
-      to: [{ email: toEmail }],
-      subject: subject,
-      ...(isPlainText ? { textContent: content } : { htmlContent: content })
-    })
-  });
+      body: JSON.stringify(emailPayload)
+    });
+  } catch (e) {
+    console.error('  ✗ Fetch to Brevo failed:', e.message);
+    throw new Error(`Brevo fetch failed: ${e.message}`);
+  }
+
+  const duration = Date.now() - fetchStart;
+  console.log('  ✓ Brevo responded. Status:', response.status, response.statusText, `(${duration}ms)`);
+  console.log('    Response headers:', JSON.stringify(Object.fromEntries(response.headers)));
 
   if (!response.ok) {
-    throw new Error(`Brevo error: ${response.statusText}`);
+    let errorBody = 'No response body';
+    try {
+      errorBody = await response.text();
+    } catch (e) {
+      console.error('    Failed to read error body:', e.message);
+    }
+    console.error('  ✗ Brevo error response:', errorBody);
+    throw new Error(`Brevo HTTP ${response.status}: ${errorBody}`);
   }
+
+  let responseBody = '';
+  try {
+    responseBody = await response.text();
+  } catch (e) {
+    console.error('  ✗ Failed to read Brevo response body:', e.message);
+  }
+  console.log('  ✓ Email sent successfully');
+  console.log('    Response:', responseBody.substring(0, 100));
 }
 
 function buildUserEmailHtml(aiOutput, signal) {
