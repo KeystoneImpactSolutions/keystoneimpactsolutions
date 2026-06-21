@@ -55,7 +55,12 @@
           <h2 id="contact-form-heading">Send Us a Message</h2>
           <p style="margin-bottom: 40px;">Fill in the form and we'll be in touch shortly. If you'd prefer to email directly: <a href="mailto:hello@keystoneimpactsolutions.au" style="color: var(--forest-green); text-decoration: underline;">hello@keystoneimpactsolutions.au</a></p>
 
-          <form class="contact-form" name="contact" method="POST" action="#" aria-label="Contact form">
+          <form class="contact-form" name="contact" method="POST" action="https://splitforms.com/api/submit" aria-label="Contact form">
+
+            <input type="hidden" name="access_key" value="88e9eba9bc0647d1aeade99524c576ff">
+            <input type="hidden" name="subject" value="New enquiry — Keystone Impact Solutions">
+            <input type="hidden" name="redirect" value="https://keystoneimpactsolutions.au/thankyou.html">
+            <input type="checkbox" name="botcheck" style="display:none">
 
             <div class="form-row">
               <div class="form-group">

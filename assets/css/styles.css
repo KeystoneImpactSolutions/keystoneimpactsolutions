@@ -857,7 +857,7 @@ a:focus-visible {
   margin-bottom: 8px;
 }
 
-.form-group input,
+.form-group input:not([type="checkbox"]):not([type="radio"]),
 .form-group textarea,
 .form-group select {
   width: 100%;
@@ -874,7 +874,7 @@ a:focus-visible {
   border-radius: 0;
 }
 
-.form-group input:focus,
+.form-group input:not([type="checkbox"]):not([type="radio"]):focus,
 .form-group textarea:focus,
 .form-group select:focus {
   border-color: var(--forest-green);
