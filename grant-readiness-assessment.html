@@ -132,6 +132,8 @@
     .result-card:last-child { margin-bottom: 0; }
     .result-card.amber { border-left-color: var(--terracotta); }
     .result-card.red   { border-left-color: var(--burgundy); }
+    /* Hidden until JS personalises — revealed individually */
+    .result-card { display: none; }
 
     .result-label {
       font-family: var(--font-subhead);
@@ -449,19 +451,23 @@
       <h2 id="results-heading">What your answers mean</h2>
       <p style="max-width: 600px; margin: 16px 0 36px;">Find the pattern that best describes your answers. If you fall between two, read both — the more cautious interpretation is usually the more useful one.</p>
 
-      <div class="result-card">
-        <span class="result-label">All or most answers: Yes</span>
-        <p>Your organisation is in a strong position to apply. The remaining step is matching your project to the right funder and investing time in a well-structured application. This is where strategic grant writing and funder research will have the most impact — if you would like support at this stage, that is exactly what we do.</p>
+      <div id="result-green" class="result-card">
+        <span class="result-label">You're in a strong position to apply</span>
+        <p>Your answers indicate your organisation is well-prepared. The remaining step is matching your project to the right funder and investing time in a well-structured application — this is where strategic grant writing and funder research will have the most impact. If you'd like support at this stage, that is exactly what we do.</p>
       </div>
 
-      <div class="result-card amber">
-        <span class="result-label">Several No answers — particularly in Funder/Eligibility or Your Project</span>
-        <p>You have work to do before you apply, and knowing that now is far more useful than finding out after submitting. A no on funder alignment or project design is a signal to pause, not push through. Applying before you are ready risks a rejection that can affect how this funder views future applications from your organisation. The full Grant Readiness Checklist will help you identify exactly what to address.</p>
+      <div id="result-amber" class="result-card amber">
+        <span class="result-label">Some gaps to address before you apply</span>
+        <p>You have work to do before you apply, and knowing that now is far more useful than finding out after submitting. Applying before you are ready risks a rejection that can affect how this funder views future applications from your organisation.</p>
+        <div id="amber-detail"></div>
+        <p style="margin-top:12px;">The full Grant Readiness Checklist will help you work through exactly what needs to be resolved. <a href="contact.html" style="color: var(--terracotta); text-decoration: underline; text-underline-offset: 2px;">Get in touch</a> to receive a copy.</p>
       </div>
 
-      <div class="result-card red">
-        <span class="result-label">No to outstanding acquittals or financial stability</span>
-        <p>These are application stoppers. Outstanding acquittals are checked by funders and will disqualify an application before it is read. Financial instability raises serious flags at assessment. Address these before applying to anything — if you are unsure how to approach either issue, a conversation before you invest time in an application is time well spent.</p>
+      <div id="result-red" class="result-card red">
+        <span class="result-label">Application stoppers — address these first</span>
+        <p>There are one or more issues in your answers that will disqualify or seriously undermine an application before it is assessed. These need to be resolved before applying to anything.</p>
+        <div id="red-detail"></div>
+        <p style="margin-top:12px;">If you are unsure how to approach these issues, <a href="contact.html" style="color: var(--burgundy); text-decoration: underline; text-underline-offset: 2px;">a conversation</a> before you invest time in an application is time well spent.</p>
       </div>
 
       <div class="tip-box mt-48">
@@ -584,7 +590,60 @@
     window.REQUIRED_MULTISELECT_MESSAGE='Please select at least 1 option';
     window.translation={common:{selectedList:'{quantity} list selected',selectedLists:'{quantity} lists selected',selectedOption:'{quantity} selected',selectedOptions:'{quantity} selected'}};
     var AUTOHIDE=Boolean(0);
-    // On success: reveal results on this page instead of redirecting
+
+    function personaliseResults() {
+      // Collect answers
+      var ans = {};
+      for (var i = 1; i <= 11; i++) {
+        var el = document.querySelector('input[name="q' + i + '"]:checked');
+        ans[i] = el ? el.value : null;
+      }
+
+      // Red flags: application stoppers (q4 = acquittals, q5 = financial stability)
+      var redAcquittals = ans[4] === 'no';
+      var redFinancial  = ans[5] === 'no';
+      var isRed = redAcquittals || redFinancial;
+
+      // Count non-red nos and flag critical areas
+      var noCount = 0;
+      for (var i = 1; i <= 11; i++) {
+        if (i !== 4 && i !== 5 && ans[i] === 'no') noCount++;
+      }
+      var hasCriticalNo = ans[1] === 'no' || ans[2] === 'no' || ans[6] === 'no';
+      var isAmber = !isRed && (noCount >= 2 || hasCriticalNo);
+
+      // Show only the matching card
+      document.getElementById('result-red').style.display   = isRed                      ? 'block' : 'none';
+      document.getElementById('result-amber').style.display = (isAmber && !isRed)        ? 'block' : 'none';
+      document.getElementById('result-green').style.display = (!isRed && !isAmber)       ? 'block' : 'none';
+
+      // Personalise red card: name the specific stoppers
+      if (isRed) {
+        var msgs = [];
+        if (redAcquittals) msgs.push('You have outstanding grant acquittals that must be completed and lodged — funders check this and an outstanding acquittal will disqualify your application before it is read.');
+        if (redFinancial)  msgs.push('Your organisation\'s financial stability needs to be addressed. Financial instability raises serious flags at assessment and can disqualify or heavily discount an application.');
+        var detail = document.getElementById('red-detail');
+        if (detail) detail.innerHTML = '<p style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(107,39,55,0.25);font-size:0.9rem;">' + msgs.join(' ') + '</p>';
+      }
+
+      // Personalise amber card: list which areas have gaps
+      if (isAmber && !isRed) {
+        var groups = { 'Funder and eligibility': [1,2], 'Your organisation': [3], 'Your project': [6,7,8], 'Delivery and accountability': [9,10,11] };
+        var gaps = [];
+        for (var g in groups) {
+          var qs = groups[g];
+          for (var j = 0; j < qs.length; j++) {
+            if (ans[qs[j]] === 'no') { gaps.push(g); break; }
+          }
+        }
+        var detail = document.getElementById('amber-detail');
+        if (detail && gaps.length) {
+          detail.innerHTML = '<p style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(161,87,58,0.25);font-size:0.9rem;">Based on your answers, the sections to focus on are: <strong>' + gaps.join(', ') + '</strong>.</p>';
+        }
+      }
+    }
+
+    // On success: personalise then reveal results instead of redirecting
     var successPanel=document.getElementById('success-message');
     if(successPanel){
       new MutationObserver(function(){
@@ -593,6 +652,7 @@
           var results=document.getElementById('results-section');
           if(gate) gate.style.display='none';
           if(results){
+            personaliseResults();
             results.removeAttribute('style');
             setTimeout(function(){results.scrollIntoView({behavior:'smooth'});},150);
           }
