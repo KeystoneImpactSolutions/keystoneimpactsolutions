@@ -124,97 +124,27 @@ TONE RULES:
 - Do not reveal the internal signal logic in the output.`;
 
 export const handler = async (event) => {
-  // Handle CORS and preflight
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ok: true })
-    };
-  }
-
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
-  }
+  console.log('=== BACKGROUND PROCESSING STARTED ===');
 
   try {
-    const body = JSON.parse(event.body);
-    const { answers, level, email, shareWithJess } = body;
+    const { answers, level, email, shareWithJess } = JSON.parse(event.body);
 
-    // Quick validation
-    if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      return {
-        statusCode: 400,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ error: 'Invalid email address' })
-      };
+    console.log('Processing for:', email);
+
+    // Check environment variables
+    if (!process.env.ANTHROPIC_API_KEY || !process.env.BREVO_API_KEY) {
+      throw new Error('Missing API keys');
     }
 
-    const nonEmptyAnswers = Object.values(answers || {}).filter(a => a && a.trim().length > 0).length;
-    if (nonEmptyAnswers < 15) {
-      return {
-        statusCode: 400,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ error: 'Please answer at least 15 questions' })
-      };
-    }
-
-    // Trigger background function (fire-and-forget)
-    const netlifyUrl = `https://${event.headers.host}`;
-    fetch(`${netlifyUrl}/.netlify/functions/process-output`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ answers, level, email, shareWithJess })
-    }).catch(err => console.error('Failed to trigger background processing:', err));
-
-    // Return success immediately
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ success: true })
-    };
-  } catch (error) {
-    console.error('Submit error:', error.message);
-    return {
-      statusCode: 500,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: `Server error: ${error.message}` })
-    };
-  }
-};
-    const { answers, level, email, shareWithJess } = body;
-
-    // Validation
-    if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: 'Invalid email address' })
-      };
-    }
-
-    const nonEmptyAnswers = Object.values(answers || {}).filter(a => a && a.trim().length > 0).length;
-    if (nonEmptyAnswers < 15) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: 'Please answer at least 15 questions' })
-      };
-    }
-
-    // Build user message for API
+    // Build user message
     const userMessage = QUESTIONS.map((q, i) => {
       const answer = i === 5 ? level : (answers[i + 1] || 'No answer provided.');
       return `Q${i + 1}: ${q}\nA: ${answer}`;
     }).join('\n\n');
 
-    // Call Anthropic API
-    const anthropicPayload = {
-      model: 'claude-sonnet-4-6',
-      max_tokens: 2000,
-      system: SYSTEM_PROMPT,
-      messages: [{ role: 'user', content: userMessage }]
-    };
-    console.log('Sending to Anthropic:', JSON.stringify(anthropicPayload).substring(0, 200));
+    console.log('Calling Anthropic API...');
 
+    // Call Anthropic API
     const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -222,56 +152,57 @@ export const handler = async (event) => {
         'x-api-key': process.env.ANTHROPIC_API_KEY,
         'anthropic-version': '2023-06-01'
       },
-      body: JSON.stringify(anthropicPayload)
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 2000,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: userMessage }]
+      })
     });
 
     if (!anthropicResponse.ok) {
       const errorData = await anthropicResponse.json();
-      console.error('Anthropic error response:', JSON.stringify(errorData));
-      throw new Error(`Anthropic API error: ${anthropicResponse.statusText} - ${JSON.stringify(errorData)}`);
+      throw new Error(`Anthropic error: ${JSON.stringify(errorData)}`);
     }
 
-    let anthropicData;
-    try {
-      anthropicData = await anthropicResponse.json();
-    } catch (e) {
-      const text = await anthropicResponse.text();
-      console.error('Anthropic response is not JSON:', text.substring(0, 500));
-      throw new Error(`Anthropic returned invalid response: ${text.substring(0, 200)}`);
-    }
+    const anthropicData = await anthropicResponse.json();
     const aiOutput = anthropicData.content[0].text;
 
-    // Extract readiness signal
+    console.log('AI output generated, extracting signal...');
+
+    // Extract signal
     const signalMatch = aiOutput.match(/## Readiness Signal\s+\n(GREEN|AMBER|RED)/);
     const signal = signalMatch ? signalMatch[1] : 'UNKNOWN';
 
-    // Send email to user
-    await sendUserEmail(email, aiOutput, signal);
+    // Build email
+    const htmlContent = buildUserEmailHtml(aiOutput, signal);
 
-    // Send notification to Jess if opted in
-    if (shareWithJess) {
-      await sendJessNotification(email, signal, answers, level, aiOutput);
+    console.log('Sending email to user...');
+
+    // Send email to user
+    await sendEmail(email, htmlContent, 'Your Strategic Impact Logic Output — Keystone Impact Solutions');
+
+    // Send notification to Jess
+    if (shareWithJess && process.env.JESS_EMAIL) {
+      console.log('Sending notification to Jess...');
+      const plainText = `Readiness signal: ${signal}\n\nUser email: ${email}\nSubmitted: ${new Date().toISOString()}\n\n--- FULL Q&A ---\n\n${QUESTIONS.map((q, i) => {
+        const answer = i === 5 ? level : (answers[i + 1] || 'No answer provided.');
+        return `Q${i + 1}: ${q}\nA: ${answer}`;
+      }).join('\n\n')}\n\n--- AI OUTPUT ---\n\n${aiOutput}`;
+
+      await sendEmail(process.env.JESS_EMAIL, plainText, `[${signal}] — Impact Logic output shared: ${email}`, true);
     }
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ success: true })
-    };
+    console.log('=== BACKGROUND PROCESSING COMPLETE ===');
+    return { statusCode: 200 };
   } catch (error) {
-    console.error('=== FUNCTION ERROR ===');
-    console.error('Error message:', error.message);
-    console.error('Error stack:', error.stack);
-    return {
-      statusCode: 500,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: `Server error: ${error.message}` })
-    };
+    console.error('=== BACKGROUND PROCESSING ERROR ===');
+    console.error(error.message);
+    return { statusCode: 500 };
   }
 };
 
-async function sendUserEmail(userEmail, aiOutput, signal) {
-  const htmlContent = buildUserEmailHtml(aiOutput, signal);
-
+async function sendEmail(toEmail, content, subject, isPlainText = false) {
   const response = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
     headers: {
@@ -283,16 +214,14 @@ async function sendUserEmail(userEmail, aiOutput, signal) {
         name: process.env.SENDER_NAME || 'Keystone Impact Solutions',
         email: process.env.SENDER_EMAIL || 'hello@keystoneimpactsolutions.au'
       },
-      to: [{ email: userEmail }],
-      subject: 'Your Strategic Impact Logic Output — Keystone Impact Solutions',
-      htmlContent: htmlContent
+      to: [{ email: toEmail }],
+      subject: subject,
+      ...(isPlainText ? { textContent: content } : { htmlContent: content })
     })
   });
 
   if (!response.ok) {
-    const text = await response.text();
-    console.error('Brevo error response:', text.substring(0, 500));
-    throw new Error(`Brevo API error: ${response.statusText} - ${text.substring(0, 200)}`);
+    throw new Error(`Brevo error: ${response.statusText}`);
   }
 }
 
@@ -327,7 +256,6 @@ function buildUserEmailHtml(aiOutput, signal) {
     .signal-eyebrow { font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: ${colours.text}; margin-bottom: 16px; }
     .signal-text { font-family: 'Lora', Georgia, serif; font-size: 48px; font-weight: 600; color: ${colours.text}; margin-bottom: 20px; }
     .signal-note { font-size: 14px; line-height: 1.6; color: ${colours.text}; }
-    .insight-box { background: #D4E2ED; border-left: 3px solid #294B3F; padding: 24px; margin: 20px 0; }
     .button { display: inline-block; padding: 14px 28px; background: #294B3F; color: #D8D1CB; font-family: 'Quicksand', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; }
     .footer { background: #333333; color: #D8D1CB; padding: 32px 24px; text-align: center; font-size: 13px; }
     .footer a { color: #A1573A; text-decoration: none; }
@@ -377,51 +305,9 @@ function buildUserEmailHtml(aiOutput, signal) {
     <div class="footer">
       <p>Keystone Impact Solutions</p>
       <p><a href="https://keystoneimpactsolutions.au">keystoneimpactsolutions.au</a></p>
-      <p style="margin-top: 16px; opacity: 0.7;"><a href="https://keystoneimpactsolutions.au/unsubscribe">Unsubscribe</a></p>
     </div>
   </div>
 </body>
 </html>
   `;
-}
-
-async function sendJessNotification(userEmail, signal, answers, level, aiOutput) {
-  const plainText = `
-Readiness signal: ${signal}
-
-User email: ${userEmail}
-Submitted: ${new Date().toISOString()}
-
---- FULL Q&A RESPONSES ---
-
-${QUESTIONS.map((q, i) => {
-  const answer = i === 5 ? level : (answers[i + 1] || 'No answer provided.');
-  return `Q${i + 1}: ${q}\nA: ${answer}`;
-}).join('\n\n')}
-
---- AI-GENERATED OUTPUT ---
-
-${aiOutput}
-  `;
-
-  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-    method: 'POST',
-    headers: {
-      'api-key': process.env.BREVO_API_KEY,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      sender: {
-        name: 'Keystone Impact Solutions',
-        email: process.env.SENDER_EMAIL || 'hello@keystoneimpactsolutions.au'
-      },
-      to: [{ email: process.env.JESS_EMAIL }],
-      subject: `[${signal}] — Impact Logic output shared: ${userEmail}`,
-      textContent: plainText
-    })
-  });
-
-  if (!response.ok) {
-    console.warn(`Failed to send Jess notification: ${response.statusText}`);
-  }
 }
