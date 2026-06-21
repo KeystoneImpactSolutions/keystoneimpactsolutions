@@ -545,8 +545,6 @@
       border: 0;
     }
   </style>
-  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
-  <style>:where(.sib-form-message-panel){display:none}#error-message{color:#661d1d;background:#ffeded;border:1px solid #ff4949;padding:12px 16px;margin-bottom:16px;font-size:.875rem;border-radius:0}</style>
 </head>
 <body>
 
@@ -719,21 +717,12 @@
       <p class="eyebrow eyebrow-terra" style="margin-bottom:12px;">Stay informed</p>
       <h2>Funding intelligence, direct to your inbox.</h2>
       <p>Grant opportunities, sector updates, and practical strategy. Sent when there is something worth saying.</p>
-      <div class="sib-form" style="text-align:unset;background:transparent;padding:0;margin:0">
-        <div id="sib-form-container" class="sib-form-container" style="padding:0;margin:0">
-          <div id="error-message" class="sib-form-message-panel" role="alert" style="max-width:100%"></div>
-          <div id="success-message" class="sib-form-message-panel"></div>
-          <div id="sib-container" style="background:transparent;border:none;padding:0;margin:0;max-width:100%">
-            <form id="sib-form" class="newsletter-form" method="POST" action="https://251e693e.sibforms.com/serve/MUIFAL6OGP3UGAHJWgGaPfN_Gt97Gya97HqS1ioraf4fiaE1Wc_kWdnEGexQnkrVQomsqLjbyhikR_l3-KcHfj7N46Yz4uFGh6j59UutDsHzqvM5hxX-rUYq-JGzQZh-itA61rv4GL5_6_nHf9Lt7khp_RhfWiALdRFP3Yp6Wy5_cN7oValWoyWbijVKVjpWWM60bZbF-YneRVI_Mg==" data-type="subscription" aria-label="Newsletter signup">
-              <input type="email" id="EMAIL" name="EMAIL" placeholder="Your email address" required aria-label="Email address" autocomplete="off" />
-              <button type="submit">Subscribe</button>
-              <input type="text" name="email_address_check" value="" class="input--hidden">
-              <input type="hidden" name="locale" value="en">
-              <div class="g-recaptcha" data-sitekey="6LdE6yotAAAAAEskWq0x6JcZogbsa2n0L4GyWw33" data-callback="invisibleCaptchaCallback" data-size="invisible"></div>
-            </form>
-          </div>
-        </div>
-      </div>
+      <form class="newsletter-form" method="POST" action="https://251e693e.sibforms.com/serve/MUIFAL6OGP3UGAHJWgGaPfN_Gt97Gya97HqS1ioraf4fiaE1Wc_kWdnEGexQnkrVQomsqLjbyhikR_l3-KcHfj7N46Yz4uFGh6j59UutDsHzqvM5hxX-rUYq-JGzQZh-itA61rv4GL5_6_nHf9Lt7khp_RhfWiALdRFP3Yp6Wy5_cN7oValWoyWbijVKVjpWWM60bZbF-YneRVI_Mg==" aria-label="Newsletter signup">
+        <input type="email" name="EMAIL" placeholder="Your email address" required aria-label="Email address" autocomplete="off" />
+        <button type="submit">Subscribe</button>
+        <input type="text" name="email_address_check" value="" style="display:none" tabindex="-1" autocomplete="off">
+        <input type="hidden" name="locale" value="en">
+      </form>
     </div>
   </section>
 
@@ -787,27 +776,5 @@
     });
   </script>
 
-  <script>
-    window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
-    window.LOCALE = 'en';
-    window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
-    window.REQUIRED_ERROR_MESSAGE = "This field cannot be left blank. ";
-    window.GENERIC_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
-    window.INVALID_NUMBER = "The information provided is invalid. Please review the field format and try again.";
-    window.INVALID_DATE = "Please enter a valid date";
-    window.REQUIRED_MULTISELECT_MESSAGE = 'Please select at least 1 option';
-    window.translation = { common: { selectedList: '{quantity} list selected', selectedLists: '{quantity} lists selected', selectedOption: '{quantity} selected', selectedOptions: '{quantity} selected' } };
-    var AUTOHIDE = Boolean(0);
-    var successPanel = document.getElementById('success-message');
-    if (successPanel) {
-      new MutationObserver(function() {
-        if (getComputedStyle(successPanel).display !== 'none') {
-          window.location.href = 'newsletter-confirmed.html';
-        }
-      }).observe(successPanel, { attributes: true, attributeFilter: ['style', 'class'] });
-    }
-  </script>
-  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
-  <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
 </body>
 </html>
