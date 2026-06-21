@@ -253,23 +253,29 @@ class ImpactLogicForm {
         })
       });
 
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
       const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || `HTTP ${response.status}`);
+      }
+
       if (data.success) {
         this.showThankYou();
       } else {
-        this.showSubmissionError();
+        this.showSubmissionError(data.error);
       }
     } catch (error) {
       console.error('Submission error:', error);
-      this.showSubmissionError();
+      this.showSubmissionError(error.message);
     }
   }
 
-  showSubmissionError() {
+  showSubmissionError(message = null) {
     this.submissionLoading.style.display = 'none';
     this.submissionError.style.display = 'block';
+    if (message) {
+      this.submissionError.innerHTML = `<p>Error: ${message}</p><p>Please try again or contact <a href="mailto:hello@keystoneimpactsolutions.au">hello@keystoneimpactsolutions.au</a></p>`;
+    }
     this.btnSubmit.style.display = 'inline-block';
   }
 
