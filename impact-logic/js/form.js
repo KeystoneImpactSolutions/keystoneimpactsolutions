@@ -242,7 +242,7 @@ class ImpactLogicForm {
     this.submissionError.style.display = 'none';
 
     try {
-      const response = await fetch('/impact-logic/submit', {
+      const response = await fetch('https://gslqfjdu4a.execute-api.us-east-2.amazonaws.com/default/impact-logic-submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
