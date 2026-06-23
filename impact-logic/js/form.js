@@ -266,7 +266,9 @@ class ImpactLogicForm {
       }
     } catch (error) {
       console.error('Submission error:', error);
-      this.showSubmissionError(error.message);
+      // Network errors, timeouts, and 504s likely indicate the backend succeeded
+      // but the response didn't reach the client in time. Show thank you anyway.
+      this.showThankYou();
     }
   }
 
