@@ -242,7 +242,7 @@ class ImpactLogicForm {
     this.submissionError.style.display = 'none';
 
     try {
-      const response = await fetch('/impact-logic/submit', {
+      const response = await fetch('/.netlify/functions/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
