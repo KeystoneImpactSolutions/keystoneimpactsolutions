@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Source photo originals (125MB of raw JPGs — optimised .webp versions live in assets/img/)
+Photos/
+
+# Local working notes and exports — kept out of the public deploy repo
+CLAUDE-CODE-DEPLOYMENT-HANDOVER.md
+ACCESSIBILITY-FIXES.md
+impact-logic-claude-code-prompt.md
+impact-logic-test-responses.md
+keystoneimpactsolutions.au-*.json
+
+# Unreferenced stray images (not used by any page — wire in later if wanted)
+great-bowerbird-flight.webp
+jess-smiling-at-camera.webp
+
+# Repo ops brief for Claude Code / handover — internal, must not be web-served (publish=\".\")
+CLAUDE.md
