@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Grant Readiness Self-Assessment — Keystone Impact Solutions</title>
   <meta name="description" content="Not sure if your organisation is ready to apply for a grant? Answer eleven questions in five minutes and get a clear picture of where you stand — before you invest time in an application." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Quicksand:wght@400;500;600&family=Open+Sans:ital,wght@0,300;0,400;1,300&display=swap" />
+  <link rel="canonical" href="https://keystoneimpactsolutions.au/grant-readiness-assessment" />
+  <link rel="preload" href="assets/fonts/lora-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/opensans-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="icon" type="image/svg+xml" href="assets/img/echidna-icon.svg" />
 
@@ -213,7 +213,8 @@
     .sib-form-block__button-with-loader{height:100%!important;box-sizing:border-box!important;padding:14px 28px!important;background:#D8D1CB!important;color:#294B3F!important;border:2px solid #D8D1CB!important;border-radius:0!important;font-family:'Quicksand',sans-serif!important;font-weight:600!important;font-size:.72rem!important;text-transform:uppercase!important;letter-spacing:.12em!important;cursor:pointer!important;white-space:nowrap!important}
     .sib-hide-loader-icon,.sib-loader{display:none!important}
   </style>
-  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css"></noscript>
 </head>
 <body>
 
@@ -222,15 +223,15 @@
   <!-- Navigation -->
   <nav class="site-nav" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo" aria-label="Keystone Impact Solutions home">
-        <img src="assets/img/logo-reverse.svg" alt="Keystone Impact Solutions" />
+      <a href="/" class="nav-logo" aria-label="Keystone Impact Solutions home">
+        <img src="assets/img/logo-reverse-288.webp" width="900" height="288" alt="Keystone Impact Solutions" />
       </a>
       <ul class="nav-links" id="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="services.html" class="active" aria-current="page">Services</a></li>
-        <li><a href="case-studies.html">Case Studies</a></li>
-        <li><a href="impact-intel.html">Impact Intel</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/services" class="active" aria-current="page">Services</a></li>
+        <li><a href="/case-studies">Case Studies</a></li>
+        <li><a href="/impact-intel">Impact Intel</a></li>
         <li><a href="https://keystone-impact-solutions.moxieapp.com/public/discovery-call" class="nav-cta" target="_blank" rel="noopener">Book a Call<span class="sr-only">(opens in new tab)</span></a></li>
       </ul>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
@@ -513,7 +514,7 @@
         </div>
       </div>
 
-      <a href="services.html#grants" class="btn btn-outline-green">Explore Grant Services</a>
+      <a href="/services#grants" class="btn btn-outline-green">Explore Grant Services</a>
     </div>
   </section>
 
@@ -534,7 +535,7 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <div class="footer-logo">
-          <img src="assets/img/logo-reverse.svg" alt="Keystone Impact Solutions" />
+          <img src="assets/img/logo-reverse-288.webp" width="900" height="288" alt="Keystone Impact Solutions" />
         </div>
         <span class="footer-tagline">Partner to the Changemakers</span>
         <p>Fundraising and impact support for non-profits and purpose-led organisations across Australia.</p>
@@ -542,13 +543,13 @@
       <div class="footer-col">
         <p class="footer-col-heading">Navigation</p>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
-        <li><a href="awards.html">Awards</a></li>
-          <li><a href="case-studies.html">Case Studies</a></li>
-        <li><a href="impact-intel.html">Impact Intel</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/services">Services</a></li>
+        <li><a href="/awards">Awards</a></li>
+          <li><a href="/case-studies">Case Studies</a></li>
+        <li><a href="/impact-intel">Impact Intel</a></li>
+          <li><a href="/contact">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -568,8 +569,8 @@
     <div class="footer-bottom">
       <p>© Keystone Impact Solutions 2025. All Rights Reserved.</p>
       <div class="footer-bottom-links">
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms and Conditions</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms and Conditions</a>
       </div>
     </div>
   </footer>
@@ -661,8 +662,15 @@
       }).observe(successPanel,{attributes:true,attributeFilter:['style','class']});
     }
   </script>
-  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
-  <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
+  <script>
+    // Load the Brevo form script and reCAPTCHA only when the newsletter form is near the viewport or focused.
+    (function(){var f=document.getElementById('sib-form');if(!f)return;var done=false;
+    function load(){if(done)return;done=true;
+      var a=document.createElement('script');a.src='https://sibforms.com/forms/end-form/build/main.js';a.defer=true;document.body.appendChild(a);
+      var b=document.createElement('script');b.src='https://www.google.com/recaptcha/api.js?hl=en';b.async=true;b.defer=true;document.body.appendChild(b);}
+    if('IntersectionObserver' in window){new IntersectionObserver(function(e,o){if(e.some(function(x){return x.isIntersecting})){o.disconnect();load();}},{rootMargin:'600px'}).observe(f);}else{load();}
+    f.addEventListener('focusin',load,{once:true});})();
+  </script>
 
 </body>
 </html>

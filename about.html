@@ -7,7 +7,7 @@
   <meta name="description" content="Dr Jess Hodgson, PhD ecologist and funding strategist, owns the grants, awards and funder relationships for conservation, environment and sustainability organisations. Australia-based, working worldwide." />
 
   <!-- Canonical -->
-  <link rel="canonical" href="https://keystoneimpactsolutions.au/about.html" />
+  <link rel="canonical" href="https://keystoneimpactsolutions.au/about" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="profile" />
@@ -17,7 +17,7 @@
   <meta property="og:locale" content="en_AU" />
   <meta property="og:title" content="About Dr Jess Hodgson - PhD Ecologist &amp; Funding Strategist" />
   <meta property="og:description" content="Dr Jess Hodgson, PhD ecologist and funding strategist, owns the grants, awards and funder relationships for conservation, environment and sustainability organisations. Australia-based, working worldwide." />
-  <meta property="og:url" content="https://keystoneimpactsolutions.au/about.html" />
+  <meta property="og:url" content="https://keystoneimpactsolutions.au/about" />
   <meta property="og:image" content="https://keystoneimpactsolutions.au/assets/img/jess-burdekin-hero.webp" />
   <meta property="og:image:alt" content="Dr Jess Hodgson, PhD ecologist and founder of Keystone Impact Solutions, by the Burdekin River" />
 
@@ -36,7 +36,7 @@
         "@id": "https://keystoneimpactsolutions.au/#organisation",
         "name": "Keystone Impact Solutions",
         "url": "https://keystoneimpactsolutions.au/",
-        "logo": "https://keystoneimpactsolutions.au/assets/img/logo-reverse.svg",
+        "logo": "https://keystoneimpactsolutions.au/assets/img/logo-reverse-600.png",
         "image": "https://keystoneimpactsolutions.au/assets/img/jess-coastal.webp",
         "description": "Funding strategy and grant management for purpose-led organisations in the environment, conservation and sustainability sector.",
         "slogan": "Partner to the Changemakers",
@@ -44,7 +44,7 @@
         "areaServed": "Worldwide",
         "identifier": { "@type": "PropertyValue", "propertyID": "ABN", "value": "73 649 199 482" },
         "knowsAbout": ["Grant funding", "Grant writing", "Awards and recognition", "Philanthropy", "Conservation", "Environmental funding strategy"],
-        "founder": { "@id": "https://keystoneimpactsolutions.au/about.html#jess" },
+        "founder": { "@id": "https://keystoneimpactsolutions.au/about#jess" },
         "sameAs": [
           "https://www.linkedin.com/in/jessicahodgson-kis",
           "https://www.instagram.com/keystoneimpactsolutions",
@@ -53,14 +53,14 @@
       },
       {
         "@type": "Person",
-        "@id": "https://keystoneimpactsolutions.au/about.html#jess",
+        "@id": "https://keystoneimpactsolutions.au/about#jess",
         "name": "Dr Jess Hodgson",
         "givenName": "Jess",
         "familyName": "Hodgson",
         "honorificPrefix": "Dr",
         "jobTitle": "Funding Strategist for Conservation and Environment Organisations",
         "worksFor": { "@id": "https://keystoneimpactsolutions.au/#organisation" },
-        "url": "https://keystoneimpactsolutions.au/about.html",
+        "url": "https://keystoneimpactsolutions.au/about",
         "image": "https://keystoneimpactsolutions.au/assets/img/jess-coastal.webp",
         "knowsAbout": ["Grant funding", "Grant writing", "Award submissions", "Philanthropy", "Conservation ecology", "Environmental funding strategy"],
         "sameAs": ["https://www.linkedin.com/in/jessicahodgson-kis"]
@@ -68,10 +68,9 @@
     ]
   }
   </script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Quicksand:wght@400;500;600&family=Open+Sans:ital,wght@0,300;0,400;1,300&display=swap" />
+  <link rel="preload" href="assets/fonts/lora-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/opensans-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" as="image" imagesrcset="assets/img/jess-burdekin-hero-640.webp 640w, assets/img/jess-burdekin-hero-800.webp 800w, assets/img/jess-burdekin-hero-1024.webp 1024w, assets/img/jess-burdekin-hero-1440.webp 1440w, assets/img/jess-burdekin-hero-2200.webp 2200w" imagesizes="100vw" fetchpriority="high" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="icon" type="image/svg+xml" href="assets/img/echidna-icon.svg" />
 
@@ -83,16 +82,16 @@
   <!-- Navigation -->
   <nav class="site-nav" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo" aria-label="Keystone Impact Solutions home">
-        <img src="assets/img/logo-reverse.svg" alt="Keystone Impact Solutions" />
+      <a href="/" class="nav-logo" aria-label="Keystone Impact Solutions home">
+        <img src="assets/img/logo-reverse-288.webp" width="900" height="288" alt="Keystone Impact Solutions" />
       </a>
       <ul class="nav-links" id="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html" class="active" aria-current="page">About</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="awards.html">Awards</a></li>
-        <li><a href="case-studies.html">Case Studies</a></li>
-        <li><a href="impact-intel.html">Impact Intel</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about" class="active" aria-current="page">About</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/awards">Awards</a></li>
+        <li><a href="/case-studies">Case Studies</a></li>
+        <li><a href="/impact-intel">Impact Intel</a></li>
         <li><a href="https://keystone-impact-solutions.moxieapp.com/public/discovery-call" class="nav-cta" target="_blank" rel="noopener">Book a Call<span class="sr-only">(opens in new tab)</span></a></li>
       </ul>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
@@ -105,7 +104,7 @@
 
   <!-- Hero -->
   <section class="hero-b">
-    <img class="bg" src="assets/img/jess-burdekin-hero.webp" alt="Dr Jess Hodgson, PhD ecologist and founder of Keystone Impact Solutions, by the Burdekin River" loading="eager" />
+    <img class="bg" src="assets/img/jess-burdekin-hero-1440.webp" srcset="assets/img/jess-burdekin-hero-640.webp 640w, assets/img/jess-burdekin-hero-800.webp 800w, assets/img/jess-burdekin-hero-1024.webp 1024w, assets/img/jess-burdekin-hero-1440.webp 1440w, assets/img/jess-burdekin-hero-2200.webp 2200w" sizes="100vw" width="2200" height="1320" fetchpriority="high" decoding="async" alt="Dr Jess Hodgson, PhD ecologist and founder of Keystone Impact Solutions, by the Burdekin River" />
     <div class="inner">
       <div class="hero-content">
         <p class="hero-ticker">Meet Jess</p>
@@ -162,7 +161,7 @@
           <p><em>still watching for the small thing everyone else walks past</em></p>
         </div>
         <div class="mt-48">
-          <a href="contact.html" class="btn btn-outline-green">Let's talk funding &rarr;</a>
+          <a href="/contact" class="btn btn-outline-green">Let's talk funding &rarr;</a>
         </div>
       </div>
       <figure class="wildlife-photo" style="margin-bottom: 0;">
@@ -181,7 +180,7 @@
         <cite>Jean Thomas, Tenkile Conservation Alliance</cite>
       </div>
       <div class="mt-48">
-        <a href="contact.html" class="btn btn-outline-sand">Get in touch &rarr;</a>
+        <a href="/contact" class="btn btn-outline-sand">Get in touch &rarr;</a>
       </div>
     </div>
   </section>
@@ -226,7 +225,7 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <div class="footer-logo">
-          <img src="assets/img/logo-reverse.svg" alt="Keystone Impact Solutions" />
+          <img src="assets/img/logo-reverse-288.webp" width="900" height="288" alt="Keystone Impact Solutions" />
         </div>
         <span class="footer-tagline">Partner to the Changemakers</span>
         <p>Funding strategy and grant management for purpose-led organisations in the environment, conservation and sustainability sector.</p>
@@ -234,19 +233,19 @@
       <div class="footer-col">
         <p class="footer-col-heading">Navigation</p>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="awards.html">Awards</a></li>
-          <li><a href="case-studies.html">Case Studies</a></li>
-          <li><a href="impact-intel.html">Impact Intel</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/awards">Awards</a></li>
+          <li><a href="/case-studies">Case Studies</a></li>
+          <li><a href="/impact-intel">Impact Intel</a></li>
+          <li><a href="/contact">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <p class="footer-col-heading">Free Resources</p>
         <ul>
-          <li><a href="grant-readiness-assessment.html">Grant Readiness Self-Assessment</a></li>
+          <li><a href="/grant-readiness-assessment">Grant Readiness Self-Assessment</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -266,8 +265,8 @@
     <div class="footer-bottom">
       <p>© Keystone Impact Solutions 2025. All Rights Reserved. ABN 73 649 199 482</p>
       <div class="footer-bottom-links">
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms and Conditions</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms and Conditions</a>
       </div>
     </div>
   </footer>

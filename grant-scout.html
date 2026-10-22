@@ -7,7 +7,7 @@
   <meta name="description" content="Grant Scout is Keystone Impact Solutions' monthly grant finding service, matched to your organisation, so you always know what you're eligible for." />
 
   <!-- Canonical -->
-  <link rel="canonical" href="https://keystoneimpactsolutions.au/grant-scout.html" />
+  <link rel="canonical" href="https://keystoneimpactsolutions.au/grant-scout" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -15,7 +15,7 @@
   <meta property="og:locale" content="en_AU" />
   <meta property="og:title" content="Grant Scout - Grant Finding Service" />
   <meta property="og:description" content="Grant Scout is Keystone Impact Solutions&#x27; monthly grant finding service, matched to your organisation, so you always know what you&#x27;re eligible for." />
-  <meta property="og:url" content="https://keystoneimpactsolutions.au/grant-scout.html" />
+  <meta property="og:url" content="https://keystoneimpactsolutions.au/grant-scout" />
   <meta property="og:image" content="https://keystoneimpactsolutions.au/assets/img/jess-mammal-survey-hero.webp" />
   <meta property="og:image:alt" content="Jess Hodgson and a colleague processing a captured mammal during a night survey" />
 
@@ -38,7 +38,7 @@
       "@id": "https://keystoneimpactsolutions.au/#organisation",
       "name": "Keystone Impact Solutions",
       "url": "https://keystoneimpactsolutions.au/",
-      "logo": "https://keystoneimpactsolutions.au/assets/img/logo-reverse.svg",
+      "logo": "https://keystoneimpactsolutions.au/assets/img/logo-reverse-600.png",
       "image": "https://keystoneimpactsolutions.au/assets/img/jess-coastal.webp",
       "description": "Funding strategy and grant management for purpose-led organisations in the environment, conservation and sustainability sector.",
       "slogan": "Partner to the Changemakers",
@@ -58,7 +58,7 @@
         "Environmental funding strategy"
       ],
       "founder": {
-        "@id": "https://keystoneimpactsolutions.au/about.html#jess"
+        "@id": "https://keystoneimpactsolutions.au/about#jess"
       },
       "sameAs": [
         "https://www.linkedin.com/in/jessicahodgson-kis",
@@ -147,9 +147,9 @@
   ]
 }
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Quicksand:wght@400;500;600&family=Open+Sans:ital,wght@0,300;0,400;1,300&display=swap" />
+  <link rel="preload" href="assets/fonts/lora-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/opensans-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" as="image" imagesrcset="assets/img/jess-mammal-survey-hero-640.webp 640w, assets/img/jess-mammal-survey-hero-800.webp 800w, assets/img/jess-mammal-survey-hero-1024.webp 1024w, assets/img/jess-mammal-survey-hero-1440.webp 1440w, assets/img/jess-mammal-survey-hero-2200.webp 2200w" imagesizes="100vw" fetchpriority="high" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="icon" type="image/svg+xml" href="assets/img/echidna-icon.svg" />
 
@@ -161,16 +161,16 @@
   <!-- Navigation -->
   <nav class="site-nav" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo" aria-label="Keystone Impact Solutions home">
-        <img src="assets/img/logo-reverse.svg" alt="Keystone Impact Solutions" />
+      <a href="/" class="nav-logo" aria-label="Keystone Impact Solutions home">
+        <img src="assets/img/logo-reverse-288.webp" width="900" height="288" alt="Keystone Impact Solutions" />
       </a>
       <ul class="nav-links" id="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="awards.html">Awards</a></li>
-        <li><a href="case-studies.html">Case Studies</a></li>
-        <li><a href="impact-intel.html">Impact Intel</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/awards">Awards</a></li>
+        <li><a href="/case-studies">Case Studies</a></li>
+        <li><a href="/impact-intel">Impact Intel</a></li>
         <li><a href="https://keystone-impact-solutions.moxieapp.com/public/discovery-call" class="nav-cta" target="_blank" rel="noopener">Book a Call<span class="sr-only">(opens in new tab)</span></a></li>
       </ul>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
@@ -183,7 +183,7 @@
 
   <!-- Hero -->
   <section class="hero-b">
-    <img class="bg" src="assets/img/jess-mammal-survey-hero.webp" alt="Jess Hodgson and a colleague processing a captured mammal during a night survey, headlamps lighting the dark" loading="eager" />
+    <img class="bg" src="assets/img/jess-mammal-survey-hero-1440.webp" srcset="assets/img/jess-mammal-survey-hero-640.webp 640w, assets/img/jess-mammal-survey-hero-800.webp 800w, assets/img/jess-mammal-survey-hero-1024.webp 1024w, assets/img/jess-mammal-survey-hero-1440.webp 1440w, assets/img/jess-mammal-survey-hero-2200.webp 2200w" sizes="100vw" width="2200" height="1457" fetchpriority="high" decoding="async" alt="Jess Hodgson and a colleague processing a captured mammal during a night survey, headlamps lighting the dark" />
     <div class="inner">
       <div class="hero-content">
         <p class="hero-ticker">Grant Finding Service</p>
@@ -312,7 +312,7 @@
       <h2 id="sfp-heading" class="lead-heading">When finding isn't the hard part anymore</h2>
       <p style="max-width: 720px;">Some organisations reach the point where they can see the opportunities coming and just want someone to own the whole thing: the strategy, the applications, the funder relationships. That's the Strategic Funding Partnership. Plenty of people start on Grant Scout and move across when the time's right. No rush.</p>
       <div class="mt-48">
-        <a href="strategic-funding-partnership.html" class="btn btn-outline-green">See the Strategic Funding Partnership &rarr;</a>
+        <a href="/strategic-funding-partnership" class="btn btn-outline-green">See the Strategic Funding Partnership &rarr;</a>
       </div>
     </div>
   </section>
@@ -403,7 +403,7 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <div class="footer-logo">
-          <img src="assets/img/logo-reverse.svg" alt="Keystone Impact Solutions" />
+          <img src="assets/img/logo-reverse-288.webp" width="900" height="288" alt="Keystone Impact Solutions" />
         </div>
         <span class="footer-tagline">Partner to the Changemakers</span>
         <p>Funding strategy and grant management for purpose-led organisations in the environment, conservation and sustainability sector.</p>
@@ -411,19 +411,19 @@
       <div class="footer-col">
         <p class="footer-col-heading">Navigation</p>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="awards.html">Awards</a></li>
-          <li><a href="case-studies.html">Case Studies</a></li>
-          <li><a href="impact-intel.html">Impact Intel</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/awards">Awards</a></li>
+          <li><a href="/case-studies">Case Studies</a></li>
+          <li><a href="/impact-intel">Impact Intel</a></li>
+          <li><a href="/contact">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <p class="footer-col-heading">Free Resources</p>
         <ul>
-          <li><a href="grant-readiness-assessment.html">Grant Readiness Self-Assessment</a></li>
+          <li><a href="/grant-readiness-assessment">Grant Readiness Self-Assessment</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -443,8 +443,8 @@
     <div class="footer-bottom">
       <p>&copy; Keystone Impact Solutions 2025. All Rights Reserved. ABN 73 649 199 482</p>
       <div class="footer-bottom-links">
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms and Conditions</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms and Conditions</a>
       </div>
     </div>
   </footer>

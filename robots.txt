@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /impact-logic/submit
+
+Sitemap: https://keystoneimpactsolutions.au/sitemap.xml

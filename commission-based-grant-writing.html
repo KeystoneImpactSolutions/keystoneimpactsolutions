@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Commission-Based Grant Writing: What Your Organisation Needs to Know — Impact Intel — Keystone Impact Solutions</title>
   <meta name="description" content="Every major grant writing peak body prohibits commission-based pay. Here is what the evidence says, why Australian law creates additional risk, and what fair pricing looks like.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@500;600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://keystoneimpactsolutions.au/impact-intel/commission-based-grant-writing" />
+  <link rel="preload" href="assets/fonts/lora-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/opensans-latin.woff2" as="font" type="font/woff2" crossorigin />
   <!-- In production: link to ../assets/css/styles.css and ../assets/css/blog.css -->
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -334,7 +334,8 @@
       border: 0;
     }
   </style>
-  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css"></noscript>
   <style>
     :where(.sib-form-message-panel){display:none}
     .sib-form{background:transparent!important;padding:0!important;text-align:left!important}
@@ -360,19 +361,19 @@
   <!-- NAV -->
   <nav class="site-nav" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="../index.html" class="nav-logo" aria-label="Keystone Impact Solutions home">
+      <a href="/" class="nav-logo" aria-label="Keystone Impact Solutions home">
         <span class="nav-logo-text">Keystone Impact Solutions</span>
       </a>
       <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
         <span></span><span></span><span></span>
       </button>
       <ul id="nav-links" class="nav-links">
-        <li><a href="../about.html">About</a></li>
-        <li><a href="../services.html">Services</a></li>
-        <li><a href="../awards.html">Awards</a></li>
-        <li><a href="../case-studies.html">Case Studies</a></li>
-        <li><a href="../impact-intel.html" class="active" aria-current="page">Impact Intel</a></li>
-        <li><a href="../contact.html" class="nav-cta">Get in touch</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/awards">Awards</a></li>
+        <li><a href="/case-studies">Case Studies</a></li>
+        <li><a href="/impact-intel" class="active" aria-current="page">Impact Intel</a></li>
+        <li><a href="/contact" class="nav-cta">Get in touch</a></li>
       </ul>
     </div>
   </nav>
@@ -500,7 +501,7 @@
   <!-- POST FOOTER -->
   <div class="post-footer">
     <div class="post-footer-inner">
-      <a href="../impact-intel.html" class="back-link">&#8592; Back to Impact Intel</a>
+      <a href="/impact-intel" class="back-link">&#8592; Back to Impact Intel</a>
       <div>
         <p class="author-name">Dr Jess Hodgson</p>
         <p class="author-title">Keystone Impact Solutions</p>
@@ -514,7 +515,7 @@
       <p class="eyebrow eyebrow-sand" style="margin-bottom:16px;">Work with KIS</p>
       <h2>Clear pricing, no surprises, and a fixed fee quoted upfront.</h2>
       <p>If you are trying to navigate grant funding for the first time, or looking for ongoing support that fits how small teams actually work, a short conversation is a good place to start. No obligation.</p>
-      <a href="../contact.html" class="btn-primary">Get in touch</a>
+      <a href="/contact" class="btn-primary">Get in touch</a>
     </div>
   </section>
 
@@ -591,25 +592,25 @@
         <div class="footer-col">
           <p class="footer-col-heading">Navigation</p>
           <ul>
-            <li><a href="../about.html">About</a></li>
-            <li><a href="../services.html">Services</a></li>
-            <li><a href="../awards.html">Awards</a></li>
-            <li><a href="../case-studies.html">Case Studies</a></li>
-            <li><a href="../impact-intel.html">Impact Intel</a></li>
-            <li><a href="../contact.html">Contact</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/awards">Awards</a></li>
+            <li><a href="/case-studies">Case Studies</a></li>
+            <li><a href="/impact-intel">Impact Intel</a></li>
+            <li><a href="/contact">Contact</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <p class="footer-col-heading">Free Resources</p>
           <ul>
-            <li><a href="../grant-readiness-assessment.html">Grant Readiness Self-Assessment</a></li>
-            <li><a href="../impact-intel.html">Impact Intel</a></li>
+            <li><a href="/grant-readiness-assessment">Grant Readiness Self-Assessment</a></li>
+            <li><a href="/impact-intel">Impact Intel</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <p class="footer-col-heading">Connect</p>
           <ul>
-            <li><a href="../contact.html">Get in touch</a></li>
+            <li><a href="/contact">Get in touch</a></li>
             <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn<span class="sr-only">(opens in new tab)</span></a></li>
           </ul>
         </div>
@@ -639,9 +640,16 @@
     window.translation={common:{selectedList:'{quantity} list selected',selectedLists:'{quantity} lists selected',selectedOption:'{quantity} selected',selectedOptions:'{quantity} selected'}};
     var AUTOHIDE=Boolean(0);
     var sibSuccess=document.getElementById('success-message');
-    if(sibSuccess){new MutationObserver(function(){if(getComputedStyle(sibSuccess).display!=='none'){window.location.href='newsletter-confirmed.html';}}).observe(sibSuccess,{attributes:true,attributeFilter:['style','class']});}
+    if(sibSuccess){new MutationObserver(function(){if(getComputedStyle(sibSuccess).display!=='none'){window.location.href='/newsletter-confirmed';}}).observe(sibSuccess,{attributes:true,attributeFilter:['style','class']});}
   </script>
-  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
-  <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
+  <script>
+    // Load the Brevo form script and reCAPTCHA only when the newsletter form is near the viewport or focused.
+    (function(){var f=document.getElementById('sib-form');if(!f)return;var done=false;
+    function load(){if(done)return;done=true;
+      var a=document.createElement('script');a.src='https://sibforms.com/forms/end-form/build/main.js';a.defer=true;document.body.appendChild(a);
+      var b=document.createElement('script');b.src='https://www.google.com/recaptcha/api.js?hl=en';b.async=true;b.defer=true;document.body.appendChild(b);}
+    if('IntersectionObserver' in window){new IntersectionObserver(function(e,o){if(e.some(function(x){return x.isIntersecting})){o.disconnect();load();}},{rootMargin:'600px'}).observe(f);}else{load();}
+    f.addEventListener('focusin',load,{once:true});})();
+  </script>
 </body>
 </html>
