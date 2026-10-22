@@ -8,6 +8,144 @@
   status = 200
   force = true
 
+
+# Clean URLs: 301 the .html form to the extensionless form (canonical)
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/about.html"
+  to = "/about"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/awards.html"
+  to = "/awards"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/case-studies.html"
+  to = "/case-studies"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/case-study-boogiecamp.html"
+  to = "/case-study-boogiecamp"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/case-study-slappas.html"
+  to = "/case-study-slappas"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/case-study-tca.html"
+  to = "/case-study-tca"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/commission-based-grant-writing.html"
+  to = "/commission-based-grant-writing"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/contact.html"
+  to = "/contact"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/grant-readiness-assessment.html"
+  to = "/grant-readiness-assessment"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/grant-scout.html"
+  to = "/grant-scout"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/impact-intel.html"
+  to = "/impact-intel"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/impact-intel/commission-based-grant-writing.html"
+  to = "/impact-intel/commission-based-grant-writing"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/impact-intel/funding-when-youre-an-individual-not-an-org.html"
+  to = "/impact-intel/funding-when-youre-an-individual-not-an-org"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/impact-intel/post-template.html"
+  to = "/impact-intel/post-template"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/impact-intel/the-grant-you-found-the-project-you-have.html"
+  to = "/impact-intel/the-grant-you-found-the-project-you-have"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/impact-intel/when-grants-feel-like-security-arent.html"
+  to = "/impact-intel/when-grants-feel-like-security-arent"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/keystone-scout.html"
+  to = "/keystone-scout"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/link-in-bio.html"
+  to = "/link-in-bio"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/newsletter-confirmed.html"
+  to = "/newsletter-confirmed"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/post-template.html"
+  to = "/post-template"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/privacy.html"
+  to = "/privacy"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/services.html"
+  to = "/services"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/strategic-funding-partnership.html"
+  to = "/strategic-funding-partnership"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/terms.html"
+  to = "/terms"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/thankyou.html"
+  to = "/thankyou"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/impact-logic/index.html"
+  to = "/impact-logic/"
+  status = 301
+  force = true
+
 [functions]
   node_bundler = "esbuild"
 

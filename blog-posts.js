@@ -12,8 +12,8 @@
 //   5. Commit both this file and your new post HTML to GitHub.
 //
 // FIELDS:
-//   slug        — path to the post HTML file from the site root
-//                 (e.g. "impact-intel/your-post-slug.html")
+//   slug        — URL path of the post, no .html
+//                 (e.g. "/impact-intel/your-post-slug")
 //   title       — headline as it appears on the card and in the post
 //   category    — display label: "Funding Intelligence", "Grant Strategy",
 //                 "Awards & Recognition", "From the Field", "Sector Intelligence"
@@ -26,7 +26,7 @@
 
 const blogPosts = [
   {
-    slug: "impact-intel/funding-when-youre-an-individual-not-an-org.html",
+    slug: "/impact-intel/funding-when-youre-an-individual-not-an-org",
     title: "Funding When You're an Individual, Not an Org",
     category: "Funding Intelligence",
     date: "2026-06-07",
@@ -36,7 +36,7 @@ const blogPosts = [
     featured: true
   },
   {
-    slug: "impact-intel/when-grants-feel-like-security-arent.html",
+    slug: "/impact-intel/when-grants-feel-like-security-arent",
     title: "When Grants Feel Like Security but Aren't",
     category: "Funding Intelligence",
     date: "2026-05-25",
@@ -46,7 +46,7 @@ const blogPosts = [
     featured: false
   },
   {
-    slug: "impact-intel/the-grant-you-found-the-project-you-have.html",
+    slug: "/impact-intel/the-grant-you-found-the-project-you-have",
     title: "The Grant You Found, the Project You Have",
     category: "Grant Strategy",
     date: "2026-06-01",
