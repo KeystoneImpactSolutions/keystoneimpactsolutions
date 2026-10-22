@@ -209,25 +209,38 @@ export const handler = async (event) => {
 async function sendUserEmail(userEmail, aiOutput, signal) {
   const htmlContent = buildUserEmailHtml(aiOutput, signal);
 
-  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+  await sendViaSender({
+    to: userEmail,
+    subject: 'Your Strategic Impact Logic Output — Keystone Impact Solutions',
+    html: htmlContent
+  });
+}
+
+// Transactional email through Sender (sender.net). Replaced Brevo in October 2026.
+// Needs SENDER_API_TOKEN in the Netlify environment variables.
+async function sendViaSender({ to, subject, html, text }) {
+  const response = await fetch('https://api.sender.net/v2/message/send', {
     method: 'POST',
     headers: {
-      'api-key': process.env.BREVO_API_KEY,
-      'Content-Type': 'application/json'
+      Authorization: `Bearer ${process.env.SENDER_API_TOKEN}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
     },
     body: JSON.stringify({
-      sender: {
+      from: {
         name: process.env.SENDER_NAME || 'Keystone Impact Solutions',
         email: process.env.SENDER_EMAIL || 'hello@keystoneimpactsolutions.au'
       },
-      to: [{ email: userEmail }],
-      subject: 'Your Strategic Impact Logic Output — Keystone Impact Solutions',
-      htmlContent: htmlContent
+      to: { email: to },
+      subject,
+      html,
+      text
     })
   });
 
   if (!response.ok) {
-    throw new Error(`Brevo API error: ${response.statusText}`);
+    const detail = await response.text().catch(() => '');
+    throw new Error(`Sender API error: ${response.status} ${detail.slice(0, 300)}`);
   }
 }
 
@@ -304,24 +317,14 @@ async function sendJessNotification(userEmail, signal, answers, level, aiOutput)
     return `Q${i + 1}: ${q}\nA: ${answer}`;
   }).join('\n\n')}\n\n--- AI OUTPUT ---\n\n${aiOutput}`;
 
-  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-    method: 'POST',
-    headers: {
-      'api-key': process.env.BREVO_API_KEY,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      sender: {
-        name: 'Keystone Impact Solutions',
-        email: process.env.SENDER_EMAIL || 'hello@keystoneimpactsolutions.au'
-      },
-      to: [{ email: process.env.JESS_EMAIL }],
+  try {
+    await sendViaSender({
+      to: process.env.JESS_EMAIL,
       subject: `[${signal}] — Impact Logic output shared: ${userEmail}`,
-      textContent: plainText
-    })
-  });
-
-  if (!response.ok) {
-    console.warn(`Failed to send Jess notification: ${response.statusText}`);
+      html: `<pre style="font-family:Arial,sans-serif;white-space:pre-wrap;">${plainText.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]))}</pre>`,
+      text: plainText
+    });
+  } catch (err) {
+    console.warn(`Failed to send Jess notification: ${err.message}`);
   }
 }
