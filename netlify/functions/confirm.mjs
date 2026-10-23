@@ -22,7 +22,7 @@ export default async (req) => {
   try {
     const groups = await groupsForSource(data.s);
     if (!groups.length) throw new Error('No Sender groups resolved');
-    await addSubscriber({ email: data.e, groups, organisationType: data.o });
+    await addSubscriber({ email: data.e, groups, organisationType: data.o, firstname: data.f, lastname: data.l });
     console.log(`Confirmed subscriber (${data.s}) into ${groups.join(',')}`);
   } catch (err) {
     console.error(err);

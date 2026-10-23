@@ -722,6 +722,12 @@
       <h2>Funding intelligence, direct to your inbox.</h2>
       <p>Grant opportunities, sector updates, and practical strategy. Sent when there is something worth saying.</p>
       <form class="kis-subscribe" method="POST" action="/api/subscribe" aria-describedby="nl-msg" data-success="Nearly there. Check your inbox and click the link to confirm your subscription.">
+        <div class="kis-names">
+          <label class="visually-hidden" for="nl-first">First name (optional)</label>
+          <input type="text" id="nl-first" name="firstname" autocomplete="given-name" maxlength="50" placeholder="First name" />
+          <label class="visually-hidden" for="nl-last">Last name (optional)</label>
+          <input type="text" id="nl-last" name="lastname" autocomplete="family-name" maxlength="50" placeholder="Last name" />
+        </div>
         <label class="visually-hidden" for="nl-email">Email address</label>
         <input type="email" id="nl-email" name="email" required autocomplete="email" placeholder="Your email address" />
         <label class="visually-hidden" for="nl-org">Organisation type</label>

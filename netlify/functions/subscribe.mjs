@@ -11,6 +11,11 @@ export const config = {
 
 const SOURCES = ['newsletter', 'grant-readiness'];
 
+// Optional name fields: trim, cap the length, drop anything that is not part of a name.
+function cleanName(v) {
+  return String(v || '').replace(/[<>"{}\[\]\\/@:;]/g, '').replace(/\s+/g, ' ').trim().slice(0, 50);
+}
+
 export default async (req) => {
   if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
 
@@ -35,17 +40,19 @@ export default async (req) => {
   const email = String(form.email || '').trim().toLowerCase();
   const organisationType = ORG_TYPES.includes(form.organisation_type) ? form.organisation_type : '';
   const source = SOURCES.includes(form.source) ? form.source : 'newsletter';
+  const firstname = cleanName(form.firstname);
+  const lastname = cleanName(form.lastname);
 
   if (!isEmail(email)) return reply(400, 'Please check your email address and try again.');
 
   try {
-    const token = makeToken({ e: email, o: organisationType, s: source });
+    const token = makeToken({ e: email, o: organisationType, s: source, f: firstname, l: lastname });
     const link = `${origin}/api/confirm?t=${encodeURIComponent(token)}`;
     await sendEmail({
       to: email,
       subject: 'Please confirm your Impact Intel subscription',
-      html: confirmHtml(link),
-      text: confirmText(link)
+      html: confirmHtml(link, firstname),
+      text: confirmText(link, firstname)
     });
   } catch (err) {
     console.error(err);
@@ -64,39 +71,41 @@ export default async (req) => {
   }
 };
 
-// ── Confirmation email. Jess to review the wording before launch. ──────
-function confirmText(link) {
+// ── Confirmation email. Copy drafted 23 October 2026, awaiting Jess's approval. ──
+// Greeting: "Hey <first name>," when given, "Hey there," when not.
+const greeting = (firstname) => `Hey ${firstname || 'there'},`;
+
+function confirmText(link, firstname) {
   return [
-    'Hi,',
+    greeting(firstname),
     '',
-    'Thanks for signing up to Impact Intel from Keystone Impact Solutions.',
+    "Thanks for signing up to Impact Intel. One click and you're on the list:",
     '',
-    'Please confirm your email address so I can add you to the list:',
     link,
     '',
-    'The link works for 3 days. If you did not sign up, ignore this email and nothing will happen.',
+    "That link stays live for three days. If you didn't sign up, ignore this email and nothing happens (no list, no follow-ups).",
     '',
+    'Cheers,',
     'Jess',
+    '',
+    'Dr Jess Hodgson',
     'Keystone Impact Solutions',
-    'https://keystoneimpactsolutions.au'
+    'keystoneimpactsolutions.au'
   ].join('\n');
 }
 
-function confirmHtml(link) {
+function confirmHtml(link, firstname) {
   const l = escapeHtml(link);
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Confirm your subscription</title></head>
-<body style="margin:0;padding:0;background:#D8D1CB;font-family:Arial,Helvetica,sans-serif;color:#333333;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#D8D1CB;"><tr><td align="center" style="padding:32px 16px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border:1px solid #294B3F;">
-<tr><td style="background:#333333;padding:24px 32px;font-family:Georgia,serif;font-size:22px;color:#D8D1CB;">Impact Intel</td></tr>
-<tr><td style="padding:32px;font-size:16px;line-height:1.6;">
-<p style="margin:0 0 16px;">Hi,</p>
-<p style="margin:0 0 16px;">Thanks for signing up to Impact Intel from Keystone Impact Solutions.</p>
-<p style="margin:0 0 24px;">Please confirm your email address so I can add you to the list.</p>
-<p style="margin:0 0 24px;"><a href="${l}" style="display:inline-block;padding:14px 28px;background:#294B3F;color:#D8D1CB;text-decoration:none;font-weight:bold;letter-spacing:.08em;text-transform:uppercase;font-size:13px;">Confirm my subscription</a></p>
-<p style="margin:0 0 16px;font-size:14px;color:#555555;">The link works for 3 days. If you did not sign up, ignore this email and nothing will happen.</p>
-<p style="margin:24px 0 0;">Jess<br>Keystone Impact Solutions</p>
-</td></tr>
-<tr><td style="padding:16px 32px;background:#333333;font-size:12px;color:#D8D1CB;"><a href="https://keystoneimpactsolutions.au" style="color:#D8D1CB;">keystoneimpactsolutions.au</a></td></tr>
-</table></td></tr></table></body></html>`;
+  const p = 'margin:0 0 16px;';
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Confirm your Impact Intel subscription</title></head>
+<body style="margin:0;padding:0;background:#f6f6f6;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f6f6f6;"><tr><td align="center" style="padding:24px 12px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;"><tr><td style="padding:32px 40px;font-family:'Open Sans',Tahoma,Verdana,sans-serif;font-size:16px;line-height:1.5;color:#333333;">
+<p style="${p}">${escapeHtml(greeting(firstname))}</p>
+<p style="${p}">Thanks for signing up to Impact Intel. One click and you're on the list:</p>
+<p style="margin:0 0 24px;"><a href="${l}" style="display:inline-block;padding:12px 24px;background:#294B3F;color:#ffffff;text-decoration:none;font-weight:bold;">Yes, add me to the list</a></p>
+<p style="${p}">That link stays live for three days. If you didn't sign up, ignore this email and nothing happens (no list, no follow-ups).</p>
+<p style="margin:0;">Cheers,<br>Jess</p>
+<p style="margin:16px 0 0;">Dr Jess Hodgson<br>Keystone Impact Solutions<br><a href="https://keystoneimpactsolutions.au" style="color:#6B2737;">keystoneimpactsolutions.au</a></p>
+</td></tr></table></td></tr></table></body></html>`;
 }
