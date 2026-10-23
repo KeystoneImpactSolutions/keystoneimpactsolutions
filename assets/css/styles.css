@@ -154,6 +154,7 @@ p:last-child { margin-bottom: 0; }
 .nav-logo img {
   height: 96px;
   width: auto;
+  object-fit: contain;
 }
 
 .nav-links {
