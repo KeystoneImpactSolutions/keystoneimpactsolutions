@@ -383,6 +383,12 @@
       <h2 id="newsletter-heading">Impact Intel</h2>
       <p>Insights on grants, awards, funder strategy and philanthropy for purpose-led organisations in the conservation, environment and sustainability sector. If that sounds useful, sign up below.</p>
       <form class="kis-subscribe" method="POST" action="/api/subscribe" aria-describedby="nl-msg" data-success="Nearly there. Check your inbox and click the link to confirm your subscription.">
+        <div class="kis-names">
+          <label class="visually-hidden" for="nl-first">First name (optional)</label>
+          <input type="text" id="nl-first" name="firstname" autocomplete="given-name" maxlength="50" placeholder="First name" />
+          <label class="visually-hidden" for="nl-last">Last name (optional)</label>
+          <input type="text" id="nl-last" name="lastname" autocomplete="family-name" maxlength="50" placeholder="Last name" />
+        </div>
         <label class="visually-hidden" for="nl-email">Email address</label>
         <input type="email" id="nl-email" name="email" required autocomplete="email" placeholder="Your email address" />
         <label class="visually-hidden" for="nl-org">Organisation type</label>

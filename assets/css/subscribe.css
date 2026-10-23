@@ -24,3 +24,10 @@
   .kis-subscribe select { flex: 1 1 auto; }
 }
 
+.kis-subscribe .kis-names { display: flex; flex: 1 1 100%; width: 100%; max-width: 100%; box-sizing: border-box; }
+.kis-subscribe .kis-names input {
+  flex: 1 1 0; width: 0; min-width: 0; box-sizing: border-box; padding: 14px 16px; border: 2px solid rgba(212,208,203,.5);
+  border-bottom: none; background: #fff; color: var(--charcoal, #333333); font-family: var(--font-body, 'Open Sans', sans-serif);
+  font-size: .95rem; font-weight: 300; border-radius: 0;
+}
+.kis-subscribe .kis-names input + label + input { border-left: none; }

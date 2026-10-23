@@ -81,14 +81,14 @@ export async function sendEmail({ to, subject, html, text }) {
 
 // Create the subscriber in the given groups. If they already exist,
 // add them to each group instead (Sender refuses a duplicate create).
-export async function addSubscriber({ email, groups, organisationType }) {
+export async function addSubscriber({ email, groups, organisationType, firstname, lastname }) {
   const fields = {};
   if (organisationType) fields['{$organisation_type}'] = organisationType;
 
   const create = await fetch(`${API}/subscribers`, {
     method: 'POST',
     headers: headers(),
-    body: JSON.stringify({ email, groups, fields, trigger_automation: true })
+    body: JSON.stringify({ email, groups, fields, trigger_automation: true, ...(firstname ? { firstname } : {}), ...(lastname ? { lastname } : {}) })
   });
   if (create.ok) return { created: true };
 

@@ -373,6 +373,12 @@
       <p style="margin:16px auto 32px; font-size:0.95rem; opacity:0.88; max-width:460px;">Enter your email to reveal what your answers mean and what to do next. You'll also receive Impact Intel, our newsletter for purpose-led organisations.</p>
 
       <form class="kis-subscribe" method="POST" action="/api/subscribe" aria-describedby="nl-msg" data-success="Check your inbox. Click the link in the email to confirm, and your results are below.">
+        <div class="kis-names">
+          <label class="visually-hidden" for="nl-first">First name (optional)</label>
+          <input type="text" id="nl-first" name="firstname" autocomplete="given-name" maxlength="50" placeholder="First name" />
+          <label class="visually-hidden" for="nl-last">Last name (optional)</label>
+          <input type="text" id="nl-last" name="lastname" autocomplete="family-name" maxlength="50" placeholder="Last name" />
+        </div>
         <label class="visually-hidden" for="nl-email">Email address</label>
         <input type="email" id="nl-email" name="email" required autocomplete="email" placeholder="Your email address" />
         <label class="visually-hidden" for="nl-org">Organisation type</label>
