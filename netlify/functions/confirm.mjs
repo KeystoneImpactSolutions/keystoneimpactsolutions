@@ -17,8 +17,8 @@ export default async (req) => {
   if (error) return go('/newsletter-pending?error=1');
 
   try {
-    const groups = groupsForSource(data.s);
-    if (!groups.length) throw new Error('SENDER_GROUP_IMPACT_INTEL is not set');
+    const groups = await groupsForSource(data.s);
+    if (!groups.length) throw new Error('No Sender groups resolved');
     await addSubscriber({ email: data.e, groups, organisationType: data.o });
     console.log(`Confirmed subscriber (${data.s}) into ${groups.join(',')}`);
   } catch (err) {

@@ -4,7 +4,8 @@
 // Environment variables (set in Netlify > Project configuration > Environment variables):
 //   SENDER_API_TOKEN            Sender API access token (Settings > API access tokens). Secret.
 //   SUBSCRIBE_SECRET            Random string used to sign confirmation links. Secret.
-//   SENDER_GROUP_IMPACT_INTEL   Sender group ID for Impact Intel newsletter subscribers.
+//   SENDER_GROUP_IMPACT_INTEL   Optional. Sender group ID for Impact Intel. If unset, the group titled
+//                               "Impact Intel" is found, or created on the first confirmation.
 //   SENDER_GROUP_GRANT_READINESS  Sender group ID for the Grant Readiness lead magnet (optional).
 //   SENDER_EMAIL / SENDER_NAME  From address and name (defaults below).
 
@@ -17,12 +18,36 @@ export const ORG_TYPES = [
   'Academic', 'Individual', 'Other', 'Unknown'
 ];
 
+export const NEWSLETTER_GROUP_TITLE = 'Impact Intel';
+
 // Which Sender groups each website form adds people to, once they confirm.
-export function groupsForSource(source) {
-  const news = process.env.SENDER_GROUP_IMPACT_INTEL;
+export async function groupsForSource(source) {
+  const news = process.env.SENDER_GROUP_IMPACT_INTEL || (await ensureGroup(NEWSLETTER_GROUP_TITLE));
   const gra = process.env.SENDER_GROUP_GRANT_READINESS || 'e1zyLP';
   const groups = source === 'grant-readiness' ? [news, gra] : [news];
   return groups.filter(Boolean);
+}
+
+// Find a group by exact title, or create it. Cached per function instance.
+const groupCache = new Map();
+export async function ensureGroup(title) {
+  if (groupCache.has(title)) return groupCache.get(title);
+  for (let page = 1; page <= 10; page++) {
+    const res = await fetch(`${API}/groups?page=${page}`, { headers: headers() });
+    if (!res.ok) throw new Error(`Sender list groups failed: ${res.status}`);
+    const body = await res.json();
+    const found = (body.data || []).find((g) => (g.title || '').trim().toLowerCase() === title.toLowerCase());
+    if (found) { groupCache.set(title, found.id); return found.id; }
+    const last = body.meta?.last_page ?? body.last_page ?? 1;
+    if (page >= last || !(body.data || []).length) break;
+  }
+  const create = await fetch(`${API}/groups`, { method: 'POST', headers: headers(), body: JSON.stringify({ title }) });
+  if (!create.ok) throw new Error(`Sender create group failed: ${create.status} ${(await create.text().catch(() => '')).slice(0, 200)}`);
+  const id = (await create.json()).data?.id;
+  if (!id) throw new Error('Sender create group returned no id');
+  console.log(`Created Sender group "${title}" (${id})`);
+  groupCache.set(title, id);
+  return id;
 }
 
 export function fromAddress() {
