@@ -50,7 +50,7 @@ export default async (req) => {
     const link = `${origin}/api/confirm?t=${encodeURIComponent(token)}`;
     await sendEmail({
       to: email,
-      subject: 'Please confirm your Impact Intel subscription',
+      subject: 'Confirm your Impact Intel subscription',
       html: confirmHtml(link, firstname),
       text: confirmText(link, firstname)
     });
