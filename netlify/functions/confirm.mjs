@@ -10,7 +10,10 @@ export const config = {
 };
 
 export default async (req) => {
-  const t = new URL(req.url).searchParams.get('t');
+  const url = new URL(req.url);
+  const t = url.searchParams.get('t');
+  // Absolute Location with an explicit empty query so the token is not carried into the address bar.
+  const go = (path) => new Response(null, { status: 303, headers: { Location: new URL(path.includes('?') ? path : path + '?', url.origin).href.replace(/\?$/, ''), 'Cache-Control': 'no-store' } });
   const { data, error } = readToken(t);
 
   if (error === 'expired') return go('/newsletter-pending?expired=1');
@@ -29,4 +32,3 @@ export default async (req) => {
   return go('/newsletter-confirmed');
 };
 
-const go = (path) => new Response(null, { status: 303, headers: { Location: path, 'Cache-Control': 'no-store' } });
