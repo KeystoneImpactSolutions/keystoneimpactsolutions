@@ -79,11 +79,11 @@ function confirmText(link, firstname) {
   return [
     greeting(firstname),
     '',
-    "Thanks for signing up to Impact Intel. One click and you're on the list:",
+    "Thanks for signing up to Impact Intel. One click and you’re on the list:",
     '',
     link,
     '',
-    "That link stays live for three days. If you didn't sign up, ignore this email and nothing happens (no list, no follow-ups).",
+    "That link stays live for three days. If you didn’t sign up, ignore this email and nothing happens (no list, no follow-ups).",
     '',
     'Cheers,',
     'Jess',
