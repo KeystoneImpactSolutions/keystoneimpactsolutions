@@ -125,6 +125,8 @@ TONE RULES:
 - Clear and direct. Do not soften findings to the point of meaninglessness.
 - Do not reveal the internal signal logic in the output.`;
 
+import { isEmail, sendConfirmation } from '../lib/sender.mjs';
+
 export const handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') {
     return {
@@ -140,7 +142,7 @@ export const handler = async (event) => {
 
   try {
     const body = JSON.parse(event.body);
-    const { answers, level, email, shareWithJess } = body;
+    const { answers, level, email, shareWithJess, newsletterOptIn } = body;
 
     if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
       return {
@@ -191,6 +193,20 @@ export const handler = async (event) => {
 
     if (shareWithJess) {
       await sendJessNotification(email, signal, answers, level, aiOutput);
+    }
+
+    // Newsletter opt-in: double opt-in, same as the Impact Intel form.
+    // A failure here must not stop the person getting their output.
+    if (newsletterOptIn === true && isEmail(email.trim().toLowerCase())) {
+      try {
+        await sendConfirmation({
+          email: email.trim().toLowerCase(),
+          origin: (process.env.CONTEXT !== 'production' && process.env.DEPLOY_PRIME_URL) || process.env.URL || 'https://keystoneimpactsolutions.au',
+          source: 'impact-logic'
+        });
+      } catch (err) {
+        console.error('Impact Logic opt-in confirmation failed:', err);
+      }
     }
 
     return {

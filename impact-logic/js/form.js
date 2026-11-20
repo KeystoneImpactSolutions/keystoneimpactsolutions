@@ -61,6 +61,8 @@ class ImpactLogicForm {
 
     this.emailInput = document.getElementById('email-input');
     this.shareCheckbox = document.getElementById('share-checkbox');
+    this.newsletterCheckbox = document.getElementById('newsletter-checkbox');
+    this.optinNote = document.getElementById('optin-note');
     this.submissionForm = document.getElementById('submission-form');
     this.submissionLoading = document.getElementById('submission-loading');
     this.submissionError = document.getElementById('submission-error');
@@ -249,7 +251,8 @@ class ImpactLogicForm {
           answers: this.answers,
           level: this.level,
           email: email,
-          shareWithJess: this.shareCheckbox.checked
+          shareWithJess: this.shareCheckbox.checked,
+          newsletterOptIn: !!(this.newsletterCheckbox && this.newsletterCheckbox.checked)
         })
       });
 
@@ -282,6 +285,7 @@ class ImpactLogicForm {
   }
 
   showThankYou() {
+    if (this.optinNote) this.optinNote.hidden = !(this.newsletterCheckbox && this.newsletterCheckbox.checked);
     this.showScreen('thankYou');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
