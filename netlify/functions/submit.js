@@ -201,7 +201,7 @@ export const handler = async (event) => {
       try {
         await sendConfirmation({
           email: email.trim().toLowerCase(),
-          origin: process.env.URL || 'https://keystoneimpactsolutions.au',
+          origin: (process.env.CONTEXT !== 'production' && process.env.DEPLOY_PRIME_URL) || process.env.URL || 'https://keystoneimpactsolutions.au',
           source: 'impact-logic'
         });
       } catch (err) {
