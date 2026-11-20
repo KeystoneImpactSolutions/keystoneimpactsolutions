@@ -96,6 +96,14 @@
           </div>
           <p class="helper-text" style="margin-top:8px;">If you share, Jess receives your Impact Logic Summary, Theory of Change narrative, and readiness signal before any conversation — so you arrive with context already established. Sharing is optional.</p>
 
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="newsletter-checkbox">
+            <label for="newsletter-checkbox">
+              Also send me Impact Intel: funding intelligence, direct to your inbox
+            </label>
+          </div>
+          <p class="helper-text" style="margin-top:8px;">I'll email you a link to confirm. You're only added once you click it, and you can unsubscribe any time.</p>
+
           <button type="submit" class="btn btn-primary" id="btn-submit">Send my output →</button>
           <div id="submission-loading" class="submission-loading" style="display:none;">
             <svg class="spinner" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
@@ -116,6 +124,7 @@
         <span class="eyebrow eyebrow-forest">OUTPUT SENT</span>
         <h1>Your Impact Logic output is on its way.</h1>
         <p class="screen-body">Your output is being generated and will arrive in your inbox within 1-2 minutes. Check your spam folder if you don't see it.</p>
+        <p class="screen-body" id="optin-note" hidden>You asked for Impact Intel too. Look for a separate email with a link to confirm your subscription.</p>
 
         <div class="insight-box">
           <span class="insight-label">WHAT HAPPENS NEXT</span>
